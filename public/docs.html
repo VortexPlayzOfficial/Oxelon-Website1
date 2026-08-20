@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation — Oxelon</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050506;
+            color: #f5f5f5;
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            height: 64px;
+            border-bottom: 1px solid rgba(255,255,255,.055);
+            background: rgba(5,5,6,.92);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            height: 100%;
+            margin: auto;
+            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .brand-icon {
+            width: 27px;
+            height: 27px;
+            border-radius: 7px;
+            overflow: hidden;
+            background: #171719;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            color: #77777c;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 9px 13px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255,255,255,.07);
+        }
+
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 70px 25px 100px;
+        }
+
+        .eyebrow {
+            color: #66666b;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 48px;
+            letter-spacing: -2px;
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #77777c;
+            font-size: 13px;
+            line-height: 1.7;
+            max-width: 650px;
+            margin-bottom: 50px;
+        }
+
+        .section {
+            border-top: 1px solid rgba(255,255,255,.07);
+            padding: 35px 0;
+        }
+
+        h2 {
+            font-size: 23px;
+            margin-bottom: 13px;
+        }
+
+        h3 {
+            font-size: 14px;
+            margin: 24px 0 8px;
+        }
+
+        p,
+        li {
+            color: #77777c;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        code {
+            background: rgba(255,255,255,.06);
+            padding: 3px 6px;
+            border-radius: 5px;
+            color: #aaaab0;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,.055);
+            padding: 25px;
+            text-align: center;
+            color: #454549;
+            font-size: 8px;
+        }
+
+        @media(max-width:700px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+
+        <a href="index.html" class="brand">
+            <div class="brand-icon">
+                <img src="images/oxelon.png" alt="Oxelon">
+            </div>
+            <span>Oxelon</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="docs.html" class="active">Docs</a>
+            <a href="meet-the-team.html">Team</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+
+    <span class="eyebrow">DOCUMENTATION</span>
+
+    <h1>Oxelon Documentation</h1>
+
+    <p class="intro">
+        Learn how to configure, manage, and use Oxelon to protect
+        and operate your Discord community.
+    </p>
+
+    <section class="section">
+        <h2>Getting Started</h2>
+
+        <p>
+            Oxelon is a Discord management and protection bot designed
+            for communities that need moderation, logging, security,
+            and server management tools.
+        </p>
+
+        <h3>1. Add Oxelon</h3>
+
+        <p>
+            Invite Oxelon to your Discord server using the official
+            invitation provided on the Oxelon website.
+        </p>
+
+        <h3>2. Configure Permissions</h3>
+
+        <p>
+            Oxelon requires the permissions necessary for the features
+            enabled in your server. Avoid granting permissions that are
+            not required for your intended configuration.
+        </p>
+
+        <h3>3. Configure Logging</h3>
+
+        <p>
+            Configure a dedicated logging channel so important
+            moderation and security events can be recorded.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Moderation</h2>
+
+        <p>
+            Oxelon provides moderation tools that can be used by
+            authorised members of your staff team.
+        </p>
+
+        <ul>
+            <li>Warnings</li>
+            <li>Timeouts and mutes</li>
+            <li>Kicks</li>
+            <li>Bans</li>
+            <li>Message management</li>
+            <li>Role management</li>
+            <li>Channel controls</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>Security</h2>
+
+        <p>
+            Oxelon includes configurable security features designed
+            to help server staff respond to suspicious activity and
+            protect their communities.
+        </p>
+
+        <ul>
+            <li>Raid response tools</li>
+            <li>Server lockdown functionality</li>
+            <li>Security logging</li>
+            <li>Moderation records</li>
+            <li>Configurable staff permissions</li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <h2>Logging</h2>
+
+        <p>
+            Server administrators can configure logging channels for
+            relevant events. Logs may contain information such as
+            Discord user IDs, usernames, actions performed, timestamps,
+            and server information.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>Support</h2>
+
+        <p>
+            If you encounter a problem with Oxelon, contact the Oxelon
+            support team through the official support community.
+            Include relevant error messages and information about the
+            affected feature.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    © 2026 Oxelon. All rights reserved.
+</footer>
+
+</body>
+</html>
