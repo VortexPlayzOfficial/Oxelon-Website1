@@ -1,0 +1,1566 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Oxelon — Discord Server Management</title>
+
+    <style>
+        /* =========================================================
+           OXELON — HOME PAGE
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050506;
+            color: #f5f5f5;
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================================================
+           NAVBAR
+           ========================================================= */
+
+        .navbar {
+            width: 100%;
+            height: 64px;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+
+            background: rgba(5, 5, 6, 0.92);
+            backdrop-filter: blur(14px);
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            height: 100%;
+            margin: auto;
+            padding: 0 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-icon {
+            width: 27px;
+            height: 27px;
+
+            border-radius: 7px;
+            overflow: hidden;
+
+            background: #171719;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-left: auto;
+            margin-right: 25px;
+        }
+
+        .nav-links a {
+            color: #77777c;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            padding: 9px 13px;
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.055);
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.085);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-button {
+            background: #f1f1f1;
+            color: #080808;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            padding: 9px 14px;
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-button:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* =========================================================
+           MAIN
+           ========================================================= */
+
+        main {
+            width: 100%;
+        }
+
+        .home-page {
+            width: 100%;
+            max-width: 720px;
+
+            margin: 0 auto;
+            padding: 65px 0 100px;
+        }
+
+        /* =========================================================
+           HERO
+           ========================================================= */
+
+        .hero {
+            padding-bottom: 50px;
+        }
+
+        .eyebrow {
+            display: block;
+
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 2px;
+
+            margin-bottom: 11px;
+        }
+
+        .hero h1 {
+            font-size: 51px;
+            line-height: 1;
+            letter-spacing: -2.8px;
+            font-weight: 750;
+
+            margin-bottom: 17px;
+        }
+
+        .hero h1 span {
+            color: #77777c;
+        }
+
+        .hero-description {
+            max-width: 570px;
+
+            color: #77777c;
+
+            font-size: 12px;
+            line-height: 1.65;
+
+            margin-bottom: 25px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 16px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            padding: 10px 14px;
+
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .button-primary {
+            background: #f1f1f1;
+            color: #080808;
+        }
+
+        .button-primary:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .button-secondary {
+            color: #77777c;
+
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .button-secondary:hover {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.055);
+        }
+
+        .hero-note {
+            color: #4f4f54;
+
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+        }
+
+        .hero-note span {
+            color: #77777c;
+            margin-right: 5px;
+        }
+
+        /* =========================================================
+           DASHBOARD PREVIEW
+           ========================================================= */
+
+        .dashboard {
+            margin-top: 35px;
+
+            position: relative;
+        }
+
+        .dashboard-card {
+            position: relative;
+
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 10px;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255, 255, 255, 0.065),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.035),
+                    rgba(255, 255, 255, 0.012)
+                );
+
+            padding: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .server-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .server-icon {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 9px;
+
+            background: #121214;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .server-info strong {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 3px;
+        }
+
+        .server-info span {
+            display: block;
+
+            color: #5f5f64;
+
+            font-size: 8px;
+        }
+
+        .online {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .online span {
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: #77777c;
+        }
+
+        .dashboard-divider {
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            margin: 17px 0;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+
+            margin-bottom: 12px;
+        }
+
+        .stat {
+            padding: 12px;
+
+            border: 1px solid rgba(255, 255, 255, 0.055);
+            border-radius: 8px;
+
+            background: rgba(255, 255, 255, 0.018);
+        }
+
+        .stat span {
+            display: block;
+
+            color: #55555a;
+
+            font-size: 7px;
+            font-weight: 700;
+
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+
+            margin-bottom: 6px;
+        }
+
+        .stat strong {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .stat strong.active {
+            color: #858589;
+            font-size: 11px;
+        }
+
+        .activity-box {
+            padding: 13px;
+
+            border: 1px solid rgba(255, 255, 255, 0.055);
+            border-radius: 8px;
+
+            background: rgba(255, 255, 255, 0.018);
+        }
+
+        .activity-title {
+            color: #55555a;
+
+            font-size: 7px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            margin-bottom: 12px;
+        }
+
+        .activity {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 8px 0;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .activity:first-of-type {
+            border-top: none;
+        }
+
+        .activity-icon {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 6px;
+
+            background: #121214;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #77777c;
+
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .activity strong {
+            display: block;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            margin-bottom: 2px;
+        }
+
+        .activity span {
+            display: block;
+
+            color: #55555a;
+
+            font-size: 7px;
+        }
+
+        /* =========================================================
+           SECTIONS
+           ========================================================= */
+
+        .section {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+
+            margin-top: 52px;
+            padding-top: 52px;
+        }
+
+        .section-heading {
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2,
+        .security-content h2,
+        .cta-box h2 {
+            font-size: 28px;
+            line-height: 1.05;
+
+            letter-spacing: -1.2px;
+            font-weight: 750;
+
+            margin-bottom: 13px;
+        }
+
+        .section-heading h2 span,
+        .security-content h2 span,
+        .cta-box h2 span {
+            color: #77777c;
+        }
+
+        .section-heading p,
+        .security-content p,
+        .cta-box p {
+            color: #77777c;
+
+            font-size: 11px;
+            line-height: 1.7;
+
+            max-width: 500px;
+        }
+
+        /* =========================================================
+           FEATURE GRID
+           ========================================================= */
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .feature-card {
+            min-height: 175px;
+
+            padding: 17px;
+
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 10px;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255, 255, 255, 0.065),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.035),
+                    rgba(255, 255, 255, 0.012)
+                );
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.14);
+        }
+
+        .feature-card.large {
+            grid-column: span 2;
+        }
+
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 8px;
+
+            background: #121214;
+            border: 1px solid rgba(255, 255, 255, 0.055);
+
+            color: #77777c;
+
+            font-size: 12px;
+
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        .feature-card p {
+            color: #77777c;
+
+            font-size: 9px;
+            line-height: 1.65;
+
+            max-width: 300px;
+        }
+
+        .feature-link {
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 700;
+
+            margin-top: 15px;
+        }
+
+        /* =========================================================
+           SECURITY
+           ========================================================= */
+
+        .security-container {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: 18px;
+
+            align-items: center;
+        }
+
+        .check-list {
+            margin-top: 20px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .check-list div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #77777c;
+
+            font-size: 9px;
+        }
+
+        .check-list span {
+            width: 18px;
+            height: 18px;
+
+            border-radius: 5px;
+
+            background: #121214;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #77777c;
+
+            font-size: 8px;
+            font-weight: 800;
+        }
+
+        .security-panel {
+            padding: 16px;
+
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 10px;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255, 255, 255, 0.065),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.035),
+                    rgba(255, 255, 255, 0.012)
+                );
+        }
+
+        .panel-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: #55555a;
+
+            font-size: 7px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .secure {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            color: #77777c;
+
+            font-size: 7px;
+            letter-spacing: 0;
+        }
+
+        .secure span {
+            width: 4px;
+            height: 4px;
+
+            border-radius: 50%;
+
+            background: #77777c;
+        }
+
+        .security-line {
+            height: 1px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            margin: 14px 0;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 9px 0;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .security-item:last-child {
+            border-bottom: none;
+        }
+
+        .security-item span {
+            color: #66666b;
+            font-size: 8px;
+        }
+
+        .security-item strong {
+            color: #858589;
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           CTA
+           ========================================================= */
+
+        .cta {
+            text-align: center;
+        }
+
+        .cta-box {
+            padding: 35px 25px;
+
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 10px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255, 255, 255, 0.065),
+                    transparent 55%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.035),
+                    rgba(255, 255, 255, 0.012)
+                );
+        }
+
+        .cta-box p {
+            margin: 0 auto 20px;
+        }
+
+        /* =========================================================
+           FOOTER
+           ========================================================= */
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.055);
+
+            padding: 30px 20px;
+
+            color: #454549;
+        }
+
+        .footer-container {
+            max-width: 720px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .footer-brand .brand {
+            margin-bottom: 10px;
+        }
+
+        .footer-brand p {
+            max-width: 220px;
+
+            font-size: 8px;
+            line-height: 1.6;
+
+            color: #454549;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 55px;
+        }
+
+        .footer-links div {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .footer-links strong {
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            margin-bottom: 3px;
+        }
+
+        .footer-links a {
+            color: #454549;
+
+            font-size: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #77777c;
+        }
+
+        .footer-bottom {
+            max-width: 720px;
+
+            margin: 25px auto 0;
+            padding-top: 17px;
+
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            font-size: 7px;
+            letter-spacing: 0.4px;
+        }
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .home-page {
+                max-width: 100%;
+                padding: 45px 22px 80px;
+            }
+
+            .nav-container {
+                padding: 0 18px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+            }
+
+            .hero-actions {
+                flex-wrap: wrap;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card.large {
+                grid-column: span 1;
+            }
+
+            .security-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                gap: 45px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
+            }
+        }
+
+        @media (min-width: 801px) and (max-width: 1050px) {
+
+            .home-page {
+                max-width: 680px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         NAVIGATION
+         ========================================================= -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="brand">
+
+                <div class="brand-icon">
+    <img src="images/oxelon.png" alt="Oxelon">
+</div>
+
+                <span>Oxelon</span>
+
+            </a>
+
+            <nav class="nav-links">
+
+                <a href="features.html">
+                    Features
+                </a>
+
+                <a href="security.html">
+                    Security
+                </a>
+
+                <a href="meet-the-team.html">
+                    Team
+                </a>
+
+                <a href="docs.html">
+                    Docs
+                </a>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <a
+                    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
+                    class="nav-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Add to Discord
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main class="home-page">
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <section class="hero">
+
+            <span class="eyebrow">
+                OXELON
+            </span>
+
+            <h1>
+                Your server.
+                <br>
+                <span>Under control.</span>
+            </h1>
+
+            <p class="hero-description">
+                Oxelon is a powerful Discord bot designed to help
+                you manage, protect, and grow your community with
+                reliable moderation, security, logging, and
+                management tools.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
+                    class="button button-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Add Oxelon
+                    <span>→</span>
+                </a>
+
+                <a
+                    href="features.html"
+                    class="button button-secondary"
+                >
+                    Explore features
+                </a>
+
+            </div>
+
+            <div class="hero-note">
+                <span>✓</span>
+                Free to use · Easy to configure · Built for communities
+            </div>
+
+
+            <!-- DASHBOARD -->
+
+            <div class="dashboard">
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-header">
+
+                        <div class="server-info">
+
+                            <div class="server-icon">
+                                O
+                            </div>
+
+                            <div>
+                                <strong>Oxelon</strong>
+                                <span>Server Management</span>
+                            </div>
+
+                        </div>
+
+                        <div class="online">
+                            <span></span>
+                            Online
+                        </div>
+
+                    </div>
+
+
+                    <div class="dashboard-divider"></div>
+
+
+                    <div class="dashboard-stats">
+
+                        <div class="stat">
+                            <span>Members</span>
+                            <strong id="member-count">270+</strong>
+                        </div>
+
+                        <div class="stat">
+                            <span>Commands</span>
+                            <strong>17</strong>
+                        </div>
+
+                        <div class="stat">
+                            <span>Status</span>
+                            <strong class="active">
+                                Active
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity-box">
+
+                        <div class="activity-title">
+                            Recent activity
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                ✓
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Moderation action
+                                </strong>
+
+                                <span>
+                                    Oxelon protected your server
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                +
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Security system
+                                </strong>
+
+                                <span>
+                                    All systems operational
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity">
+
+                            <div class="activity-icon">
+                                O
+                            </div>
+
+                            <div>
+                                <strong>
+                                    Configuration
+                                </strong>
+
+                                <span>
+                                    Server settings updated
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FEATURES
+             ===================================================== -->
+
+        <section id="features" class="section">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    FEATURES
+                </span>
+
+                <h2>
+                    Powerful tools.
+                    <br>
+                    <span>Simple to use.</span>
+                </h2>
+
+                <p>
+                    Oxelon gives your staff the tools they need
+                    to manage and protect their Discord server
+                    without unnecessary complexity.
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+
+                <article class="feature-card large">
+
+                    <div class="feature-icon">
+                        O
+                    </div>
+
+                    <h3>
+                        Server Protection
+                    </h3>
+
+                    <p>
+                        Protect your community with moderation,
+                        security, lockdown, and configurable
+                        protection tools.
+                    </p>
+
+                    <div class="feature-link">
+                        Protection system →
+                    </div>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        +
+                    </div>
+
+                    <h3>
+                        Easy Management
+                    </h3>
+
+                    <p>
+                        Manage your server quickly with simple
+                        and reliable commands.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        L
+                    </div>
+
+                    <h3>
+                        Advanced Logging
+                    </h3>
+
+                    <p>
+                        Keep records of important server activity
+                        with detailed moderation logs.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        M
+                    </div>
+
+                    <h3>
+                        Moderation
+                    </h3>
+
+                    <p>
+                        Warn, mute, kick, ban, and manage members
+                        from one central system.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        S
+                    </div>
+
+                    <h3>
+                        Server Lockdown
+                    </h3>
+
+                    <p>
+                        Quickly secure your server when responding
+                        to an incident or security threat.
+                    </p>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SECURITY
+             ===================================================== -->
+
+        <section id="security" class="section">
+
+            <div class="security-container">
+
+                <div class="security-content">
+
+                    <span class="eyebrow">
+                        BUILT FOR SAFETY
+                    </span>
+
+                    <h2>
+                        Stay ahead of
+                        <span>server threats.</span>
+                    </h2>
+
+                    <p>
+                        Oxelon gives your moderation team the tools
+                        required to respond quickly, protect members,
+                        and keep your community organised.
+                    </p>
+
+
+                    <div class="check-list">
+
+                        <div>
+                            <span>✓</span>
+                            Advanced moderation
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            Server lockdown tools
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            Detailed logging
+                        </div>
+
+                        <div>
+                            <span>✓</span>
+                            Configurable permissions
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="security-panel">
+
+                    <div class="panel-top">
+
+                        <span>
+                            OXELON SECURITY
+                        </span>
+
+                        <div class="secure">
+                            <span></span>
+                            Protected
+                        </div>
+
+                    </div>
+
+
+                    <div class="security-line"></div>
+
+
+                    <div class="security-item">
+
+                        <span>
+                            Moderation
+                        </span>
+
+                        <strong>
+                            Operational
+                        </strong>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <span>
+                            Logging
+                        </span>
+
+                        <strong>
+                            Operational
+                        </strong>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <span>
+                            Protection
+                        </span>
+
+                        <strong>
+                            Operational
+                        </strong>
+
+                    </div>
+
+
+                    <div class="security-item">
+
+                        <span>
+                            Bot Status
+                        </span>
+
+                        <strong>
+                            Online
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT / CTA
+             ===================================================== -->
+
+        <section id="about" class="section cta">
+
+            <div class="cta-box">
+
+                <span class="eyebrow">
+                    GET STARTED
+                </span>
+
+                <h2>
+                    Ready to upgrade
+                    <span>your server?</span>
+                </h2>
+
+                <p>
+                    Add Oxelon today and take control of your
+                    Discord community.
+                </p>
+
+                <a
+                    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
+                    class="button button-primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Add Oxelon to Discord
+                    <span>→</span>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="brand">
+
+                    <div class="brand-icon">
+                        <img src="images/IMG_5117.jpg" alt="Oxelon">
+                    </div>
+
+                    <span>Oxelon</span>
+
+                </a>
+
+                <p>
+                    Powerful Discord management,
+                    protection, and moderation.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div>
+
+                    <strong>
+                        Product
+                    </strong>
+
+                    <a href="#features">
+                        Features
+                    </a>
+
+                    <a href="#security">
+                        Security
+                    </a>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Links
+                    </strong>
+
+                    <a href="#about">
+                        About
+                    </a>
+
+                    <a href="meet-the-team.html">
+                        Team
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Oxelon. All rights reserved.
+            </span>
+
+            <span>
+                Built for Discord communities.
+            </span>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
+```

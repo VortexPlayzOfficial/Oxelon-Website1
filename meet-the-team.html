@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Team — Oxelon</title>
+
+    <style>
+        /* =========================================================
+           OXELON — MEET THE TEAM
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050506;
+            color: #f5f5f5;
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================================================
+           NAVBAR
+           ========================================================= */
+
+        .navbar {
+            width: 100%;
+            height: 64px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+            background: rgba(5, 5, 6, 0.92);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            height: 100%;
+            margin: auto;
+            padding: 0 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-icon {
+            width: 27px;
+            height: 27px;
+
+            border-radius: 7px;
+            overflow: hidden;
+
+            background: #171719;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            margin-left: auto;
+            margin-right: 25px;
+        }
+
+        .nav-links a {
+            color: #77777c;
+            font-size: 12px;
+            font-weight: 600;
+
+            padding: 9px 13px;
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.055);
+        }
+
+        .nav-links .active {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.085);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-button {
+            background: #f1f1f1;
+            color: #080808;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            padding: 9px 14px;
+            border-radius: 8px;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-button:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        /* =========================================================
+           PAGE
+           ========================================================= */
+
+        .team-page {
+            width: 100%;
+            max-width: 720px;
+
+            margin: 0 auto;
+            padding: 65px 0 100px;
+        }
+
+        /* =========================================================
+           PAGE HEADER
+           ========================================================= */
+
+        .page-header {
+            margin-bottom: 50px;
+        }
+
+        .eyebrow {
+            display: block;
+
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 2px;
+
+            margin-bottom: 11px;
+        }
+
+        .page-header h1 {
+            font-size: 51px;
+            line-height: 1;
+            letter-spacing: -2.8px;
+            font-weight: 750;
+
+            margin-bottom: 17px;
+        }
+
+        .page-header p {
+            max-width: 570px;
+
+            color: #77777c;
+
+            font-size: 12px;
+            line-height: 1.65;
+        }
+
+        /* =========================================================
+           TEAM SECTION
+           ========================================================= */
+
+        .team-section {
+            margin-top: 48px;
+        }
+
+        .team-section + .team-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            margin-top: 52px;
+            padding-top: 52px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 17px;
+        }
+
+        .section-title h2 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-label {
+            color: #4f4f54;
+
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* =========================================================
+           TEAM GRID
+           ========================================================= */
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        /* =========================================================
+           TEAM CARD
+           ========================================================= */
+
+        .team-card {
+            position: relative;
+
+            min-height: 275px;
+
+            padding: 17px;
+
+            border: 1px solid rgba(255, 255, 255, 0.075);
+            border-radius: 10px;
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255, 255, 255, 0.065),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.035),
+                    rgba(255, 255, 255, 0.012)
+                );
+
+            overflow: hidden;
+
+            transition:
+                transform 0.2s ease,
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.14);
+
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255, 255, 255, 0.09),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.045),
+                    rgba(255, 255, 255, 0.018)
+                );
+        }
+
+        /* =========================================================
+           AVATAR
+           ========================================================= */
+
+        .team-avatar {
+            width: 64px;
+            height: 64px;
+
+            border-radius: 50%;
+
+            border: 2px solid rgba(255, 255, 255, 0.055);
+
+            background: #080809;
+
+            padding: 4px;
+
+            margin-bottom: 13px;
+
+            box-shadow:
+                0 0 0 1px rgba(0, 0, 0, 0.8),
+                0 8px 25px rgba(0, 0, 0, 0.45);
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #121214;
+
+            color: #6d6d72;
+
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* =========================================================
+           ROLE
+           ========================================================= */
+
+        .role {
+            display: inline-flex;
+            align-items: center;
+
+            padding: 4px 7px;
+
+            border-radius: 4px;
+
+            background: rgba(255, 255, 255, 0.075);
+
+            color: #858589;
+
+            font-size: 7px;
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+
+            margin-bottom: 8px;
+        }
+
+        /* =========================================================
+           NAME
+           ========================================================= */
+
+        .team-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+
+            margin-bottom: 5px;
+
+            letter-spacing: -0.2px;
+        }
+
+        .team-card .username {
+            display: block;
+
+            color: #66666b;
+
+            font-size: 9px;
+
+            margin-bottom: 14px;
+        }
+
+        /* =========================================================
+           DESCRIPTION
+           ========================================================= */
+
+        .team-card p {
+            color: #77777c;
+
+            font-size: 10px;
+            line-height: 1.65;
+
+            max-width: 190px;
+        }
+
+        /* =========================================================
+           CARD FOOTER
+           ========================================================= */
+
+        .card-footer {
+            position: absolute;
+
+            left: 17px;
+            right: 17px;
+            bottom: 15px;
+
+            color: #444449;
+
+            font-size: 7px;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .card-footer::before {
+            content: "";
+
+            width: 4px;
+            height: 4px;
+
+            border-radius: 50%;
+
+            background: #55555a;
+        }
+
+        /* =========================================================
+           MOBILE
+           ========================================================= */
+
+        @media (max-width: 800px) {
+
+            .team-page {
+                max-width: 100%;
+                padding: 45px 22px 80px;
+            }
+
+            .nav-container {
+                padding: 0 18px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 43px;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-card {
+                min-height: 250px;
+            }
+
+            .section-title {
+                align-items: flex-end;
+            }
+        }
+
+        @media (min-width: 801px) and (max-width: 1050px) {
+
+            .team-page {
+                max-width: 680px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================================
+         NAVIGATION
+         ========================================================= -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="index.html" class="brand">
+
+                <div class="brand-icon">
+                    <img src="images/IMG_5117.jpg" alt="Oxelon">
+                </div>
+
+                <span>Oxelon</span>
+
+            </a>
+
+
+            <nav class="nav-links">
+
+                <a href="index.html#features">
+                    Features
+                </a>
+
+                <a href="index.html#security">
+                    Commands
+                </a>
+
+                <a href="meet-the-team.html" class="active">
+                    Team
+                </a>
+
+                <a href="index.html#about">
+                    About
+                </a>
+
+            </nav>
+
+
+            <div class="nav-actions">
+
+                <a
+                    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
+                    class="nav-button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Add to Discord
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================================
+         MAIN
+         ========================================================= -->
+
+    <main class="team-page">
+
+
+        <!-- PAGE INTRO -->
+
+        <header class="page-header">
+
+            <span class="eyebrow">
+                OXELON
+            </span>
+
+            <h1>
+                Our Team
+            </h1>
+
+            <p>
+                Meet the people behind Oxelon. Our team works together
+                to build, maintain, and support reliable management and
+                security solutions for Discord communities.
+            </p>
+
+        </header>
+
+
+        <!-- =====================================================
+             FOUNDERS
+             ===================================================== -->
+
+        <section class="team-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Founders
+                </h2>
+
+                <span class="section-label">
+                    Leadership
+                </span>
+
+            </div>
+
+
+            <div class="team-grid">
+
+
+                <!-- FOUNDER ONE -->
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <img
+                            src="images/IMG_5117.jpg"
+                            alt="Vortex Playz"
+                        >
+
+                    </div>
+
+                    <span class="role">
+                        Founder
+                    </span>
+
+                    <h3>
+                        Vortex Playz
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Founder
+                    </span>
+
+                    <p>
+                        Leads Oxelon and oversees the development,
+                        direction, and future of the project.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Founder
+                    </div>
+
+                </article>
+
+
+                <!-- FOUNDER TWO -->
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <div class="avatar-placeholder">
+                            O
+                        </div>
+
+                    </div>
+
+                    <span class="role">
+                        Founder
+                    </span>
+
+                    <h3>
+                        Founder Two
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Founder
+                    </span>
+
+                    <p>
+                        Helps shape the direction of Oxelon and
+                        works across the project to keep everything
+                        running smoothly.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Founder
+                    </div>
+
+                </article>
+
+
+                <!-- FOUNDER THREE -->
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <div class="avatar-placeholder">
+                            O
+                        </div>
+
+                    </div>
+
+                    <span class="role">
+                        Founder
+                    </span>
+
+                    <h3>
+                        Founder Three
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Founder
+                    </span>
+
+                    <p>
+                        Works with the team to maintain Oxelon's
+                        standards, security, and overall community
+                        experience.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Founder
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             TECHNICIANS
+             ===================================================== -->
+
+        <section class="team-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Developers
+                </h2>
+
+                <span class="section-label">
+                    Development Team
+                </span>
+
+            </div>
+
+
+            <div class="team-grid">
+
+
+                <!-- TECHNICIAN ONE -->
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <div class="avatar-placeholder">
+                            nil
+                        </div>
+
+                    </div>
+
+                    <span class="role">
+                        Developer
+                    </span>
+
+                    <h3>
+                        Nil
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Developer
+                    </span>
+
+                    <p>
+                        Helps develop and maintain Oxelon's software and platforms.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Developer
+                    </div>
+
+                </article>
+
+
+                <!-- TECHNICIAN TWO -->
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <div class="avatar-placeholder">
+                            nil
+                        </div>
+
+                    </div>
+
+                    <span class="role">
+                        Developer
+                    </span>
+
+                    <h3>
+                        Nil
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Developer
+                    </span>
+
+                    <p>
+                        Helps develop and maintain Oxelon's software and platforms.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Developer
+                    </div>
+
+                </article>
+
+
+                <!-- TECHNICIAN THREE -->
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <div class="avatar-placeholder">
+                            nil
+                        </div>
+
+                    </div>
+
+                    <span class="role">
+                        Developer
+                    </span>
+
+                    <h3>
+                        Nil
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Developer
+                    </span>
+
+                    <p>
+                        Helps develop and maintain Oxelon's software and platforms.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Developer
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             MANAGEMENT
+             ===================================================== -->
+
+        <section class="team-section">
+
+            <div class="section-title">
+
+                <h2>
+                    Staff Team
+                </h2>
+
+                <span class="section-label">
+                    Staff Team
+                </span>
+
+            </div>
+
+
+            <div class="team-grid">
+
+
+                <article class="team-card">
+
+                    <div class="team-avatar">
+
+                        <div class="avatar-placeholder">
+                            O
+                        </div>
+
+                    </div>
+
+                    <span class="role">
+                        Management
+                    </span>
+
+                    <h3>
+                        Management One
+                    </h3>
+
+                    <span class="username">
+                        Oxelon Management
+                    </span>
+
+                    <p>
+                        Helps manage Oxelon operations and ensures
+                        the project continues to meet its standards.
+                    </p>
+
+                    <div class="card-footer">
+                        Oxelon Management
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <footer style="
+        border-top: 1px solid rgba(255,255,255,0.055);
+        padding: 25px 20px;
+        color: #454549;
+        text-align: center;
+        font-size: 9px;
+    ">
+
+        © 2026 Oxelon. All rights reserved.
+
+    </footer>
+
+
+</body>
+</html>
+```
