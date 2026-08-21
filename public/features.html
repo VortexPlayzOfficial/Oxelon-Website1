@@ -36,12 +36,9 @@
         .navbar {
             width: 100%;
             height: 64px;
-
             border-bottom: 1px solid rgba(255, 255, 255, 0.055);
-
             background: rgba(5, 5, 6, 0.92);
             backdrop-filter: blur(14px);
-
             position: sticky;
             top: 0;
             z-index: 100;
@@ -495,9 +492,10 @@
 
             <p>
                 Explore the commands and systems available through
-                Oxelon. From everyday moderation to server protection,
-                Oxelon gives your staff the tools to keep your
-                community organised and secure.
+                Oxelon. From everyday moderation to advanced security,
+                raid protection, spam detection and detailed audit
+                logging, Oxelon gives your staff the tools to keep
+                your community organised and secure.
             </p>
 
         </div>
@@ -527,71 +525,69 @@
                     <div class="command-name">
                         <code>/warn</code>
                     </div>
-
                     <div class="command-description">
                         Warn a member and record the moderation action.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/mute</code>
                     </div>
-
                     <div class="command-description">
-                        Restrict a member from communicating in the server.
+                        Timeout a member for a specified duration.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/unmute</code>
+                    </div>
+                    <div class="command-description">
+                        Remove a member's active timeout.
+                    </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
 
                 <div class="command">
                     <div class="command-name">
                         <code>/kick</code>
                     </div>
-
                     <div class="command-description">
                         Remove a member from the server.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/ban</code>
                     </div>
-
                     <div class="command-description">
                         Permanently ban a member from the server.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
 
-
                 <div class="command">
                     <div class="command-name">
                         <code>/purge</code>
                     </div>
-
                     <div class="command-description">
-                        Remove multiple messages from a channel.
+                        Delete multiple messages from a channel.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
@@ -603,7 +599,7 @@
 
 
         <!-- =====================================================
-             SERVER MANAGEMENT
+             CHANNEL MANAGEMENT
              ===================================================== -->
 
         <section class="category">
@@ -611,11 +607,11 @@
             <div class="category-header">
 
                 <div class="category-title">
-                    Server Management
+                    Channel Management
                 </div>
 
                 <div class="category-description">
-                    SERVER CONTROLS
+                    CHANNEL CONTROLS
                 </div>
 
             </div>
@@ -626,71 +622,106 @@
                     <div class="command-name">
                         <code>/lock</code>
                     </div>
-
                     <div class="command-description">
-                        Lock a channel to prevent members from sending messages.
+                        Lock a channel and prevent members from sending messages.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/unlock</code>
                     </div>
-
                     <div class="command-description">
-                        Restore normal channel communication.
+                        Unlock a previously locked channel.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/slowmode</code>
                     </div>
-
                     <div class="command-description">
-                        Configure the slowmode delay for a channel.
+                        Set or disable the channel slowmode delay.
                     </div>
-
                     <div class="command-permission">
                         Staff
                     </div>
                 </div>
 
+            </div>
 
-                <div class="command">
-                    <div class="command-name">
-                        <code>/roleadd</code>
-                    </div>
+        </section>
 
-                    <div class="command-description">
-                        Add a role to a server member.
-                    </div>
 
-                    <div class="command-permission">
-                        Staff
-                    </div>
+        <!-- =====================================================
+             MEMBER MANAGEMENT
+             ===================================================== -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <div class="category-title">
+                    Member Management
                 </div>
 
+                <div class="category-description">
+                    MEMBER CONTROLS
+                </div>
+
+            </div>
+
+            <div class="command-list">
 
                 <div class="command">
                     <div class="command-name">
                         <code>/nick</code>
                     </div>
-
                     <div class="command-description">
                         Change a member's server nickname.
                     </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/nickreset</code>
+                    </div>
+                    <div class="command-description">
+                        Reset a member's nickname.
+                    </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/roleadd</code>
+                    </div>
+                    <div class="command-description">
+                        Add a role to a member.
+                    </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/roleremove</code>
+                    </div>
+                    <div class="command-description">
+                        Remove a role from a member.
+                    </div>
                     <div class="command-permission">
                         Staff
                     </div>
@@ -725,71 +756,81 @@
                     <div class="command-name">
                         <code>/serverinfo</code>
                     </div>
-
                     <div class="command-description">
                         View important information about the Discord server.
                     </div>
-
                     <div class="command-permission">
                         Everyone
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/userinfo</code>
                     </div>
-
                     <div class="command-description">
                         View information about a server member.
                     </div>
-
                     <div class="command-permission">
                         Everyone
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/avatar</code>
                     </div>
-
                     <div class="command-description">
                         Display a member's Discord avatar.
                     </div>
-
                     <div class="command-permission">
                         Everyone
                     </div>
                 </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/serverlogo</code>
                     </div>
-
                     <div class="command-description">
                         Display the server's current icon.
                     </div>
-
                     <div class="command-permission">
                         Everyone
                     </div>
                 </div>
 
-
                 <div class="command">
                     <div class="command-name">
                         <code>/botinfo</code>
                     </div>
-
                     <div class="command-description">
                         View information and statistics about Oxelon.
                     </div>
+                    <div class="command-permission">
+                        Everyone
+                    </div>
+                </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/ping</code>
+                    </div>
+                    <div class="command-description">
+                        Check Oxelon's current response latency.
+                    </div>
+                    <div class="command-permission">
+                        Everyone
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/uptime</code>
+                    </div>
+                    <div class="command-description">
+                        View how long Oxelon has been online.
+                    </div>
                     <div class="command-permission">
                         Everyone
                     </div>
@@ -822,45 +863,49 @@
 
                 <div class="command">
                     <div class="command-name">
-                        <code>/welcome</code>
+                        <code>/hello</code>
                     </div>
-
                     <div class="command-description">
-                        Configure automated welcome messages for new members.
+                        Say hello using Oxelon.
                     </div>
-
                     <div class="command-permission">
-                        Administrator
+                        Everyone
                     </div>
                 </div>
-
-
-                <div class="command">
-                    <div class="command-name">
-                        <code>/promotion</code>
-                    </div>
-
-                    <div class="command-description">
-                        Create and manage server promotion content.
-                    </div>
-
-                    <div class="command-permission">
-                        Staff
-                    </div>
-                </div>
-
 
                 <div class="command">
                     <div class="command-name">
                         <code>/review</code>
                     </div>
-
                     <div class="command-description">
-                        Manage community reviews and feedback.
+                        Submit a review or feedback for Oxelon.
                     </div>
+                    <div class="command-permission">
+                        Everyone
+                    </div>
+                </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/promotion</code>
+                    </div>
+                    <div class="command-description">
+                        Create and manage server promotion content.
+                    </div>
                     <div class="command-permission">
                         Staff
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/affiliate</code>
+                    </div>
+                    <div class="command-description">
+                        View Oxelon affiliates and affiliated communities.
+                    </div>
+                    <div class="command-permission">
+                        Everyone
                     </div>
                 </div>
 
@@ -891,45 +936,73 @@
 
                 <div class="command">
                     <div class="command-name">
-                        <code>/prefix</code>
+                        <code>/config</code>
                     </div>
-
                     <div class="command-description">
-                        View or configure the server's bot prefix.
+                        View the current Oxelon server configuration.
                     </div>
-
                     <div class="command-permission">
                         Administrator
                     </div>
                 </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/config purgelimit</code>
+                    </div>
+                    <div class="command-description">
+                        Configure the maximum purge amount.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
 
                 <div class="command">
                     <div class="command-name">
-                        <code>/template</code>
+                        <code>/config logchannel</code>
                     </div>
-
                     <div class="command-description">
-                        Load an approved Discord server template.
+                        Configure the server's main logging channel.
                     </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/config reset</code>
+                    </div>
+                    <div class="command-description">
+                        Reset Oxelon server configuration.
+                    </div>
                     <div class="command-permission">
                         Owner
                     </div>
                 </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/prefix</code>
+                    </div>
+                    <div class="command-description">
+                        View or configure the server's bot prefix.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
 
                 <div class="command">
                     <div class="command-name">
-                        <code>/technician</code>
+                        <code>/template</code>
                     </div>
-
                     <div class="command-description">
-                        Access Oxelon's technician and server support tools.
+                        Load an approved Discord server template.
                     </div>
-
                     <div class="command-permission">
-                        Technician
+                        Owner
                     </div>
                 </div>
 
@@ -939,7 +1012,7 @@
 
 
         <!-- =====================================================
-             SECURITY
+             RAID PROTECTION
              ===================================================== -->
 
         <section class="category">
@@ -947,11 +1020,11 @@
             <div class="category-header">
 
                 <div class="category-title">
-                    Security & Protection
+                    Raid Protection
                 </div>
 
                 <div class="category-description">
-                    SERVER PROTECTION
+                    ANTI-RAID SECURITY
                 </div>
 
             </div>
@@ -960,43 +1033,410 @@
 
                 <div class="command">
                     <div class="command-name">
-                        <code>Raid Protection</code>
+                        <code>/raid setup</code>
                     </div>
-
                     <div class="command-description">
-                        Detect and respond to suspicious server activity.
+                        Configure Oxelon's raid protection system.
                     </div>
-
                     <div class="command-permission">
-                        Automatic
+                        Owner
                     </div>
                 </div>
 
-
                 <div class="command">
                     <div class="command-name">
-                        <code>Security Logs</code>
+                        <code>/raid enable</code>
                     </div>
-
                     <div class="command-description">
-                        Record important security and moderation events.
+                        Enable automatic raid protection.
                     </div>
-
                     <div class="command-permission">
-                        Automatic
+                        Administrator
                     </div>
                 </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid disable</code>
+                    </div>
+                    <div class="command-description">
+                        Disable automatic raid protection.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
 
                 <div class="command">
                     <div class="command-name">
-                        <code>Server Lockdown</code>
+                        <code>/raid status</code>
                     </div>
-
                     <div class="command-description">
-                        Quickly restrict server activity during an incident.
+                        View raid protection status and configuration.
                     </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
 
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid logs</code>
+                    </div>
+                    <div class="command-description">
+                        Configure the channel used for raid security logs.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid lockdown</code>
+                    </div>
+                    <div class="command-description">
+                        Immediately activate server lockdown protection.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid unlockdown</code>
+                    </div>
+                    <div class="command-description">
+                        End an active raid lockdown.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid whitelist_add</code>
+                    </div>
+                    <div class="command-description">
+                        Add a trusted member to the raid whitelist.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid whitelist_remove</code>
+                    </div>
+                    <div class="command-description">
+                        Remove a member from the raid whitelist.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/raid whitelist_list</code>
+                    </div>
+                    <div class="command-description">
+                        View the current raid protection whitelist.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SPAM PROTECTION
+             ===================================================== -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <div class="category-title">
+                    Spam Protection
+                </div>
+
+                <div class="category-description">
+                    ANTI-SPAM SECURITY
+                </div>
+
+            </div>
+
+            <div class="command-list">
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam setup</code>
+                    </div>
+                    <div class="command-description">
+                        Configure Oxelon's spam detection system.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam enable</code>
+                    </div>
+                    <div class="command-description">
+                        Enable automatic spam detection.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam disable</code>
+                    </div>
+                    <div class="command-description">
+                        Disable automatic spam detection.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam status</code>
+                    </div>
+                    <div class="command-description">
+                        View spam protection status and settings.
+                    </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam config</code>
+                    </div>
+                    <div class="command-description">
+                        Configure spam thresholds and protection behaviour.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam logs</code>
+                    </div>
+                    <div class="command-description">
+                        Configure the channel used for spam detection logs.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam whitelist_add</code>
+                    </div>
+                    <div class="command-description">
+                        Add a trusted member to the spam whitelist.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam whitelist_remove</code>
+                    </div>
+                    <div class="command-description">
+                        Remove a member from the spam whitelist.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/spam whitelist_list</code>
+                    </div>
+                    <div class="command-description">
+                        View the current spam protection whitelist.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             AUDIT LOGGING
+             ===================================================== -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <div class="category-title">
+                    Audit Logging
+                </div>
+
+                <div class="category-description">
+                    SECURITY LOGGING
+                </div>
+
+            </div>
+
+            <div class="command-list">
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs setup</code>
+                    </div>
+                    <div class="command-description">
+                        Set up Oxelon's server audit logging system.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs enable</code>
+                    </div>
+                    <div class="command-description">
+                        Enable server audit logging.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs disable</code>
+                    </div>
+                    <div class="command-description">
+                        Disable server audit logging.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs status</code>
+                    </div>
+                    <div class="command-description">
+                        View the current logging configuration.
+                    </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs events</code>
+                    </div>
+                    <div class="command-description">
+                        Configure which server events Oxelon records.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs channel</code>
+                    </div>
+                    <div class="command-description">
+                        Set the channel where audit logs are sent.
+                    </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/logs reset</code>
+                    </div>
+                    <div class="command-description">
+                        Reset the server's audit logging configuration.
+                    </div>
+                    <div class="command-permission">
+                        Owner
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             STAFF & SUPPORT
+             ===================================================== -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <div class="category-title">
+                    Staff & Support
+                </div>
+
+                <div class="category-description">
+                    STAFF TOOLS
+                </div>
+
+            </div>
+
+            <div class="command-list">
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/technician</code>
+                    </div>
+                    <div class="command-description">
+                        Request technical assistance from Oxelon.
+                    </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/promote</code>
+                    </div>
+                    <div class="command-description">
+                        Create a staff promotion.
+                    </div>
                     <div class="command-permission">
                         Staff
                     </div>
@@ -1008,7 +1448,7 @@
 
 
         <!-- =====================================================
-             HIGHLIGHTS
+             PREMIUM
              ===================================================== -->
 
         <section class="category">
@@ -1016,11 +1456,84 @@
             <div class="category-header">
 
                 <div class="category-title">
-                    Built Into Oxelon
+                    Oxelon Premium
                 </div>
 
                 <div class="category-description">
-                    CORE SYSTEMS
+                    PREMIUM FEATURES
+                </div>
+
+            </div>
+
+            <div class="command-list">
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/premiumstatus</code>
+                    </div>
+                    <div class="command-description">
+                        Check the server's Oxelon Premium status.
+                    </div>
+                    <div class="command-permission">
+                        Everyone
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/autopurge</code>
+                    </div>
+                    <div class="command-description">
+                        Configure automatic channel message purging.
+                    </div>
+                    <div class="command-permission">
+                        Premium
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/grantpremium</code>
+                    </div>
+                    <div class="command-description">
+                        Grant Oxelon Premium to an eligible user.
+                    </div>
+                    <div class="command-permission">
+                        Bot Owner
+                    </div>
+                </div>
+
+                <div class="command">
+                    <div class="command-name">
+                        <code>/revokepremium</code>
+                    </div>
+                    <div class="command-description">
+                        Revoke Oxelon Premium from a user.
+                    </div>
+                    <div class="command-permission">
+                        Bot Owner
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             SECURITY HIGHLIGHTS
+             ===================================================== -->
+
+        <section class="category">
+
+            <div class="category-header">
+
+                <div class="category-title">
+                    Security Systems
+                </div>
+
+                <div class="category-description">
+                    BUILT FOR PROTECTION
                 </div>
 
             </div>
@@ -1028,26 +1541,27 @@
             <div class="highlight-grid">
 
                 <div class="highlight">
-                    <strong>Centralised Logging</strong>
+                    <strong>Raid Protection</strong>
                     <p>
-                        Keep important moderation and security
-                        activity recorded in one place.
+                        Detect suspicious destructive activity and
+                        automatically respond according to your server's
+                        configured protection settings.
                     </p>
                 </div>
 
                 <div class="highlight">
-                    <strong>Permission Control</strong>
+                    <strong>Spam Protection</strong>
                     <p>
-                        Restrict sensitive commands to the staff
-                        members who need access.
+                        Detect repeated spam messages, remove offending
+                        content and escalate repeat offenders.
                     </p>
                 </div>
 
                 <div class="highlight">
-                    <strong>Server Protection</strong>
+                    <strong>Audit Logging</strong>
                     <p>
-                        Give your team tools for responding quickly
-                        to suspicious activity.
+                        Keep your staff informed with detailed security,
+                        moderation and server activity logs.
                     </p>
                 </div>
 
@@ -1068,7 +1582,8 @@
 
             <p>
                 Add Oxelon to your Discord server and give your
-                staff the tools they need.
+                staff the tools they need to manage and protect
+                their community.
             </p>
 
             <a
@@ -1092,4 +1607,3 @@
 
 </body>
 </html>
-
