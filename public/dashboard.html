@@ -1,1622 +1,3141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Dashboard — Oxelon</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #050506;
-            color: #f5f5f5;
-            font-family: Inter, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body.loading {
-            overflow: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        input,
-        select {
-            font: inherit;
-        }
-
-        button {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .navbar {
-            width: 100%;
-            height: 64px;
-            border-bottom: 1px solid rgba(255,255,255,.055);
-            background: rgba(5,5,6,.92);
-            backdrop-filter: blur(14px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1180px;
-            height: 100%;
-            margin: auto;
-            padding: 0 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: .5px;
-        }
-
-        .brand-icon {
-            width: 27px;
-            height: 27px;
-            border-radius: 7px;
-            overflow: hidden;
-            background: #171719;
-        }
-
-        .brand-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-link {
-            color: #77777c;
-            font-size: 10px;
-            font-weight: 650;
-            padding: 8px 11px;
-            border-radius: 7px;
-            transition: .2s ease;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255,255,255,.06);
-        }
-
-        .login-button {
-            border: 0;
-            background: #f1f1f1;
-            color: #080808;
-            padding: 9px 14px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 750;
-            cursor: pointer;
-            transition: .2s ease;
-        }
-
-        .login-button:hover {
-            background: white;
-            transform: translateY(-1px);
-        }
-
-        main {
-            max-width: 1180px;
-            margin: auto;
-            padding: 55px 25px 100px;
-        }
-
-        .page-header {
-            margin-bottom: 35px;
-        }
-
-        .eyebrow {
-            display: block;
-            color: #66666b;
-            font-size: 8px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
-
-        .page-header h1 {
-            font-size: 43px;
-            line-height: 1;
-            letter-spacing: -2px;
-            margin-bottom: 13px;
-        }
-
-        .page-header h1 span {
-            color: #77777c;
-        }
-
-        .page-header p {
-            max-width: 650px;
-            color: #77777c;
-            font-size: 11px;
-            line-height: 1.7;
-        }
-
-        .login-panel {
-            border: 1px solid rgba(255,255,255,.07);
-            border-radius: 12px;
-            background:
-                radial-gradient(
-                    circle at 50% 0%,
-                    rgba(255,255,255,.055),
-                    transparent 55%
-                ),
-                rgba(255,255,255,.018);
-            padding: 60px 30px;
-            text-align: center;
-        }
-
-        .login-panel h2 {
-            font-size: 21px;
-            margin-bottom: 9px;
-        }
-
-        .login-panel p {
-            max-width: 450px;
-            margin: 0 auto 20px;
-            color: #66666b;
-            font-size: 10px;
-            line-height: 1.7;
-        }
-
-        .discord-button {
-            border: 0;
-            background: #5865f2;
-            color: white;
-            padding: 11px 18px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 750;
-            cursor: pointer;
-            transition: .2s ease;
-        }
-
-        .discord-button:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.08);
-        }
-
-        .dashboard {
-            display: none;
-            grid-template-columns: 235px minmax(0, 1fr);
-            gap: 15px;
-        }
-
-        .sidebar {
-            height: fit-content;
-            border: 1px solid rgba(255,255,255,.065);
-            border-radius: 10px;
-            background: rgba(255,255,255,.018);
-            padding: 10px;
-            position: sticky;
-            top: 79px;
-        }
-
-        .sidebar-title {
-            color: #454549;
-            font-size: 7px;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            padding: 7px 8px 10px;
-        }
-
-        .server-card {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            background: rgba(255,255,255,.045);
-        }
-
-        .server-icon {
-            width: 36px;
-            height: 36px;
-            flex-shrink: 0;
-            border-radius: 9px;
-            object-fit: cover;
-            background: #171719;
-        }
-
-        .server-name {
-            overflow: hidden;
-            color: #f1f1f1;
-            font-size: 10px;
-            font-weight: 750;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .server-subtitle {
-            color: #55555a;
-            font-size: 7px;
-            margin-top: 3px;
-        }
-
-        .server-list {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            max-height: 420px;
-            overflow-y: auto;
-        }
-
-        .server-button {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            border: 0;
-            background: transparent;
-            color: #77777c;
-            padding: 8px;
-            border-radius: 7px;
-            text-align: left;
-            cursor: pointer;
-            transition: .2s ease;
-        }
-
-        .server-button:hover,
-        .server-button.active {
-            color: white;
-            background: rgba(255,255,255,.06);
-        }
-
-        .server-button img {
-            width: 25px;
-            height: 25px;
-            border-radius: 7px;
-            object-fit: cover;
-            background: #171719;
-        }
-
-        .server-button span {
-            overflow: hidden;
-            font-size: 9px;
-            font-weight: 650;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .content {
-            min-width: 0;
-        }
-
-        .content-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 18px;
-        }
-
-        .content-header h2 {
-            font-size: 20px;
-        }
-
-        .content-header p {
-            color: #55555a;
-            font-size: 8px;
-            margin-top: 4px;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid rgba(255,255,255,.06);
-            background: rgba(255,255,255,.02);
-            color: #77777c;
-            padding: 7px 10px;
-            border-radius: 7px;
-            font-size: 7px;
-            font-weight: 750;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #77777c;
-        }
-
-        .status-dot.online {
-            background: #8f8f8f;
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,.06);
-            margin-bottom: 9px;
-        }
-
-        .section-title strong {
-            font-size: 12px;
-        }
-
-        .section-title span {
-            color: #55555a;
-            font-size: 7px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .command-list {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 8px;
-        }
-
-        .command {
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 9px;
-            background: rgba(255,255,255,.018);
-            padding: 14px;
-            transition: .2s ease;
-        }
-
-        .command:hover {
-            border-color: rgba(255,255,255,.11);
-            background: rgba(255,255,255,.025);
-        }
-
-        .command-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 15px;
-        }
-
-        .command-name {
-            font-family: Consolas, Monaco, monospace;
-            color: #e7e7e9;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .command-description {
-            color: #66666b;
-            font-size: 8px;
-            line-height: 1.6;
-            margin-top: 6px;
-        }
-
-        .toggle {
-            position: relative;
-            width: 37px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .toggle input {
-            display: none;
-        }
-
-        .slider {
-            position: absolute;
-            inset: 0;
-            background: #252527;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: .2s ease;
-        }
-
-        .slider::before {
-            content: "";
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            left: 3px;
-            top: 3px;
-            border-radius: 50%;
-            background: #77777c;
-            transition: .2s ease;
-        }
-
-        .toggle input:checked + .slider {
-            background: #f1f1f1;
-        }
-
-        .toggle input:checked + .slider::before {
-            transform: translateX(17px);
-            background: #080808;
-        }
-
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 8px;
-        }
-
-        .setting-card {
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 9px;
-            background: rgba(255,255,255,.018);
-            padding: 14px;
-        }
-
-        .setting-card label {
-            display: block;
-            color: #d5d5d8;
-            font-size: 9px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .setting-card input,
-        .setting-card select {
-            width: 100%;
-            border: 1px solid rgba(255,255,255,.08);
-            outline: none;
-            background: #0d0d0f;
-            color: #f5f5f5;
-            padding: 9px;
-            border-radius: 7px;
-            font-size: 9px;
-        }
-
-        .setting-card input:focus,
-        .setting-card select:focus {
-            border-color: rgba(255,255,255,.2);
-        }
-
-        .setting-help {
-            color: #55555a;
-            font-size: 7px;
-            line-height: 1.5;
-            margin-top: 6px;
-        }
-
-        .actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .save-button {
-            border: 0;
-            background: #f1f1f1;
-            color: #080808;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 750;
-            cursor: pointer;
-            transition: .2s ease;
-        }
-
-        .save-button:hover {
-            background: white;
-            transform: translateY(-1px);
-        }
-
-        .save-button:disabled {
-            opacity: .5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .save-status {
-            display: none;
-            color: #77777c;
-            font-size: 8px;
-        }
-
-        .toast {
-            position: fixed;
-            right: 22px;
-            bottom: 22px;
-            z-index: 999;
-            min-width: 240px;
-            border: 1px solid rgba(255,255,255,.08);
-            border-radius: 9px;
-            background: #111113;
-            box-shadow: 0 15px 40px rgba(0,0,0,.45);
-            padding: 13px 15px;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(10px);
-            transition: .2s ease;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .toast-title {
-            font-size: 9px;
-            font-weight: 750;
-            margin-bottom: 4px;
-        }
-
-        .toast-message {
-            color: #66666b;
-            font-size: 8px;
-            line-height: 1.5;
-        }
-
-        .empty-state {
-            color: #55555a;
-            font-size: 8px;
-            padding: 12px 8px;
-        }
-
-        footer {
-            border-top: 1px solid rgba(255,255,255,.055);
-            padding: 28px 20px;
-            text-align: center;
-            color: #454549;
-            font-size: 8px;
-        }
-
-        @media (max-width: 800px) {
-
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                position: static;
-            }
-
-            .command-list,
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-link {
-                display: none;
-            }
-
-            .page-header h1 {
-                font-size: 35px;
-            }
-
-            .content-header {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
-
-        @media (max-width: 500px) {
-
-            main {
-                padding: 40px 15px 70px;
-            }
-
-            .nav-container {
-                padding: 0 15px;
-            }
-
-            .page-header h1 {
-                font-size: 31px;
-            }
-
-            .login-panel {
-                padding: 45px 20px;
-            }
-
-            .toast {
-                left: 15px;
-                right: 15px;
-                bottom: 15px;
-                min-width: 0;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard — Oxelon</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #060607;
+    --sidebar: #09090b;
+    --panel: #0d0d0f;
+    --panel2: #111113;
+    --border: rgba(255,255,255,.065);
+    --border-hover: rgba(255,255,255,.12);
+    --text: #f4f4f5;
+    --muted: #77777e;
+    --muted2: #505057;
+    --accent: #5865f2;
+    --green: #46c98a;
+    --red: #ed6a6a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    border: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =========================
+   APP
+========================= */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    width: 245px;
+    flex-shrink: 0;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--sidebar);
+    border-right: 1px solid var(--border);
+
+    z-index: 100;
+}
+
+.brand {
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.brand img {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    margin-right: 10px;
+
+    object-fit: cover;
+}
+
+.server-selector {
+    padding: 14px;
+}
+
+.server-select {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: rgba(255,255,255,.025);
+
+    color: white;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: .2s ease;
+}
+
+.server-select:hover {
+    border-color: var(--border-hover);
+    background: rgba(255,255,255,.045);
+}
+
+.server-select img {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+}
+
+.server-select-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.server-select-name {
+    overflow: hidden;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.server-select-label {
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    margin-top: 3px;
+}
+
+.arrow {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* NAV */
+
+.sidebar-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 3px 10px 15px;
+}
+
+.nav-title {
+    color: #414147;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    padding: 14px 9px 7px;
+}
+
+.nav-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 9px 10px;
+
+    margin-bottom: 2px;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    cursor: pointer;
+
+    font-size: 9px;
+    font-weight: 650;
+
+    text-align: left;
+
+    transition: .18s ease;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,.045);
+    color: #ddd;
+}
+
+.nav-item.active {
+    background: rgba(255,255,255,.075);
+    color: white;
+}
+
+.nav-icon {
+    width: 18px;
+
+    color: #626269;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+.nav-item.active .nav-icon {
+    color: white;
+}
+
+.nav-lock {
+    margin-left: auto;
+
+    color: #55555b;
+
+    font-size: 8px;
+}
+
+.sidebar-bottom {
+    border-top: 1px solid var(--border);
+    padding: 12px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.025);
+}
+
+.user-avatar {
+    width: 29px;
+    height: 29px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #19191b;
+}
+
+.user-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.user-name {
+    font-size: 9px;
+    font-weight: 700;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-status {
+    color: var(--muted2);
+    font-size: 7px;
+
+    margin-top: 2px;
+}
+
+.logout {
+    color: #55555b;
+    cursor: pointer;
+
+    font-size: 9px;
+}
+
+.logout:hover {
+    color: white;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main {
+    margin-left: 245px;
+
+    width: calc(100% - 245px);
+
+    min-width: 0;
+}
+
+/* TOPBAR */
+
+.topbar {
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 30px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: rgba(6,6,7,.85);
+
+    backdrop-filter: blur(14px);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 50;
+}
+
+.mobile-menu {
+    display: none;
+
+    color: white;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--muted2);
+
+    font-size: 9px;
+}
+
+.breadcrumb strong {
+    color: white;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-button {
+    padding: 8px 11px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    background: rgba(255,255,255,.025);
+
+    color: var(--muted);
+
+    cursor: pointer;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+.top-button:hover {
+    color: white;
+    border-color: var(--border-hover);
+}
+
+/* CONTENT */
+
+.content {
+    max-width: 1180px;
+
+    margin: auto;
+
+    padding: 32px 30px 70px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.eyebrow {
+    display: block;
+
+    color: var(--muted2);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1.7px;
+
+    margin-bottom: 8px;
+}
+
+.page-header h1 {
+    font-size: 25px;
+    letter-spacing: -.8px;
+
+    margin-bottom: 7px;
+}
+
+.page-header p {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    line-height: 1.6;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0,1fr));
+
+    gap: 10px;
+
+    margin-bottom: 22px;
+}
+
+.card {
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(255,255,255,.035),
+            transparent 55%
+        ),
+        var(--panel);
+
+    padding: 15px;
+
+    transition: .2s ease;
+}
+
+.card:hover {
+    border-color: var(--border-hover);
+}
+
+.stat-label {
+    color: var(--muted2);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 11px;
+}
+
+.stat-value {
+    font-size: 19px;
+    font-weight: 750;
+}
+
+.stat-sub {
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    margin-top: 5px;
+}
+
+.online {
+    color: var(--green);
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+.section-header h2 {
+    font-size: 12px;
+}
+
+.section-header span {
+    color: var(--muted2);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   SYSTEM LIST
+========================= */
+
+.system-list {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.system {
+    display: flex;
+    align-items: center;
+
+    padding: 14px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: var(--panel);
+
+    gap: 13px;
+}
+
+.system:last-child {
+    border-bottom: 0;
+}
+
+.system-icon {
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.055);
+
+    color: #aaa;
+
+    font-size: 12px;
+}
+
+.system-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.system-name {
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.system-description {
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    margin-top: 4px;
+}
+
+.system-status {
+    color: var(--green);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    margin-right: 10px;
+}
+
+/* =========================
+   TOGGLE
+========================= */
+
+.toggle {
+    position: relative;
+
+    width: 38px;
+    height: 21px;
+
+    flex-shrink: 0;
+}
+
+.toggle input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 30px;
+
+    background: #27272a;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.slider:before {
+    content: "";
+
+    position: absolute;
+
+    width: 15px;
+    height: 15px;
+
+    left: 3px;
+    top: 3px;
+
+    border-radius: 50%;
+
+    background: #77777e;
+
+    transition: .2s;
+}
+
+.toggle input:checked + .slider {
+    background: var(--accent);
+}
+
+.toggle input:checked + .slider:before {
+    transform: translateX(17px);
+
+    background: white;
+}
+
+/* =========================
+   TWO COLUMN
+========================= */
+
+.two-column {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1.3fr)
+        minmax(0,1fr);
+
+    gap: 10px;
+}
+
+/* =========================
+   ACTIVITY
+========================= */
+
+.activity {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-item {
+    display: flex;
+
+    gap: 10px;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.activity-item:last-child {
+    border-bottom: 0;
+}
+
+.activity-dot {
+    width: 7px;
+    height: 7px;
+
+    margin-top: 4px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    flex-shrink: 0;
+}
+
+.activity-text {
+    color: #aaa;
+
+    font-size: 8px;
+
+    line-height: 1.5;
+}
+
+.activity-time {
+    display: block;
+
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    margin-top: 3px;
+}
+
+/* =========================
+   CONFIGURATION
+========================= */
+
+.config-card {
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--panel);
+
+    padding: 17px;
+
+    margin-bottom: 12px;
+}
+
+.config-title {
+    font-size: 11px;
+    font-weight: 750;
+
+    margin-bottom: 4px;
+}
+
+.config-description {
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    line-height: 1.5;
+
+    margin-bottom: 16px;
+}
+
+.config-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.config-row:last-child {
+    border-bottom: 0;
+}
+
+.config-row-title {
+    font-size: 8px;
+    font-weight: 650;
+}
+
+.config-row-description {
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    margin-top: 3px;
+}
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap: 9px;
+}
+
+.form-group {
+    padding: 12px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.015);
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+
+    color: #ccc;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 9px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    outline: none;
+
+    background: #09090b;
+
+    color: white;
+
+    font-size: 8px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: rgba(88,101,242,.6);
+}
+
+.help {
+    color: var(--muted2);
+
+    font-size: 7px;
+
+    line-height: 1.5;
+
+    margin-top: 5px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-button {
+    padding: 9px 14px;
+
+    border-radius: 7px;
+
+    background: white;
+
+    color: #080808;
+
+    cursor: pointer;
+
+    font-size: 8px;
+    font-weight: 750;
+
+    transition: .2s;
+}
+
+.primary-button:hover {
+    transform: translateY(-1px);
+}
+
+.primary-button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.secondary-button {
+    padding: 9px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: rgba(255,255,255,.025);
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 12px;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login {
+    max-width: 500px;
+
+    margin: 80px auto;
+
+    padding: 45px 30px;
+
+    text-align: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: var(--panel);
+}
+
+.login h1 {
+    font-size: 20px;
+
+    margin-bottom: 8px;
+}
+
+.login p {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+.discord-button {
+    padding: 11px 17px;
+
+    border-radius: 8px;
+
+    background: #5865f2;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 9px;
+    font-weight: 750;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    min-width: 240px;
+
+    padding: 13px 15px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #111113;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,.5);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: translateY(10px);
+
+    transition: .2s;
+
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.toast-title {
+    font-size: 9px;
+    font-weight: 750;
+
+    margin-bottom: 4px;
+}
+
+.toast-message {
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.6);
+
+    z-index: 90;
+}
+
+@media(max-width:900px) {
+
+    .sidebar {
+        transform: translateX(-100%);
+        transition: .25s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .mobile-overlay.show {
+        display: block;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .content {
+        padding: 25px 15px 50px;
+    }
+
+    .topbar {
+        padding: 0 15px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    .system-status {
+        display: none;
+    }
+
+}
+</style>
 </head>
 
 <body>
 
-<header class="navbar">
+<div class="app">
 
-    <div class="nav-container">
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-        <a href="index.html" class="brand">
+<aside class="sidebar" id="sidebar">
 
-            <div class="brand-icon">
-                <img
-                    src="images/oxelon.png"
-                    alt="Oxelon"
+    <a href="index.html" class="brand">
+        <img src="images/oxelon.png" alt="Oxelon">
+        Oxelon
+    </a>
+
+    <div class="server-selector">
+
+        <button class="server-select" id="serverSelector">
+
+            <img
+                id="serverIcon"
+                src="images/oxelon.png"
+                alt=""
+            >
+
+            <div class="server-select-info">
+
+                <div
+                    class="server-select-name"
+                    id="serverName"
                 >
+                    Select a server
+                </div>
+
+                <div class="server-select-label">
+                    Discord server
+                </div>
+
             </div>
 
-            <span>Oxelon</span>
+            <span class="arrow">⌄</span>
 
-        </a>
+        </button>
 
-        <div class="nav-right">
+    </div>
 
-            <a href="index.html" class="nav-link">
-                Home
-            </a>
+    <div class="sidebar-scroll">
 
-            <a href="features.html" class="nav-link">
-                Features
-            </a>
+        <div class="nav-title">
+            GENERAL
+        </div>
 
-            <button
-                class="login-button"
-                id="loginButton"
-                type="button"
-                onclick="loginWithDiscord()"
+        <button class="nav-item active" data-page="overview">
+            <span class="nav-icon">⌂</span>
+            Overview
+        </button>
+
+
+        <div class="nav-title">
+            MODERATION
+        </div>
+
+        <button class="nav-item" data-page="moderation">
+            <span class="nav-icon">◆</span>
+            Moderation
+        </button>
+
+        <button class="nav-item" data-page="antinuke">
+            <span class="nav-icon">⚡</span>
+            Anti-Nuke
+        </button>
+
+        <button class="nav-item" data-page="raid">
+            <span class="nav-icon">◈</span>
+            Anti-Raid
+        </button>
+
+        <button class="nav-item" data-page="spam">
+            <span class="nav-icon">≋</span>
+            Anti-Spam
+        </button>
+
+        <button class="nav-item" data-page="automod">
+            <span class="nav-icon">◇</span>
+            AutoMod
+        </button>
+
+
+        <div class="nav-title">
+            COMMUNITY
+        </div>
+
+        <button class="nav-item" data-page="verification">
+            <span class="nav-icon">✓</span>
+            Verification
+        </button>
+
+        <button class="nav-item" data-page="tickets">
+            <span class="nav-icon">□</span>
+            Tickets
+        </button>
+
+        <button class="nav-item" data-page="welcome">
+            <span class="nav-icon">♢</span>
+            Welcome
+        </button>
+
+
+        <div class="nav-title">
+            SYSTEM
+        </div>
+
+        <button class="nav-item" data-page="logging">
+            <span class="nav-icon">▤</span>
+            Logging
+        </button>
+
+        <button class="nav-item" data-page="erlc">
+            <span class="nav-icon">🚓</span>
+            ERLC
+        </button>
+
+        <button class="nav-item" data-page="customisation">
+            <span class="nav-icon">⚙</span>
+            Customisation
+        </button>
+
+
+        <div class="nav-title">
+            ACCOUNT
+        </div>
+
+        <button class="nav-item" data-page="settings">
+            <span class="nav-icon">◉</span>
+            Settings
+        </button>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+        <div class="user-card">
+
+            <img
+                class="user-avatar"
+                id="userAvatar"
+                src="images/oxelon.png"
+                alt=""
             >
-                Login with Discord
-            </button>
+
+            <div class="user-info">
+
+                <div
+                    class="user-name"
+                    id="userName"
+                >
+                    Not signed in
+                </div>
+
+                <div class="user-status">
+                    Discord account
+                </div>
+
+            </div>
+
+            <span
+                class="logout"
+                onclick="logout()"
+            >
+                ↪
+            </span>
 
         </div>
 
     </div>
 
-</header>
+</aside>
+
+<div
+    class="mobile-overlay"
+    id="mobileOverlay"
+></div>
 
 
-<main>
+<!-- =========================
+     MAIN
+========================= -->
 
-    <div class="page-header">
+<div class="main">
 
-        <span class="eyebrow">
-            OXELON DASHBOARD
-        </span>
+    <header class="topbar">
 
-        <h1>
-            Manage your server.
-            <br>
-            <span>Configure Oxelon your way.</span>
-        </h1>
+        <div style="display:flex;align-items:center;gap:13px;">
 
-        <p>
-            Connect your Discord account to manage the servers
-            where you have permission to configure Oxelon.
-        </p>
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+            >
+                ☰
+            </button>
 
-    </div>
+            <div class="breadcrumb">
 
+                <span>Oxelon</span>
 
-    <section
-        class="login-panel"
-        id="loginPanel"
-    >
+                <span>/</span>
 
-        <h2>
-            Sign in with Discord
-        </h2>
+                <strong id="breadcrumb">
+                    Overview
+                </strong>
 
-        <p>
-            Authenticate with Discord to securely view your
-            servers and configure Oxelon's systems.
-        </p>
-
-        <button
-            class="discord-button"
-            type="button"
-            onclick="loginWithDiscord()"
-        >
-            Continue with Discord
-        </button>
-
-    </section>
-
-
-    <section
-        class="dashboard"
-        id="dashboard"
-    >
-
-        <aside class="sidebar">
-
-            <div class="sidebar-title">
-                YOUR SERVERS
             </div>
 
-            <div
-                class="server-card"
-                id="selectedServer"
+        </div>
+
+        <div class="top-actions">
+
+            <a
+                href="index.html"
+                class="top-button"
+            >
+                Website
+            </a>
+
+            <button
+                class="top-button"
+                onclick="saveSettings()"
+                id="topSave"
+            >
+                Save
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main class="content">
+
+        <!-- =========================
+             LOGIN
+        ========================= -->
+
+        <section
+            class="login"
+            id="loginPanel"
+        >
+
+            <h1>
+                Welcome to Oxelon
+            </h1>
+
+            <p>
+                Sign in with Discord to manage your servers
+                and configure Oxelon's protection systems.
+            </p>
+
+            <button
+                class="discord-button"
+                onclick="loginWithDiscord()"
+            >
+                Continue with Discord
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================= -->
+
+        <div id="dashboard" style="display:none;">
+
+
+            <!-- OVERVIEW -->
+
+            <section
+                class="page active"
+                id="page-overview"
             >
 
-                <img
-                    class="server-icon"
-                    id="selectedServerIcon"
-                    src="images/oxelon.png"
-                    alt=""
-                >
+                <div class="page-header">
 
-                <div>
+                    <span class="eyebrow">
+                        SERVER OVERVIEW
+                    </span>
 
-                    <div
-                        class="server-name"
-                        id="selectedServerName"
-                    >
-                        Select a server
-                    </div>
+                    <h1>
+                        <span id="overviewServer">
+                            Select a server
+                        </span>
+                    </h1>
 
-                    <div class="server-subtitle">
-                        Oxelon configuration
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div
-                class="server-list"
-                id="serverList"
-            ></div>
-
-        </aside>
-
-
-        <section class="content">
-
-            <div class="content-header">
-
-                <div>
-
-                    <h2>
-                        Server Configuration
-                    </h2>
-
-                    <p id="serverLabel">
-                        No server selected
+                    <p>
+                        Manage Oxelon's security and community
+                        systems from one place.
                     </p>
 
                 </div>
 
-                <div class="status-pill">
-                    <span
-                        class="status-dot"
-                        id="statusDot"
-                    ></span>
 
-                    <span id="statusText">
-                        Not configured
-                    </span>
+                <div class="grid">
+
+                    <div class="card">
+
+                        <div class="stat-label">
+                            Bot Status
+                        </div>
+
+                        <div class="stat-value online">
+                            ● Online
+                        </div>
+
+                        <div class="stat-sub">
+                            Oxelon is connected
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="stat-label">
+                            Protection
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="protectionCount"
+                        >
+                            0/5
+                        </div>
+
+                        <div class="stat-sub">
+                            security systems enabled
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="stat-label">
+                            Server
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="memberCount"
+                        >
+                            —
+                        </div>
+
+                        <div class="stat-sub">
+                            members
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="stat-label">
+                            Configuration
+                        </div>
+
+                        <div class="stat-value">
+                            Active
+                        </div>
+
+                        <div class="stat-sub">
+                            Oxelon configuration
+                        </div>
+
+                    </div>
+
                 </div>
 
-            </div>
+
+                <div class="two-column">
+
+                    <div class="section">
+
+                        <div class="section-header">
+
+                            <h2>
+                                Protection
+                            </h2>
+
+                            <span>
+                                SECURITY
+                            </span>
+
+                        </div>
+
+                        <div class="system-list">
+
+                            <div class="system">
+
+                                <div class="system-icon">
+                                    ⚡
+                                </div>
+
+                                <div class="system-info">
+
+                                    <div class="system-name">
+                                        Anti-Nuke
+                                    </div>
+
+                                    <div class="system-description">
+                                        Protect against destructive actions.
+                                    </div>
+
+                                </div>
+
+                                <span
+                                    class="system-status"
+                                    id="antiNukeStatus"
+                                >
+                                    Enabled
+                                </span>
+
+                                <label class="toggle">
+                                    <input
+                                        type="checkbox"
+                                        data-command="antinuke"
+                                        checked
+                                    >
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+
+                            <div class="system">
+
+                                <div class="system-icon">
+                                    ◈
+                                </div>
+
+                                <div class="system-info">
+
+                                    <div class="system-name">
+                                        Anti-Raid
+                                    </div>
+
+                                    <div class="system-description">
+                                        Detect suspicious server activity.
+                                    </div>
+
+                                </div>
+
+                                <span class="system-status">
+                                    Enabled
+                                </span>
+
+                                <label class="toggle">
+                                    <input
+                                        type="checkbox"
+                                        data-command="raid_protection"
+                                        checked
+                                    >
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+
+                            <div class="system">
+
+                                <div class="system-icon">
+                                    ≋
+                                </div>
+
+                                <div class="system-info">
+
+                                    <div class="system-name">
+                                        Anti-Spam
+                                    </div>
+
+                                    <div class="system-description">
+                                        Detect repeated message spam.
+                                    </div>
+
+                                </div>
+
+                                <span class="system-status">
+                                    Enabled
+                                </span>
+
+                                <label class="toggle">
+                                    <input
+                                        type="checkbox"
+                                        data-command="spam_protection"
+                                        checked
+                                    >
+                                    <span class="slider"></span>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="section">
+
+                        <div class="section-header">
+
+                            <h2>
+                                Recent Activity
+                            </h2>
+
+                            <span>
+                                LIVE
+                            </span>
+
+                        </div>
+
+                        <div class="card">
+
+                            <div class="activity">
+
+                                <div class="activity-item">
+
+                                    <span class="activity-dot"></span>
+
+                                    <div class="activity-text">
+
+                                        Oxelon configuration loaded.
+
+                                        <span class="activity-time">
+                                            Just now
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="activity-item">
+
+                                    <span class="activity-dot"></span>
+
+                                    <div class="activity-text">
+
+                                        Security systems ready.
+
+                                        <span class="activity-time">
+                                            Just now
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="activity-item">
+
+                                    <span class="activity-dot"></span>
+
+                                    <div class="activity-text">
+
+                                        Dashboard connected.
+
+                                        <span class="activity-time">
+                                            Just now
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
 
 
             <!-- MODERATION -->
 
-            <div class="section">
+            <section
+                class="page"
+                id="page-moderation"
+            >
 
-                <div class="section-title">
-                    <strong>Moderation</strong>
-                    <span>MEMBER MANAGEMENT</span>
-                </div>
+                <div class="page-header">
 
-                <div class="command-list">
+                    <span class="eyebrow">
+                        MODERATION
+                    </span>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/warn</div>
-                                <div class="command-description">
-                                    Warn a member and record the moderation action.
-                                </div>
-                            </div>
+                    <h1>
+                        Moderation
+                    </h1>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="warn" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/mute</div>
-                                <div class="command-description">
-                                    Restrict a member from communicating.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="mute" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/kick</div>
-                                <div class="command-description">
-                                    Remove a member from the server.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="kick" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/ban</div>
-                                <div class="command-description">
-                                    Permanently ban a member.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="ban" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/purge</div>
-                                <div class="command-description">
-                                    Remove multiple messages from a channel.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="purge" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
+                    <p>
+                        Control which moderation commands are
+                        available to your staff team.
+                    </p>
 
                 </div>
 
-            </div>
 
+                <div class="config-card">
 
-            <!-- SECURITY -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    <strong>Security</strong>
-                    <span>SERVER PROTECTION</span>
-                </div>
-
-                <div class="command-list">
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Anti-Nuke</div>
-                                <div class="command-description">
-                                    Protect the server from destructive administrative actions.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="antinuke" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
+                    <div class="config-title">
+                        Moderation Commands
                     </div>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Raid Protection</div>
-                                <div class="command-description">
-                                    Detect suspicious mass joins, bot additions and server changes.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="raid_protection" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
+                    <div class="config-description">
+                        Enable or disable individual moderation commands.
                     </div>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Spam Protection</div>
-                                <div class="command-description">
-                                    Detect repeated message spam and automatically respond.
-                                </div>
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                /warn
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="spam_protection" checked>
-                                <span class="slider"></span>
-                            </label>
+                            <div class="config-row-description">
+                                Issue warnings to members.
+                            </div>
                         </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="warn"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
                     </div>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">AutoMod</div>
-                                <div class="command-description">
-                                    Automatically detect and moderate configured content.
-                                </div>
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                /mute
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="automod" checked>
-                                <span class="slider"></span>
-                            </label>
+                            <div class="config-row-description">
+                                Restrict a member from communicating.
+                            </div>
                         </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="mute"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
                     </div>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Security Logs</div>
-                                <div class="command-description">
-                                    Record important security and moderation events.
-                                </div>
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                /kick
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="security_logs" checked>
-                                <span class="slider"></span>
-                            </label>
+                            <div class="config-row-description">
+                                Remove a member from the server.
+                            </div>
                         </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="kick"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                /ban
+                            </div>
+
+                            <div class="config-row-description">
+                                Permanently ban a member.
+                            </div>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="ban"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                /purge
+                            </div>
+
+                            <div class="config-row-description">
+                                Delete multiple messages.
+                            </div>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="purge"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
                     </div>
 
                 </div>
 
-            </div>
+            </section>
+
+
+            <!-- ANTI NUKE -->
+
+            <section
+                class="page"
+                id="page-antinuke"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        SECURITY
+                    </span>
+
+                    <h1>
+                        Anti-Nuke
+                    </h1>
+
+                    <p>
+                        Protect your Discord server from destructive
+                        administrative actions.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Anti-Nuke Protection
+                            </div>
+
+                            <div class="config-row-description">
+                                Enable Oxelon's Anti-Nuke system.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="antinuke"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-title">
+                        Protected Actions
+                    </div>
+
+                    <div class="config-description">
+                        Choose which dangerous actions Oxelon should monitor.
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                Channel Deletion
+                            </div>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="antinuke_channels"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                Role Deletion
+                            </div>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="antinuke_roles"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                Mass Bans
+                            </div>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="antinuke_bans"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+                            <div class="config-row-title">
+                                Bot Additions
+                            </div>
+                        </div>
+
+                        <label class="toggle">
+                            <input
+                                type="checkbox"
+                                data-command="antinuke_bots"
+                                checked
+                            >
+                            <span class="slider"></span>
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-title">
+                        Thresholds
+                    </div>
+
+                    <div class="config-description">
+                        Configure how many actions can happen before protection activates.
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Action Threshold
+                            </label>
+
+                            <input
+                                id="antinukeThreshold"
+                                type="number"
+                                min="1"
+                                max="100"
+                                value="3"
+                            >
+
+                            <div class="help">
+                                Number of dangerous actions allowed.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Time Window
+                            </label>
+
+                            <input
+                                id="antinukeWindow"
+                                type="number"
+                                min="1"
+                                max="60"
+                                value="10"
+                            >
+
+                            <div class="help">
+                                Time window in seconds.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RAID -->
+
+            <section
+                class="page"
+                id="page-raid"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        SECURITY
+                    </span>
+
+                    <h1>
+                        Anti-Raid
+                    </h1>
+
+                    <p>
+                        Detect suspicious mass joining and raid behaviour.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Raid Protection
+                            </div>
+
+                            <div class="config-row-description">
+                                Automatically monitor suspicious joining activity.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="raid_protection"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-title">
+                        Raid Detection
+                    </div>
+
+                    <div class="config-description">
+                        Configure when Oxelon should consider a join spike suspicious.
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Join Threshold
+                            </label>
+
+                            <input
+                                id="raidThreshold"
+                                type="number"
+                                min="1"
+                                value="10"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+                                Time Window
+                            </label>
+
+                            <input
+                                id="raidWindow"
+                                type="number"
+                                min="1"
+                                value="10"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SPAM -->
+
+            <section
+                class="page"
+                id="page-spam"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        SECURITY
+                    </span>
+
+                    <h1>
+                        Anti-Spam
+                    </h1>
+
+                    <p>
+                        Automatically detect repeated message spam.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Spam Protection
+                            </div>
+
+                            <div class="config-row-description">
+                                Enable automatic spam detection.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="spam_protection"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-title">
+                        Detection Settings
+                    </div>
+
+                    <div class="config-description">
+                        Configure Oxelon's spam detection threshold.
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Messages
+                            </label>
+
+                            <input
+                                id="spamMessages"
+                                type="number"
+                                value="5"
+                                min="2"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>
+                                Time Window
+                            </label>
+
+                            <input
+                                id="spamWindow"
+                                type="number"
+                                value="5"
+                                min="1"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- AUTOMOD -->
+
+            <section
+                class="page"
+                id="page-automod"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        AUTOMOD
+                    </span>
+
+                    <h1>
+                        AutoMod
+                    </h1>
+
+                    <p>
+                        Configure automatic content moderation.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                AutoMod
+                            </div>
+
+                            <div class="config-row-description">
+                                Enable automated content moderation.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="automod"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Block Spam
+                            </div>
+
+                            <div class="config-row-description">
+                                Automatically detect repetitive messages.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="automod_spam"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Log Actions
+                            </div>
+
+                            <div class="config-row-description">
+                                Record AutoMod actions.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="automod_logs"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
 
 
             <!-- VERIFICATION -->
 
-            <div class="section">
+            <section
+                class="page"
+                id="page-verification"
+            >
 
-                <div class="section-title">
-                    <strong>Verification</strong>
-                    <span>MEMBER VERIFICATION</span>
-                </div>
+                <div class="page-header">
 
-                <div class="command-list">
+                    <span class="eyebrow">
+                        COMMUNITY
+                    </span>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Verification System</div>
-                                <div class="command-description">
-                                    Require members to complete your configured verification process.
-                                </div>
-                            </div>
+                    <h1>
+                        Verification
+                    </h1>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="verification" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Unverified Role</div>
-                                <div class="command-description">
-                                    Assign a restricted role to members before verification.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="verification_role" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
+                    <p>
+                        Configure your server's member verification system.
+                    </p>
 
                 </div>
 
-            </div>
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Verification System
+                            </div>
+
+                            <div class="config-row-description">
+                                Require members to verify before accessing the server.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="verification"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Unverified Role
+                            </div>
+
+                            <div class="config-row-description">
+                                Give new members a restricted role.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="verification_role"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
 
 
             <!-- TICKETS -->
 
-            <div class="section">
+            <section
+                class="page"
+                id="page-tickets"
+            >
 
-                <div class="section-title">
-                    <strong>Tickets</strong>
-                    <span>SUPPORT SYSTEM</span>
-                </div>
+                <div class="page-header">
 
-                <div class="command-list">
+                    <span class="eyebrow">
+                        COMMUNITY
+                    </span>
 
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Ticket System</div>
-                                <div class="command-description">
-                                    Allow members to create private support tickets.
-                                </div>
-                            </div>
+                    <h1>
+                        Tickets
+                    </h1>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="tickets" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Ticket Transcripts</div>
-                                <div class="command-description">
-                                    Save ticket transcripts when tickets are closed.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="ticket_transcripts" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
+                    <p>
+                        Configure Oxelon's support ticket system.
+                    </p>
 
                 </div>
 
-            </div>
 
+                <div class="config-card">
 
-            <!-- APPLICATIONS -->
+                    <div class="config-row">
 
-            <div class="section">
+                        <div>
 
-                <div class="section-title">
-                    <strong>Applications</strong>
-                    <span>STAFF APPLICATIONS</span>
-                </div>
-
-                <div class="command-list">
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Applications</div>
-                                <div class="command-description">
-                                    Allow members to submit configured applications.
-                                </div>
+                            <div class="config-row-title">
+                                Ticket System
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="applications" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Application Logging</div>
-                                <div class="command-description">
-                                    Record submitted, accepted and rejected applications.
-                                </div>
+                            <div class="config-row-description">
+                                Allow members to create support tickets.
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="application_logs" checked>
-                                <span class="slider"></span>
-                            </label>
                         </div>
-                    </div>
 
-                </div>
+                        <label class="toggle">
 
-            </div>
+                            <input
+                                type="checkbox"
+                                data-command="tickets"
+                                checked
+                            >
 
+                            <span class="slider"></span>
 
-            <!-- SERVER MANAGEMENT -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    <strong>Server Management</strong>
-                    <span>SERVER CONTROLS</span>
-                </div>
-
-                <div class="command-list">
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/lock</div>
-                                <div class="command-description">
-                                    Lock a channel and restrict normal communication.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="lock" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/unlock</div>
-                                <div class="command-description">
-                                    Restore normal channel communication.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="unlock" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/slowmode</div>
-                                <div class="command-description">
-                                    Configure the slowmode delay for a channel.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="slowmode" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/roleadd</div>
-                                <div class="command-description">
-                                    Add a role to a server member.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="roleadd" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">/nick</div>
-                                <div class="command-description">
-                                    Change a member's server nickname.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="nick" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- COMMUNITY -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    <strong>Community</strong>
-                    <span>COMMUNITY TOOLS</span>
-                </div>
-
-                <div class="command-list">
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Welcome System</div>
-                                <div class="command-description">
-                                    Send automated welcome messages when members join.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="welcome" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Giveaways</div>
-                                <div class="command-description">
-                                    Create and manage community giveaways.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="giveaways" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Engagement</div>
-                                <div class="command-description">
-                                    Enable community engagement and fun systems.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="engagement" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Reaction Roles</div>
-                                <div class="command-description">
-                                    Allow members to obtain roles through configured reactions.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="reaction_roles" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- SERVER OWNER -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    <strong>Server Owner</strong>
-                    <span>OWNER CONTROLS</span>
-                </div>
-
-                <div class="command-list">
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Owner Protection</div>
-                                <div class="command-description">
-                                    Protect important server-owner actions and settings.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="owner_protection" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">Staff Management</div>
-                                <div class="command-description">
-                                    Configure staff permissions and management systems.
-                                </div>
-                            </div>
-
-                            <label class="toggle">
-                                <input type="checkbox" data-command="staff_management" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- CUSTOMISATION -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    <strong>Customisation</strong>
-                    <span>SERVER EXPERIENCE</span>
-                </div>
-
-                <div class="settings-grid">
-
-                    <div class="setting-card">
-
-                        <label for="botName">
-                            Bot Display Name
                         </label>
 
-                        <input
-                            id="botName"
-                            type="text"
-                            maxlength="32"
-                            placeholder="Oxelon"
-                        >
-
-                        <div class="setting-help">
-                            Configure the name shown by Oxelon in supported server systems.
-                        </div>
-
                     </div>
 
 
-                    <div class="setting-card">
+                    <div class="config-row">
 
-                        <label for="embedColor">
-                            Embed Colour
-                        </label>
+                        <div>
 
-                        <input
-                            id="embedColor"
-                            type="text"
-                            maxlength="7"
-                            placeholder="#5865F2"
-                        >
-
-                        <div class="setting-help">
-                            Enter a hexadecimal colour such as #5865F2.
-                        </div>
-
-                    </div>
-
-
-                    <div class="setting-card">
-
-                        <label for="footerText">
-                            Embed Footer
-                        </label>
-
-                        <input
-                            id="footerText"
-                            type="text"
-                            maxlength="100"
-                            placeholder="Oxelon"
-                        >
-
-                    </div>
-
-
-                    <div class="setting-card">
-
-                        <label for="timezone">
-                            Server Timezone
-                        </label>
-
-                        <select id="timezone">
-
-                            <option value="UTC">
-                                UTC
-                            </option>
-
-                            <option value="Europe/London">
-                                Europe/London
-                            </option>
-
-                            <option value="America/New_York">
-                                America/New_York
-                            </option>
-
-                            <option value="America/Los_Angeles">
-                                America/Los_Angeles
-                            </option>
-
-                            <option value="Europe/Berlin">
-                                Europe/Berlin
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ERLC -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    <strong>ERLC</strong>
-                    <span>EMERGENCY RESPONSE</span>
-                </div>
-
-                <div class="command-list">
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">ERLC Integration</div>
-                                <div class="command-description">
-                                    Connect Oxelon to your Emergency Response Liberty County server.
-                                </div>
+                            <div class="config-row-title">
+                                Transcripts
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="erlc" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="command">
-                        <div class="command-top">
-                            <div>
-                                <div class="command-name">ERLC Moderation</div>
-                                <div class="command-description">
-                                    Enable Oxelon ERLC moderation and server-management tools.
-                                </div>
+                            <div class="config-row-description">
+                                Create transcripts when tickets close.
                             </div>
 
-                            <label class="toggle">
-                                <input type="checkbox" data-command="erlc_moderation" checked>
-                                <span class="slider"></span>
-                            </label>
                         </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="ticket_transcripts"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
                     </div>
 
                 </div>
 
-            </div>
+            </section>
+
+
+            <!-- WELCOME -->
+
+            <section
+                class="page"
+                id="page-welcome"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        COMMUNITY
+                    </span>
+
+                    <h1>
+                        Welcome
+                    </h1>
+
+                    <p>
+                        Configure automated member welcome messages.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Welcome System
+                            </div>
+
+                            <div class="config-row-description">
+                                Send a message when someone joins.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="welcome"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label>
+                                Welcome Channel ID
+                            </label>
+
+                            <input
+                                id="welcomeChannel"
+                                type="text"
+                                placeholder="Channel ID"
+                            >
+
+                        </div>
+
+                        <div class="form-group full">
+
+                            <label>
+                                Welcome Message
+                            </label>
+
+                            <input
+                                id="welcomeMessage"
+                                type="text"
+                                maxlength="1000"
+                                placeholder="Welcome {user} to {server}!"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
 
 
             <!-- LOGGING -->
 
-            <div class="section">
+            <section
+                class="page"
+                id="page-logging"
+            >
 
-                <div class="section-title">
-                    <strong>Logging</strong>
-                    <span>AUDIT SYSTEM</span>
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        SYSTEM
+                    </span>
+
+                    <h1>
+                        Logging
+                    </h1>
+
+                    <p>
+                        Configure Oxelon's audit and security logging.
+                    </p>
+
                 </div>
 
-                <div class="settings-grid">
 
-                    <div class="setting-card">
+                <div class="config-card">
 
-                        <label for="logChannel">
-                            Log Channel ID
-                        </label>
+                    <div class="form-grid">
 
-                        <input
-                            id="logChannel"
-                            type="text"
-                            inputmode="numeric"
-                            placeholder="Channel ID"
-                        >
+                        <div class="form-group">
 
-                        <div class="setting-help">
-                            Oxelon will use this channel for configured audit events.
+                            <label>
+                                Main Log Channel
+                            </label>
+
+                            <input
+                                id="logChannel"
+                                type="text"
+                                placeholder="Channel ID"
+                            >
+
+                            <div class="help">
+                                Moderation and system events.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Security Log Channel
+                            </label>
+
+                            <input
+                                id="securityLogChannel"
+                                type="text"
+                                placeholder="Channel ID"
+                            >
+
+                            <div class="help">
+                                Anti-Nuke, Anti-Raid and security events.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Transcript Channel
+                            </label>
+
+                            <input
+                                id="transcriptChannel"
+                                type="text"
+                                placeholder="Channel ID"
+                            >
+
                         </div>
 
                     </div>
 
+                </div>
 
-                    <div class="setting-card">
+            </section>
 
-                        <label for="transcriptChannel">
-                            Transcript Channel ID
+
+            <!-- ERLC -->
+
+            <section
+                class="page"
+                id="page-erlc"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        INTEGRATION
+                    </span>
+
+                    <h1>
+                        ERLC
+                    </h1>
+
+                    <p>
+                        Connect Oxelon to Emergency Response: Liberty County.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                ERLC Integration
+                            </div>
+
+                            <div class="config-row-description">
+                                Enable ERLC functionality for this server.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="erlc"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
                         </label>
 
-                        <input
-                            id="transcriptChannel"
-                            type="text"
-                            inputmode="numeric"
-                            placeholder="Channel ID"
-                        >
+                    </div>
 
-                        <div class="setting-help">
-                            Used for ticket transcripts when enabled.
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                ERLC Moderation
+                            </div>
+
+                            <div class="config-row-description">
+                                Enable ERLC moderation commands.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="erlc_moderation"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-title">
+                        ERLC API
+                    </div>
+
+                    <div class="config-description">
+                        Your API key is stored server-side and is never displayed after saving.
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+
+                            <label>
+                                ERLC API Key
+                            </label>
+
+                            <input
+                                id="erlcApiKey"
+                                type="password"
+                                placeholder="Enter ERLC API key"
+                            >
+
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
 
-            <!-- ACTIONS -->
+            <!-- CUSTOMISATION -->
+
+            <section
+                class="page"
+                id="page-customisation"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        SERVER EXPERIENCE
+                    </span>
+
+                    <h1>
+                        Customisation
+                    </h1>
+
+                    <p>
+                        Make Oxelon fit the style of your Discord server.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>
+                                Bot Display Name
+                            </label>
+
+                            <input
+                                id="botName"
+                                maxlength="32"
+                                placeholder="Oxelon"
+                            >
+
+                            <div class="help">
+                                The display name used by supported Oxelon systems.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Embed Colour
+                            </label>
+
+                            <input
+                                id="embedColor"
+                                maxlength="7"
+                                placeholder="#5865F2"
+                            >
+
+                            <div class="help">
+                                Use a hexadecimal colour.
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Footer Text
+                            </label>
+
+                            <input
+                                id="footerText"
+                                maxlength="100"
+                                placeholder="Oxelon"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>
+                                Timezone
+                            </label>
+
+                            <select id="timezone">
+
+                                <option value="UTC">
+                                    UTC
+                                </option>
+
+                                <option value="Europe/London">
+                                    Europe/London
+                                </option>
+
+                                <option value="America/New_York">
+                                    America/New_York
+                                </option>
+
+                                <option value="America/Los_Angeles">
+                                    America/Los_Angeles
+                                </option>
+
+                                <option value="Europe/Berlin">
+                                    Europe/Berlin
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SETTINGS -->
+
+            <section
+                class="page"
+                id="page-settings"
+            >
+
+                <div class="page-header">
+
+                    <span class="eyebrow">
+                        SERVER SETTINGS
+                    </span>
+
+                    <h1>
+                        Settings
+                    </h1>
+
+                    <p>
+                        General Oxelon configuration for this server.
+                    </p>
+
+                </div>
+
+
+                <div class="config-card">
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Owner Protection
+                            </div>
+
+                            <div class="config-row-description">
+                                Protect important owner actions.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="owner_protection"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+
+                    <div class="config-row">
+
+                        <div>
+
+                            <div class="config-row-title">
+                                Staff Management
+                            </div>
+
+                            <div class="config-row-description">
+                                Enable Oxelon staff management systems.
+                            </div>
+
+                        </div>
+
+                        <label class="toggle">
+
+                            <input
+                                type="checkbox"
+                                data-command="staff_management"
+                                checked
+                            >
+
+                            <span class="slider"></span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SAVE -->
 
             <div class="actions">
 
                 <button
-                    class="save-button"
+                    class="primary-button"
                     id="saveButton"
-                    type="button"
                     onclick="saveSettings()"
-                    disabled
                 >
                     Save Changes
                 </button>
 
-                <span
-                    class="save-status"
-                    id="saveStatus"
+                <button
+                    class="secondary-button"
+                    onclick="resetSettings()"
                 >
-                    Changes saved.
-                </span>
+                    Reset
+                </button>
 
             </div>
 
-        </section>
+        </div>
 
-    </section>
+    </main>
 
-</main>
+</div>
 
+</div>
+
+
+<!-- TOAST -->
 
 <div
     class="toast"
     id="toast"
-    role="status"
-    aria-live="polite"
 >
 
     <div
@@ -1636,820 +3155,1048 @@
 </div>
 
 
-<footer>
-    © 2026 Oxelon. All rights reserved.
-</footer>
-
-
 <script>
 
-    let selectedGuild = null;
-    let toastTimer = null;
+/* =========================================================
+   STATE
+========================================================= */
+
+let selectedGuild = null;
+let toastTimer = null;
+
+const DEFAULT_SETTINGS = {
+
+    warn: true,
+    mute: true,
+    kick: true,
+    ban: true,
+    purge: true,
+
+    antinuke: true,
+    antinuke_channels: true,
+    antinuke_roles: true,
+    antinuke_bans: true,
+    antinuke_bots: true,
+
+    raid_protection: true,
+    spam_protection: true,
+
+    automod: true,
+    automod_spam: true,
+    automod_logs: true,
+
+    verification: true,
+    verification_role: true,
+
+    tickets: true,
+    ticket_transcripts: true,
+
+    welcome: true,
+
+    owner_protection: true,
+    staff_management: true,
+
+    erlc: true,
+    erlc_moderation: true,
+
+    bot_name: "Oxelon",
+    embed_color: "#5865F2",
+    footer_text: "Oxelon",
+    timezone: "UTC",
+
+    log_channel: "",
+    security_log_channel: "",
+    transcript_channel: "",
+    welcome_channel: "",
+    welcome_message: "",
+    erlc_api_key: "",
+
+    antinuke_threshold: 3,
+    antinuke_window: 10,
+
+    raid_threshold: 10,
+    raid_window: 10,
+
+    spam_messages: 5,
+    spam_window: 5
+};
 
 
-    /*
-     * DEFAULT SETTINGS
-     */
+/* =========================================================
+   LOGIN
+========================================================= */
 
-    const DEFAULT_SETTINGS = {
+function loginWithDiscord() {
 
-        warn: true,
-        mute: true,
-        kick: true,
-        ban: true,
-        purge: true,
+    window.location.href =
+        "/api/auth/discord";
 
-        lock: true,
-        unlock: true,
-        slowmode: true,
-        roleadd: true,
-        nick: true,
+}
 
-        antinuke: true,
-        raid_protection: true,
-        spam_protection: true,
-        automod: true,
-        security_logs: true,
 
-        verification: true,
-        verification_role: true,
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-        tickets: true,
-        ticket_transcripts: true,
+function logout() {
 
-        applications: true,
-        application_logs: true,
+    window.location.href =
+        "/api/auth/logout";
 
-        welcome: true,
-        giveaways: true,
-        engagement: true,
-        reaction_roles: true,
+}
 
-        owner_protection: true,
-        staff_management: true,
 
-        erlc: true,
-        erlc_moderation: true,
+/* =========================================================
+   TOAST
+========================================================= */
 
-        bot_name: "Oxelon",
-        embed_color: "#5865F2",
-        footer_text: "Oxelon",
-        timezone: "UTC",
+function showToast(title, message) {
 
-        log_channel: "",
-        transcript_channel: ""
+    const toast =
+        document.getElementById("toast");
+
+    document.getElementById("toastTitle")
+        .textContent = title;
+
+    document.getElementById("toastMessage")
+        .textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 3000);
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document
+.querySelectorAll(".nav-item")
+.forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const page =
+            item.dataset.page;
+
+        document
+        .querySelectorAll(".nav-item")
+        .forEach(nav => {
+
+            nav.classList.remove("active");
+
+        });
+
+        item.classList.add("active");
+
+        document
+        .querySelectorAll(".page")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+        const target =
+            document.getElementById(
+                "page-" + page
+            );
+
+        if (target) {
+
+            target.classList.add("active");
+
+        }
+
+        document
+        .getElementById("breadcrumb")
+        .textContent =
+            item.textContent.trim();
+
+        document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+        document
+        .getElementById("mobileOverlay")
+        .classList.remove("show");
+
+        updateProtectionCount();
+
+    });
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+document
+.getElementById("mobileMenu")
+.addEventListener("click", () => {
+
+    document
+    .getElementById("sidebar")
+    .classList.add("open");
+
+    document
+    .getElementById("mobileOverlay")
+    .classList.add("show");
+
+});
+
+
+document
+.getElementById("mobileOverlay")
+.addEventListener("click", () => {
+
+    document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+    document
+    .getElementById("mobileOverlay")
+    .classList.remove("show");
+
+});
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetSettings() {
+
+    const settings =
+        DEFAULT_SETTINGS;
+
+    document
+    .querySelectorAll("[data-command]")
+    .forEach(input => {
+
+        const key =
+            input.dataset.command;
+
+        input.checked =
+            settings[key] !== false;
+
+    });
+
+
+    setValue(
+        "botName",
+        settings.bot_name
+    );
+
+    setValue(
+        "embedColor",
+        settings.embed_color
+    );
+
+    setValue(
+        "footerText",
+        settings.footer_text
+    );
+
+    setValue(
+        "timezone",
+        settings.timezone
+    );
+
+    setValue(
+        "logChannel",
+        settings.log_channel
+    );
+
+    setValue(
+        "securityLogChannel",
+        settings.security_log_channel
+    );
+
+    setValue(
+        "transcriptChannel",
+        settings.transcript_channel
+    );
+
+    setValue(
+        "welcomeChannel",
+        settings.welcome_channel
+    );
+
+    setValue(
+        "welcomeMessage",
+        settings.welcome_message
+    );
+
+    setValue(
+        "erlcApiKey",
+        ""
+    );
+
+    setValue(
+        "antinukeThreshold",
+        settings.antinuke_threshold
+    );
+
+    setValue(
+        "antinukeWindow",
+        settings.antinuke_window
+    );
+
+    setValue(
+        "raidThreshold",
+        settings.raid_threshold
+    );
+
+    setValue(
+        "raidWindow",
+        settings.raid_window
+    );
+
+    setValue(
+        "spamMessages",
+        settings.spam_messages
+    );
+
+    setValue(
+        "spamWindow",
+        settings.spam_window
+    );
+
+    updateProtectionCount();
+
+}
+
+
+/* =========================================================
+   SET VALUE
+========================================================= */
+
+function setValue(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.value =
+            value ?? "";
+
+    }
+
+}
+
+
+/* =========================================================
+   APPLY SETTINGS
+========================================================= */
+
+function applySettings(settings) {
+
+    document
+    .querySelectorAll("[data-command]")
+    .forEach(input => {
+
+        const key =
+            input.dataset.command;
+
+        if (
+            Object.prototype
+            .hasOwnProperty
+            .call(settings, key)
+        ) {
+
+            input.checked =
+                Boolean(settings[key]);
+
+        }
+
+    });
+
+
+    const mappings = {
+
+        bot_name: "botName",
+        embed_color: "embedColor",
+        footer_text: "footerText",
+        timezone: "timezone",
+
+        log_channel: "logChannel",
+        security_log_channel: "securityLogChannel",
+        transcript_channel: "transcriptChannel",
+
+        welcome_channel: "welcomeChannel",
+        welcome_message: "welcomeMessage",
+
+        antinuke_threshold:
+            "antinukeThreshold",
+
+        antinuke_window:
+            "antinukeWindow",
+
+        raid_threshold:
+            "raidThreshold",
+
+        raid_window:
+            "raidWindow",
+
+        spam_messages:
+            "spamMessages",
+
+        spam_window:
+            "spamWindow"
 
     };
 
 
-    /*
-     * DISCORD LOGIN
-     */
+    Object.entries(mappings)
+    .forEach(([key, id]) => {
 
-    function loginWithDiscord() {
+        if (
+            settings[key] !== undefined
+        ) {
 
-        window.location.href = "/api/auth/discord";
+            setValue(
+                id,
+                settings[key]
+            );
+
+        }
+
+    });
+
+
+    updateProtectionCount();
+
+}
+
+
+/* =========================================================
+   GET SETTINGS
+========================================================= */
+
+function collectSettings() {
+
+    const settings = {};
+
+
+    document
+    .querySelectorAll("[data-command]")
+    .forEach(input => {
+
+        settings[
+            input.dataset.command
+        ] =
+            input.checked;
+
+    });
+
+
+    settings.bot_name =
+        getValue("botName");
+
+    settings.embed_color =
+        getValue("embedColor");
+
+    settings.footer_text =
+        getValue("footerText");
+
+    settings.timezone =
+        getValue("timezone");
+
+    settings.log_channel =
+        getValue("logChannel");
+
+    settings.security_log_channel =
+        getValue("securityLogChannel");
+
+    settings.transcript_channel =
+        getValue("transcriptChannel");
+
+    settings.welcome_channel =
+        getValue("welcomeChannel");
+
+    settings.welcome_message =
+        getValue("welcomeMessage");
+
+    settings.erlc_api_key =
+        getValue("erlcApiKey");
+
+    settings.antinuke_threshold =
+        Number(getValue("antinukeThreshold")) || 3;
+
+    settings.antinuke_window =
+        Number(getValue("antinukeWindow")) || 10;
+
+    settings.raid_threshold =
+        Number(getValue("raidThreshold")) || 10;
+
+    settings.raid_window =
+        Number(getValue("raidWindow")) || 10;
+
+    settings.spam_messages =
+        Number(getValue("spamMessages")) || 5;
+
+    settings.spam_window =
+        Number(getValue("spamWindow")) || 5;
+
+
+    return settings;
+
+}
+
+
+/* =========================================================
+   GET VALUE
+========================================================= */
+
+function getValue(id) {
+
+    const element =
+        document.getElementById(id);
+
+    return element
+        ? element.value.trim()
+        : "";
+
+}
+
+
+/* =========================================================
+   VALIDATE
+========================================================= */
+
+function validateSettings(settings) {
+
+    if (
+        settings.embed_color &&
+        !/^#[0-9a-fA-F]{6}$/
+            .test(settings.embed_color)
+    ) {
+
+        showToast(
+            "Invalid colour",
+            "Use a colour such as #5865F2."
+        );
+
+        return false;
 
     }
 
 
-    /*
-     * TOAST
-     */
-
-    function showToast(title, message) {
-
-        const toast =
-            document.getElementById("toast");
-
-        document.getElementById("toastTitle")
-            .textContent = title;
-
-        document.getElementById("toastMessage")
-            .textContent = message;
-
-        toast.classList.add("show");
-
-        clearTimeout(toastTimer);
-
-        toastTimer = setTimeout(() => {
-
-            toast.classList.remove("show");
-
-        }, 3000);
-
-    }
+    const channelFields = [
+        "log_channel",
+        "security_log_channel",
+        "transcript_channel",
+        "welcome_channel"
+    ];
 
 
-    /*
-     * LOAD DISCORD SERVERS
-     */
+    for (
+        const field of channelFields
+    ) {
 
-    async function loadGuilds() {
+        if (
+            settings[field] &&
+            !/^\d{15,25}$/
+                .test(settings[field])
+        ) {
 
-        try {
-
-            const response =
-                await fetch(
-                    "/api/auth/guilds",
-                    {
-                        credentials: "include",
-                        headers: {
-                            "Accept": "application/json"
-                        }
-                    }
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Not authenticated"
-                );
-
-            }
-
-
-            const data =
-                await response.json();
-
-
-            document
-                .getElementById("loginPanel")
-                .style.display = "none";
-
-
-            document
-                .getElementById("dashboard")
-                .style.display = "grid";
-
-
-            document
-                .getElementById("loginButton")
-                .textContent = "Dashboard";
-
-
-            renderGuilds(
-                Array.isArray(data.guilds)
-                    ? data.guilds
-                    : []
+            showToast(
+                "Invalid channel ID",
+                `${field.replaceAll("_"," ")} is not valid.`
             );
 
-
-        } catch (error) {
-
-            console.log(
-                "Discord authentication required."
-            );
+            return false;
 
         }
 
     }
 
 
+    return true;
+
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+async function saveSettings() {
+
+    if (!selectedGuild) {
+
+        showToast(
+            "Select a server",
+            "Choose a Discord server first."
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "saveButton"
+        );
+
+    const topSave =
+        document.getElementById(
+            "topSave"
+        );
+
+
+    const settings =
+        collectSettings();
+
+
+    if (!validateSettings(settings)) {
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+    topSave.disabled = true;
+
+    button.textContent =
+        "Saving...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/guilds/${encodeURIComponent(selectedGuild.id)}/settings`,
+                {
+                    method: "PUT",
+
+                    credentials: "include",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "Accept":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(settings)
+                }
+            );
+
+
+        if (!response.ok) {
+
+            let message =
+                "Unable to save settings.";
+
+            try {
+
+                const data =
+                    await response.json();
+
+                if (data.error) {
+
+                    message =
+                        data.error;
+
+                }
+
+            } catch (_) {}
+
+            throw new Error(message);
+
+        }
+
+
+        showToast(
+            "Changes saved",
+            "Oxelon has updated this server's configuration."
+        );
+
+
+        updateProtectionCount();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Save failed",
+            error.message ||
+            "Unable to save settings."
+        );
+
+    } finally {
+
+        button.disabled = false;
+        topSave.disabled = false;
+
+        button.textContent =
+            "Save Changes";
+
+    }
+
+}
+
+
+/* =========================================================
+   PROTECTION COUNT
+========================================================= */
+
+function updateProtectionCount() {
+
+    const keys = [
+        "antinuke",
+        "raid_protection",
+        "spam_protection",
+        "automod",
+        "verification"
+    ];
+
+
+    let enabled = 0;
+
+
+    keys.forEach(key => {
+
+        const checkbox =
+            document.querySelector(
+                `[data-command="${key}"]`
+            );
+
+        if (
+            checkbox &&
+            checkbox.checked
+        ) {
+
+            enabled++;
+
+        }
+
+    });
+
+
+    const counter =
+        document.getElementById(
+            "protectionCount"
+        );
+
+
+    if (counter) {
+
+        counter.textContent =
+            `${enabled}/${keys.length}`;
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD GUILDS
+========================================================= */
+
+async function loadGuilds() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/auth/guilds",
+                {
+                    credentials: "include",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Not authenticated"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        document
+        .getElementById("loginPanel")
+        .style.display = "none";
+
+
+        document
+        .getElementById("dashboard")
+        .style.display = "block";
+
+
+        if (data.user) {
+
+            if (data.user.username) {
+
+                document
+                .getElementById("userName")
+                .textContent =
+                    data.user.username;
+
+            }
+
+            if (data.user.avatar) {
+
+                document
+                .getElementById("userAvatar")
+                .src =
+                    data.user.avatar;
+
+            }
+
+        }
+
+
+        const guilds =
+            Array.isArray(data.guilds)
+                ? data.guilds
+                : [];
+
+
+        renderGuilds(guilds);
+
+
+        if (guilds.length) {
+
+            selectGuild(guilds[0]);
+
+        }
+
+
+    } catch (error) {
+
+        console.log(
+            "Discord authentication required."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GUILDS
+========================================================= */
+
+function renderGuilds(guilds) {
+
     /*
-     * RENDER SERVERS
+     * The selector itself is kept simple.
+     * Clicking it cycles through available servers.
      */
 
-    function renderGuilds(guilds) {
+    const selector =
+        document.getElementById(
+            "serverSelector"
+        );
 
-        const list =
-            document.getElementById("serverList");
 
-
-        list.innerHTML = "";
-
+    selector.onclick = () => {
 
         if (!guilds.length) {
 
-            const empty =
-                document.createElement("div");
-
-            empty.className = "empty-state";
-
-            empty.textContent =
-                "No manageable servers found.";
-
-            list.appendChild(empty);
+            showToast(
+                "No servers",
+                "No manageable Discord servers were found."
+            );
 
             return;
 
         }
 
 
-        guilds.forEach(guild => {
-
-            const button =
-                document.createElement("button");
-
-
-            button.type = "button";
-            button.className = "server-button";
+        const currentIndex =
+            guilds.findIndex(
+                guild =>
+                    selectedGuild &&
+                    guild.id === selectedGuild.id
+            );
 
 
-            const icon =
-                document.createElement("img");
+        const next =
+            guilds[
+                (currentIndex + 1)
+                % guilds.length
+            ];
 
 
-            icon.src =
-                guild.icon ||
-                "images/oxelon.png";
+        selectGuild(next);
 
-            icon.alt = "";
+    };
 
-
-            const name =
-                document.createElement("span");
+}
 
 
-            name.textContent =
-                guild.name || "Unknown Server";
+/* =========================================================
+   SELECT GUILD
+========================================================= */
+
+async function selectGuild(guild) {
+
+    selectedGuild =
+        guild;
 
 
-            button.appendChild(icon);
-            button.appendChild(name);
+    document
+    .getElementById("serverName")
+    .textContent =
+        guild.name ||
+        "Unknown Server";
 
 
-            button.addEventListener(
-                "click",
-                () => {
-
-                    document
-                        .querySelectorAll(
-                            ".server-button"
-                        )
-                        .forEach(item => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        });
+    document
+    .getElementById("overviewServer")
+    .textContent =
+        guild.name ||
+        "Unknown Server";
 
 
-                    button.classList.add(
-                        "active"
-                    );
+    document
+    .getElementById("serverIcon")
+    .src =
+        guild.icon ||
+        "images/oxelon.png";
 
 
-                    selectGuild(guild);
+    /*
+     * Optional member count supplied by backend.
+     */
 
+    document
+    .getElementById("memberCount")
+    .textContent =
+        guild.member_count ??
+        "—";
+
+
+    resetSettings();
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/guilds/${encodeURIComponent(guild.id)}/settings`,
+                {
+                    credentials: "include",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
                 }
             );
 
 
-            list.appendChild(button);
+        if (!response.ok) {
 
-        });
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        const settings =
+            await response.json();
+
+
+        applySettings(
+            settings || {}
+        );
+
+
+        showToast(
+            "Server loaded",
+            `${guild.name} configuration loaded.`
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Settings load failed:",
+            error
+        );
+
+
+        showToast(
+            "Load failed",
+            "Unable to load this server's configuration."
+        );
 
     }
 
-
-    /*
-     * RESET FORM
-     */
-
-    function resetSettings() {
-
-        const defaults =
-            DEFAULT_SETTINGS;
+}
 
 
-        document
-            .querySelectorAll(
+/* =========================================================
+   LIVE TOGGLES
+========================================================= */
+
+document
+.addEventListener(
+    "change",
+    event => {
+
+        if (
+            event.target.matches(
                 "[data-command]"
             )
-            .forEach(input => {
+        ) {
 
-                const command =
-                    input.dataset.command;
+            updateProtectionCount();
 
-
-                input.checked =
-                    defaults[command] !== false;
-
-            });
-
-
-        document.getElementById("botName")
-            .value = defaults.bot_name;
-
-        document.getElementById("embedColor")
-            .value = defaults.embed_color;
-
-        document.getElementById("footerText")
-            .value = defaults.footer_text;
-
-        document.getElementById("timezone")
-            .value = defaults.timezone;
-
-        document.getElementById("logChannel")
-            .value = defaults.log_channel;
-
-        document.getElementById("transcriptChannel")
-            .value = defaults.transcript_channel;
+        }
 
     }
+);
 
 
-    /*
-     * SELECT SERVER
-     */
+/* =========================================================
+   START
+========================================================= */
 
-    async function selectGuild(guild) {
-
-        selectedGuild = guild;
-
-
-        document
-            .getElementById("selectedServerName")
-            .textContent =
-                guild.name || "Unknown Server";
-
-
-        document
-            .getElementById("serverLabel")
-            .textContent =
-                guild.name || "Unknown Server";
-
-
-        document
-            .getElementById("selectedServerIcon")
-            .src =
-                guild.icon ||
-                "images/oxelon.png";
-
-
-        document
-            .getElementById("saveButton")
-            .disabled = true;
-
+document
+.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
         resetSettings();
 
-
-        document
-            .getElementById("statusText")
-            .textContent =
-                "Loading";
-
-
-        document
-            .getElementById("statusDot")
-            .classList.remove("online");
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `/api/guilds/${encodeURIComponent(guild.id)}/settings`,
-                    {
-                        credentials: "include",
-                        headers: {
-                            "Accept": "application/json"
-                        }
-                    }
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    `HTTP ${response.status}`
-                );
-
-            }
-
-
-            const settings =
-                await response.json();
-
-
-            applySettings(
-                settings || {}
-            );
-
-
-            document
-                .getElementById("statusText")
-                .textContent =
-                    "Configured";
-
-
-            document
-                .getElementById("statusDot")
-                .classList.add("online");
-
-
-            document
-                .getElementById("saveButton")
-                .disabled = false;
-
-
-        } catch (error) {
-
-            console.error(
-                "Failed to load server settings:",
-                error
-            );
-
-
-            document
-                .getElementById("statusText")
-                .textContent =
-                    "Unable to load";
-
-
-            showToast(
-                "Unable to load",
-                "Oxelon could not load this server's settings."
-            );
-
-        }
+        loadGuilds();
 
     }
-
-
-    /*
-     * APPLY SETTINGS
-     */
-
-    function applySettings(settings) {
-
-        document
-            .querySelectorAll(
-                "[data-command]"
-            )
-            .forEach(input => {
-
-                const command =
-                    input.dataset.command;
-
-
-                if (
-                    Object.prototype
-                        .hasOwnProperty
-                        .call(
-                            settings,
-                            command
-                        )
-                ) {
-
-                    input.checked =
-                        Boolean(
-                            settings[command]
-                        );
-
-                }
-
-            });
-
-
-        if (
-            settings.bot_name !== undefined
-        ) {
-
-            document
-                .getElementById("botName")
-                .value =
-                    settings.bot_name;
-
-        }
-
-
-        if (
-            settings.embed_color !== undefined
-        ) {
-
-            document
-                .getElementById("embedColor")
-                .value =
-                    settings.embed_color;
-
-        }
-
-
-        if (
-            settings.footer_text !== undefined
-        ) {
-
-            document
-                .getElementById("footerText")
-                .value =
-                    settings.footer_text;
-
-        }
-
-
-        if (
-            settings.timezone !== undefined
-        ) {
-
-            document
-                .getElementById("timezone")
-                .value =
-                    settings.timezone;
-
-        }
-
-
-        if (
-            settings.log_channel !== undefined
-        ) {
-
-            document
-                .getElementById("logChannel")
-                .value =
-                    settings.log_channel;
-
-        }
-
-
-        if (
-            settings.transcript_channel !== undefined
-        ) {
-
-            document
-                .getElementById("transcriptChannel")
-                .value =
-                    settings.transcript_channel;
-
-        }
-
-    }
-
-
-    /*
-     * VALIDATE SETTINGS
-     */
-
-    function validateSettings(settings) {
-
-        if (
-            settings.embed_color &&
-            !/^#[0-9A-Fa-f]{6}$/.test(
-                settings.embed_color
-            )
-        ) {
-
-            showToast(
-                "Invalid colour",
-                "Embed colour must use the format #RRGGBB."
-            );
-
-            return false;
-
-        }
-
-
-        if (
-            settings.log_channel &&
-            !/^\d{15,25}$/.test(
-                settings.log_channel
-            )
-        ) {
-
-            showToast(
-                "Invalid channel ID",
-                "The log channel ID does not appear to be valid."
-            );
-
-            return false;
-
-        }
-
-
-        if (
-            settings.transcript_channel &&
-            !/^\d{15,25}$/.test(
-                settings.transcript_channel
-            )
-        ) {
-
-            showToast(
-                "Invalid channel ID",
-                "The transcript channel ID does not appear to be valid."
-            );
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-    /*
-     * SAVE SERVER SETTINGS
-     */
-
-    async function saveSettings() {
-
-        if (!selectedGuild) {
-
-            showToast(
-                "No server selected",
-                "Select a server before saving settings."
-            );
-
-            return;
-
-        }
-
-
-        const button =
-            document.getElementById(
-                "saveButton"
-            );
-
-
-        const status =
-            document.getElementById(
-                "saveStatus"
-            );
-
-
-        const settings = {};
-
-
-        document
-            .querySelectorAll(
-                "[data-command]"
-            )
-            .forEach(input => {
-
-                settings[
-                    input.dataset.command
-                ] =
-                    input.checked;
-
-            });
-
-
-        settings.bot_name =
-            document
-                .getElementById("botName")
-                .value
-                .trim();
-
-
-        settings.embed_color =
-            document
-                .getElementById("embedColor")
-                .value
-                .trim();
-
-
-        settings.footer_text =
-            document
-                .getElementById("footerText")
-                .value
-                .trim();
-
-
-        settings.timezone =
-            document
-                .getElementById("timezone")
-                .value;
-
-
-        settings.log_channel =
-            document
-                .getElementById("logChannel")
-                .value
-                .trim();
-
-
-        settings.transcript_channel =
-            document
-                .getElementById("transcriptChannel")
-                .value
-                .trim();
-
-
-        if (!validateSettings(settings)) {
-
-            return;
-
-        }
-
-
-        button.disabled = true;
-        button.textContent = "Saving...";
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `/api/guilds/${encodeURIComponent(selectedGuild.id)}/settings`,
-                    {
-                        method: "PUT",
-
-                        credentials: "include",
-
-                        headers: {
-                            "Content-Type":
-                                "application/json",
-                            "Accept":
-                                "application/json"
-                        },
-
-                        body:
-                            JSON.stringify(
-                                settings
-                            )
-                    }
-                );
-
-
-            if (!response.ok) {
-
-                let message =
-                    "Unable to save server settings.";
-
-                try {
-
-                    const errorData =
-                        await response.json();
-
-                    if (
-                        errorData &&
-                        errorData.error
-                    ) {
-
-                        message =
-                            errorData.error;
-
-                    }
-
-                } catch (_) {}
-
-
-                throw new Error(message);
-
-            }
-
-
-            status.style.display =
-                "inline";
-
-
-            showToast(
-                "Settings saved",
-                "Your Oxelon server configuration has been updated."
-            );
-
-
-            setTimeout(() => {
-
-                status.style.display =
-                    "none";
-
-            }, 2500);
-
-
-        } catch (error) {
-
-            console.error(
-                "Save error:",
-                error
-            );
-
-
-            showToast(
-                "Save failed",
-                error.message ||
-                "Unable to save the server settings."
-            );
-
-
-        } finally {
-
-            button.disabled = false;
-            button.textContent = "Save Changes";
-
-        }
-
-    }
-
-
-    /*
-     * INITIALISE
-     */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        () => {
-
-            resetSettings();
-            loadGuilds();
-
-        }
-    );
+);
 
 </script>
 
