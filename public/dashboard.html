@@ -47,9 +47,7 @@
             cursor: pointer;
         }
 
-        /* =====================================================
-           LOGIN
-        ===================================================== */
+        /* LOGIN */
 
         #loginScreen {
             min-height: 100vh;
@@ -115,9 +113,7 @@
             font-size: 11px;
         }
 
-        /* =====================================================
-           DASHBOARD
-        ===================================================== */
+        /* DASHBOARD */
 
         #dashboard {
             display: none;
@@ -163,6 +159,7 @@
             width: 29px;
             height: 29px;
             border-radius: 50%;
+            object-fit: cover;
         }
 
         .account span {
@@ -170,9 +167,7 @@
             font-weight: 700;
         }
 
-        /* =====================================================
-           LAYOUT
-        ===================================================== */
+        /* LAYOUT */
 
         .layout {
             display: grid;
@@ -248,9 +243,7 @@
             padding: 10px 8px;
         }
 
-        /* =====================================================
-           MAIN
-        ===================================================== */
+        /* MAIN */
 
         main {
             grid-column: 2;
@@ -310,9 +303,7 @@
             background: var(--success);
         }
 
-        /* =====================================================
-           SECTION
-        ===================================================== */
+        /* SECTIONS */
 
         .section {
             margin-bottom: 30px;
@@ -371,9 +362,7 @@
             line-height: 1.6;
         }
 
-        /* =====================================================
-           TOGGLE
-        ===================================================== */
+        /* TOGGLE */
 
         .toggle {
             position: relative;
@@ -415,9 +404,7 @@
             background: white;
         }
 
-        /* =====================================================
-           SETTINGS
-        ===================================================== */
+        /* SETTINGS */
 
         .settings {
             display: grid;
@@ -462,9 +449,7 @@
             font-size: 8px;
         }
 
-        /* =====================================================
-           SAVE
-        ===================================================== */
+        /* SAVE */
 
         .save-bar {
             position: sticky;
@@ -500,9 +485,7 @@
             cursor: not-allowed;
         }
 
-        /* =====================================================
-           TOAST
-        ===================================================== */
+        /* TOAST */
 
         #toast {
             position: fixed;
@@ -537,9 +520,7 @@
             font-size: 9px;
         }
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+        /* MOBILE */
 
         @media (max-width: 850px) {
 
@@ -592,9 +573,7 @@
 
 <body>
 
-<!-- =========================================================
-     LOGIN
-========================================================= -->
+<!-- LOGIN -->
 
 <div id="loginScreen">
 
@@ -606,9 +585,7 @@
             alt="Oxelon"
         >
 
-        <h1>
-            Oxelon Dashboard
-        </h1>
+        <h1>Oxelon Dashboard</h1>
 
         <p>
             Sign in with Discord to manage your
@@ -629,9 +606,7 @@
 </div>
 
 
-<!-- =========================================================
-     DASHBOARD
-========================================================= -->
+<!-- DASHBOARD -->
 
 <div id="dashboard">
 
@@ -644,9 +619,7 @@
                 alt="Oxelon"
             >
 
-            <span>
-                Oxelon
-            </span>
+            <span>Oxelon</span>
 
         </div>
 
@@ -658,9 +631,7 @@
                 alt=""
             >
 
-            <span id="username">
-                Loading...
-            </span>
+            <span id="username">Loading...</span>
 
         </div>
 
@@ -741,6 +712,7 @@
                                 Allow staff to warn members.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="warn" checked>
                             <span class="slider"></span>
@@ -754,6 +726,7 @@
                                 Temporarily restrict members.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="mute" checked>
                             <span class="slider"></span>
@@ -767,6 +740,7 @@
                                 Allow staff to kick members.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="kick" checked>
                             <span class="slider"></span>
@@ -780,6 +754,7 @@
                                 Allow staff to ban members.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="ban" checked>
                             <span class="slider"></span>
@@ -793,6 +768,7 @@
                                 Delete multiple messages quickly.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="purge" checked>
                             <span class="slider"></span>
@@ -822,6 +798,7 @@
                                 Protect the server from destructive actions.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="antinuke" checked>
                             <span class="slider"></span>
@@ -835,6 +812,7 @@
                                 Detect suspicious mass joins.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="raid_protection" checked>
                             <span class="slider"></span>
@@ -848,6 +826,7 @@
                                 Automatically detect message spam.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="spam_protection" checked>
                             <span class="slider"></span>
@@ -861,6 +840,7 @@
                                 Automatically moderate configured content.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="automod" checked>
                             <span class="slider"></span>
@@ -874,6 +854,7 @@
                                 Record important security events.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="security_logs" checked>
                             <span class="slider"></span>
@@ -903,6 +884,7 @@
                                 Lock channels.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="lock" checked>
                             <span class="slider"></span>
@@ -916,6 +898,7 @@
                                 Unlock channels.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="unlock" checked>
                             <span class="slider"></span>
@@ -929,6 +912,7 @@
                                 Configure channel slowmode.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="slowmode" checked>
                             <span class="slider"></span>
@@ -942,6 +926,7 @@
                                 Allow role management commands.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="roleadd" checked>
                             <span class="slider"></span>
@@ -971,6 +956,7 @@
                                 Welcome new members.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="welcome" checked>
                             <span class="slider"></span>
@@ -984,6 +970,7 @@
                                 Allow members to obtain roles.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="reaction_roles" checked>
                             <span class="slider"></span>
@@ -997,6 +984,7 @@
                                 Enable the ticket system.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="tickets" checked>
                             <span class="slider"></span>
@@ -1010,6 +998,7 @@
                                 Enable staff applications.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="applications" checked>
                             <span class="slider"></span>
@@ -1039,6 +1028,7 @@
                                 Connect Oxelon to ERLC.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="erlc" checked>
                             <span class="slider"></span>
@@ -1052,6 +1042,7 @@
                                 Enable ERLC moderation tools.
                             </div>
                         </div>
+
                         <label class="toggle">
                             <input type="checkbox" data-key="erlc_moderation" checked>
                             <span class="slider"></span>
@@ -1075,9 +1066,8 @@
                 <div class="settings">
 
                     <div class="setting">
-                        <label for="bot_name">
-                            Bot Name
-                        </label>
+                        <label for="bot_name">Bot Name</label>
+
                         <input
                             id="bot_name"
                             maxlength="32"
@@ -1086,23 +1076,22 @@
                     </div>
 
                     <div class="setting">
-                        <label for="embed_color">
-                            Embed Colour
-                        </label>
+                        <label for="embed_color">Embed Colour</label>
+
                         <input
                             id="embed_color"
                             maxlength="7"
                             placeholder="#5865F2"
                         >
+
                         <div class="help">
                             Example: #5865F2
                         </div>
                     </div>
 
                     <div class="setting">
-                        <label for="footer_text">
-                            Footer Text
-                        </label>
+                        <label for="footer_text">Footer Text</label>
+
                         <input
                             id="footer_text"
                             maxlength="100"
@@ -1111,28 +1100,18 @@
                     </div>
 
                     <div class="setting">
-                        <label for="timezone">
-                            Timezone
-                        </label>
+                        <label for="timezone">Timezone</label>
 
                         <select id="timezone">
                             <option value="UTC">UTC</option>
-                            <option value="Europe/London">
-                                Europe/London
-                            </option>
-                            <option value="America/New_York">
-                                America/New_York
-                            </option>
-                            <option value="America/Los_Angeles">
-                                America/Los_Angeles
-                            </option>
+                            <option value="Europe/London">Europe/London</option>
+                            <option value="America/New_York">America/New_York</option>
+                            <option value="America/Los_Angeles">America/Los_Angeles</option>
                         </select>
                     </div>
 
                     <div class="setting">
-                        <label for="log_channel">
-                            Log Channel ID
-                        </label>
+                        <label for="log_channel">Log Channel ID</label>
 
                         <input
                             id="log_channel"
@@ -1142,9 +1121,7 @@
                     </div>
 
                     <div class="setting">
-                        <label for="ticket_channel">
-                            Ticket Channel ID
-                        </label>
+                        <label for="ticket_channel">Ticket Channel ID</label>
 
                         <input
                             id="ticket_channel"
@@ -1187,9 +1164,7 @@
 
 <div id="toast">
 
-    <strong id="toastTitle">
-        Oxelon
-    </strong>
+    <strong id="toastTitle">Oxelon</strong>
 
     <span id="toastMessage">
         Done.
@@ -1200,710 +1175,792 @@
 
 <script>
 
-    let selectedGuild = null;
-    let toastTimeout = null;
+"use strict";
+
+/* ============================================================
+   STATE
+============================================================ */
+
+let selectedGuild = null;
+let toastTimeout = null;
+let loadingGuild = false;
 
 
-    const DEFAULTS = {
+/* ============================================================
+   DEFAULT SETTINGS
+============================================================ */
 
-        warn: true,
-        mute: true,
-        kick: true,
-        ban: true,
-        purge: true,
+const DEFAULTS = {
 
-        antinuke: true,
-        raid_protection: true,
-        spam_protection: true,
-        automod: true,
-        security_logs: true,
+    warn: true,
+    mute: true,
+    kick: true,
+    ban: true,
+    purge: true,
 
-        lock: true,
-        unlock: true,
-        slowmode: true,
-        roleadd: true,
+    antinuke: true,
+    raid_protection: true,
+    spam_protection: true,
+    automod: true,
+    security_logs: true,
 
-        welcome: true,
-        reaction_roles: true,
-        tickets: true,
-        applications: true,
+    lock: true,
+    unlock: true,
+    slowmode: true,
+    roleadd: true,
 
-        erlc: true,
-        erlc_moderation: true,
+    welcome: true,
+    reaction_roles: true,
+    tickets: true,
+    applications: true,
 
-        bot_name: "Oxelon",
-        embed_color: "#5865F2",
-        footer_text: "Oxelon",
-        timezone: "UTC",
-        log_channel: "",
-        ticket_channel: ""
+    erlc: true,
+    erlc_moderation: true,
 
+    bot_name: "Oxelon",
+    embed_color: "#5865F2",
+    footer_text: "Oxelon",
+    timezone: "UTC",
+    log_channel: "",
+    ticket_channel: ""
+
+};
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+function toast(title, message) {
+
+    $("toastTitle").textContent = title;
+    $("toastMessage").textContent = message;
+
+    const element = $("toast");
+
+    element.classList.add("show");
+
+    clearTimeout(toastTimeout);
+
+    toastTimeout = setTimeout(() => {
+        element.classList.remove("show");
+    }, 3500);
+}
+
+
+function showLoginError(message) {
+
+    const error = $("loginError");
+
+    error.textContent = message || "Something went wrong.";
+    error.style.display = "block";
+}
+
+
+function clearLoginError() {
+
+    const error = $("loginError");
+
+    error.textContent = "";
+    error.style.display = "none";
+}
+
+
+function showDashboard() {
+
+    clearLoginError();
+
+    $("loginScreen").style.display = "none";
+    $("dashboard").style.display = "block";
+}
+
+
+function showLogin() {
+
+    $("dashboard").style.display = "none";
+    $("loginScreen").style.display = "flex";
+}
+
+
+function setConnection(status, online = false) {
+
+    $("connectionText").textContent = status;
+
+    $("connectionDot").classList.toggle(
+        "online",
+        online
+    );
+}
+
+
+/* ============================================================
+   RESET FORM
+============================================================ */
+
+function resetForm() {
+
+    document
+        .querySelectorAll("[data-key]")
+        .forEach(input => {
+
+            const key = input.dataset.key;
+
+            input.checked =
+                DEFAULTS[key] !== false;
+
+        });
+
+
+    $("bot_name").value =
+        DEFAULTS.bot_name;
+
+    $("embed_color").value =
+        DEFAULTS.embed_color;
+
+    $("footer_text").value =
+        DEFAULTS.footer_text;
+
+    $("timezone").value =
+        DEFAULTS.timezone;
+
+    $("log_channel").value =
+        DEFAULTS.log_channel;
+
+    $("ticket_channel").value =
+        DEFAULTS.ticket_channel;
+}
+
+
+/* ============================================================
+   APPLY SETTINGS
+============================================================ */
+
+function applySettings(settings) {
+
+    const data = {
+        ...DEFAULTS,
+        ...(settings || {})
     };
 
 
-    function toast(title, message) {
+    document
+        .querySelectorAll("[data-key]")
+        .forEach(input => {
 
-        document.getElementById("toastTitle")
-            .textContent = title;
+            const key = input.dataset.key;
 
-        document.getElementById("toastMessage")
-            .textContent = message;
-
-        const element =
-            document.getElementById("toast");
-
-        element.classList.add("show");
-
-        clearTimeout(toastTimeout);
-
-        toastTimeout =
-            setTimeout(() => {
-                element.classList.remove("show");
-            }, 3500);
-
-    }
-
-
-    function resetForm() {
-
-        document
-            .querySelectorAll("[data-key]")
-            .forEach(input => {
-
-                const key =
-                    input.dataset.key;
-
-                input.checked =
-                    DEFAULTS[key] !== false;
-
-            });
-
-
-        document.getElementById("bot_name")
-            .value = DEFAULTS.bot_name;
-
-        document.getElementById("embed_color")
-            .value = DEFAULTS.embed_color;
-
-        document.getElementById("footer_text")
-            .value = DEFAULTS.footer_text;
-
-        document.getElementById("timezone")
-            .value = DEFAULTS.timezone;
-
-        document.getElementById("log_channel")
-            .value = DEFAULTS.log_channel;
-
-        document.getElementById("ticket_channel")
-            .value = DEFAULTS.ticket_channel;
-
-    }
-
-
-    function applySettings(settings) {
-
-        settings =
-            settings || {};
-
-
-        document
-            .querySelectorAll("[data-key]")
-            .forEach(input => {
-
-                const key =
-                    input.dataset.key;
-
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        settings,
-                        key
-                    )
-                ) {
-                    input.checked =
-                        Boolean(settings[key]);
-                }
-
-            });
-
-
-        const fields = [
-            "bot_name",
-            "embed_color",
-            "footer_text",
-            "timezone",
-            "log_channel",
-            "ticket_channel"
-        ];
-
-
-        fields.forEach(key => {
-
-            if (
-                settings[key] !== undefined &&
-                document.getElementById(key)
-            ) {
-
-                document.getElementById(key)
-                    .value = settings[key];
-
-            }
+            input.checked =
+                data[key] !== false;
 
         });
 
-    }
 
+    $("bot_name").value =
+        data.bot_name || DEFAULTS.bot_name;
 
-    function collectSettings() {
+    $("embed_color").value =
+        data.embed_color || DEFAULTS.embed_color;
 
-        const settings = {};
+    $("footer_text").value =
+        data.footer_text || DEFAULTS.footer_text;
 
+    $("timezone").value =
+        data.timezone || DEFAULTS.timezone;
 
-        document
-            .querySelectorAll("[data-key]")
-            .forEach(input => {
+    $("log_channel").value =
+        data.log_channel || "";
 
-                settings[
-                    input.dataset.key
-                ] = input.checked;
+    $("ticket_channel").value =
+        data.ticket_channel || "";
+}
 
-            });
 
+/* ============================================================
+   COLLECT SETTINGS
+============================================================ */
 
-        settings.bot_name =
-            document.getElementById("bot_name")
-                .value.trim();
+function collectSettings() {
 
-        settings.embed_color =
-            document.getElementById("embed_color")
-                .value.trim();
+    const settings = {};
 
-        settings.footer_text =
-            document.getElementById("footer_text")
-                .value.trim();
 
-        settings.timezone =
-            document.getElementById("timezone")
-                .value;
+    document
+        .querySelectorAll("[data-key]")
+        .forEach(input => {
 
-        settings.log_channel =
-            document.getElementById("log_channel")
-                .value.trim();
-
-        settings.ticket_channel =
-            document.getElementById("ticket_channel")
-                .value.trim();
-
-
-        return settings;
-
-    }
-
-
-    async function loadGuilds() {
-
-        try {
-
-            const response =
-                await fetch(
-                    "/api/auth/guilds",
-                    {
-                        method: "GET",
-                        credentials: "include",
-                        headers: {
-                            "Accept":
-                                "application/json"
-                        }
-                    }
-                );
-
-
-            if (response.status === 401) {
-
-                showLogin();
-
-                return;
-
-            }
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    `Guild request failed: ${response.status}`
-                );
-
-            }
-
-
-            const data =
-                await response.json();
-
-
-            showDashboard();
-
-
-            if (data.user) {
-
-                document.getElementById("username")
-                    .textContent =
-                    data.user.global_name ||
-                    data.user.username ||
-                    "Discord User";
-
-
-                if (data.user.avatar) {
-
-                    document.getElementById("userAvatar")
-                        .src =
-                        data.user.avatar;
-
-                }
-
-            }
-
-
-            renderGuilds(
-                Array.isArray(data.guilds)
-                    ? data.guilds
-                    : []
-            );
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            showLogin();
-
-            showLoginError(
-                error.message ||
-                "Unable to connect to Oxelon."
-            );
-
-        }
-
-    }
-
-
-    function renderGuilds(guilds) {
-
-        const list =
-            document.getElementById("serverList");
-
-        list.innerHTML = "";
-
-
-        if (!guilds.length) {
-
-            list.innerHTML =
-                `<div class="no-servers">
-                    No manageable Discord servers found.
-                </div>`;
-
-            return;
-
-        }
-
-
-        guilds.forEach(guild => {
-
-            const button =
-                document.createElement("button");
-
-            button.className =
-                "server";
-
-            button.type =
-                "button";
-
-
-            const img =
-                document.createElement("img");
-
-            img.src =
-                guild.icon ||
-                "images/oxelon.png";
-
-
-            const span =
-                document.createElement("span");
-
-            span.textContent =
-                guild.name ||
-                "Unknown Server";
-
-
-            button.appendChild(img);
-            button.appendChild(span);
-
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    document
-                        .querySelectorAll(".server")
-                        .forEach(item => {
-                            item.classList.remove(
-                                "active"
-                            );
-                        });
-
-                    button.classList.add(
-                        "active"
-                    );
-
-                    selectGuild(guild);
-
-                }
-            );
-
-
-            list.appendChild(button);
+            settings[input.dataset.key] =
+                input.checked;
 
         });
 
 
-        const first =
-            list.querySelector(".server");
+    settings.bot_name =
+        $("bot_name").value.trim();
 
-        if (first) {
-            first.click();
+    settings.embed_color =
+        $("embed_color").value.trim();
+
+    settings.footer_text =
+        $("footer_text").value.trim();
+
+    settings.timezone =
+        $("timezone").value;
+
+    settings.log_channel =
+        $("log_channel").value.trim();
+
+    settings.ticket_channel =
+        $("ticket_channel").value.trim();
+
+
+    return settings;
+}
+
+
+/* ============================================================
+   API REQUEST
+============================================================ */
+
+async function apiRequest(url, options = {}) {
+
+    const response = await fetch(
+        url,
+        {
+            credentials: "include",
+            ...options,
+            headers: {
+                "Accept": "application/json",
+                ...(options.headers || {})
+            }
         }
+    );
 
+
+    let data = {};
+
+    try {
+        data = await response.json();
+    } catch {
+        data = {};
     }
 
 
-    async function selectGuild(guild) {
+    if (response.status === 401) {
 
-        selectedGuild =
-            guild;
+        showLogin();
+
+        throw new Error(
+            "Your Discord session has expired. Please sign in again."
+        );
+    }
 
 
-        document.getElementById("serverName")
-            .textContent =
+    if (!response.ok) {
+
+        throw new Error(
+            data.error ||
+            data.message ||
+            `Request failed with status ${response.status}`
+        );
+    }
+
+
+    return data;
+}
+
+
+/* ============================================================
+   LOAD DISCORD SERVERS
+============================================================ */
+
+async function loadGuilds() {
+
+    clearLoginError();
+
+    try {
+
+        const data =
+            await apiRequest(
+                "/api/auth/guilds",
+                {
+                    method: "GET"
+                }
+            );
+
+
+        showDashboard();
+
+
+        /*
+         * Discord user
+         */
+
+        if (data.user) {
+
+            $("username").textContent =
+                data.user.global_name ||
+                data.user.username ||
+                "Discord User";
+
+
+            if (data.user.avatar) {
+
+                $("userAvatar").src =
+                    data.user.avatar;
+
+            }
+
+        }
+
+
+        /*
+         * Servers
+         */
+
+        const guilds =
+            Array.isArray(data.guilds)
+                ? data.guilds
+                : [];
+
+
+        renderGuilds(guilds);
+
+
+    } catch (error) {
+
+        console.error(
+            "Guild loading error:",
+            error
+        );
+
+
+        showLogin();
+
+
+        showLoginError(
+            error.message ||
+            "Unable to connect to Oxelon."
+        );
+
+    }
+}
+
+
+/* ============================================================
+   RENDER SERVERS
+============================================================ */
+
+function renderGuilds(guilds) {
+
+    const list =
+        $("serverList");
+
+    list.innerHTML = "";
+
+
+    if (!guilds.length) {
+
+        list.innerHTML = `
+            <div class="no-servers">
+                No manageable Discord servers found.
+            </div>
+        `;
+
+        $("serverName").textContent =
+            "No servers";
+
+        $("serverDescription").textContent =
+            "You do not have any Discord servers that Oxelon can manage.";
+
+        $("saveButton").disabled = true;
+
+        return;
+    }
+
+
+    guilds.forEach(guild => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "server";
+        button.type = "button";
+
+
+        const img =
+            document.createElement("img");
+
+        img.src =
+            guild.icon ||
+            "images/oxelon.png";
+
+        img.alt = "";
+
+
+        img.onerror = () => {
+            img.src = "images/oxelon.png";
+        };
+
+
+        const span =
+            document.createElement("span");
+
+        span.textContent =
             guild.name ||
             "Unknown Server";
 
 
-        document.getElementById("serverDescription")
-            .textContent =
-            `Configure Oxelon for ${
-                guild.name || "this server"
-            }.`;
+        button.appendChild(img);
+        button.appendChild(span);
 
-        document.getElementById("connectionText")
-            .textContent =
-            "Loading...";
 
-        document.getElementById("connectionDot")
-            .classList.remove("online");
-
-        document.getElementById("saveButton")
-            .disabled = true;
-
-        document.getElementById("saveInfo")
-            .textContent =
-            "Loading server settings...";
-
-
-        resetForm();
-
-
-        /*
-         * IMPORTANT:
-         *
-         * settings.js is:
-         *
-         * api/auth/guilds/[guildID]/settings.js
-         *
-         * Therefore the route is:
-         *
-         * /api/auth/guilds/GUILD_ID/settings
-         */
-
-        const url =
-            `/api/auth/guilds/${
-                encodeURIComponent(guild.id)
-            }/settings`;
-
-
-        try {
-
-            const response =
-                await fetch(
-                    url,
-                    {
-                        method: "GET",
-                        credentials: "include",
-                        headers: {
-                            "Accept":
-                                "application/json"
-                        }
-                    }
-                );
-
-
-            if (response.status === 401) {
-
-                showLogin();
-
-                return;
-
-            }
-
-
-            if (response.status === 403) {
-
-                throw new Error(
-                    "You do not have permission to manage this server."
-                );
-
-            }
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    `Settings request failed: ${response.status}`
-                );
-
-            }
-
-
-            const settings =
-                await response.json();
-
-
-            applySettings(
-                settings
-            );
-
-
-            document.getElementById("connectionText")
-                .textContent =
-                "Connected";
-
-            document.getElementById("connectionDot")
-                .classList.add("online");
-
-            document.getElementById("saveButton")
-                .disabled = false;
-
-            document.getElementById("saveInfo")
-                .textContent =
-                "Settings loaded successfully.";
-
-        } catch (error) {
-
-            console.error(
-                "Settings error:",
-                error
-            );
-
-            document.getElementById("connectionText")
-                .textContent =
-                "Error";
-
-            document.getElementById("saveInfo")
-                .textContent =
-                "Unable to load settings.";
-
-            toast(
-                "Settings Error",
-                error.message ||
-                "Unable to load settings."
-            );
-
-        }
-
-    }
-
-
-    async function saveSettings() {
-
-        if (!selectedGuild) {
-
-            toast(
-                "No Server",
-                "Select a server first."
-            );
-
-            return;
-
-        }
-
-
-        const settings =
-            collectSettings();
-
-
-        if (
-            settings.embed_color &&
-            !/^#[0-9A-Fa-f]{6}$/.test(
-                settings.embed_color
-            )
-        ) {
-
-            toast(
-                "Invalid Colour",
-                "Use a value such as #5865F2."
-            );
-
-            return;
-
-        }
-
-
-        const button =
-            document.getElementById("saveButton");
-
-
-        button.disabled =
-            true;
-
-        button.textContent =
-            "Saving...";
-
-
-        const url =
-            `/api/auth/guilds/${
-                encodeURIComponent(selectedGuild.id)
-            }/settings`;
-
-
-        try {
-
-            const response =
-                await fetch(
-                    url,
-                    {
-                        method: "PUT",
-                        credentials: "include",
-                        headers: {
-                            "Content-Type":
-                                "application/json",
-                            "Accept":
-                                "application/json"
-                        },
-                        body:
-                            JSON.stringify(
-                                settings
-                            )
-                    }
-                );
-
-
-            const data =
-                await response
-                    .json()
-                    .catch(() => ({}));
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    data.error ||
-                    `Save failed: ${response.status}`
-                );
-
-            }
-
-
-            document.getElementById("saveInfo")
-                .textContent =
-                "All changes saved.";
-
-            toast(
-                "Saved",
-                "Your Oxelon settings have been updated."
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Save error:",
-                error
-            );
-
-            toast(
-                "Save Failed",
-                error.message ||
-                "Unable to save settings."
-            );
-
-        } finally {
-
-            button.disabled =
-                false;
-
-            button.textContent =
-                "Save Changes";
-
-        }
-
-    }
-
-
-    function showDashboard() {
-
-        document.getElementById("loginScreen")
-            .style.display = "none";
-
-        document.getElementById("dashboard")
-            .style.display = "block";
-
-    }
-
-
-    function showLogin() {
-
-        document.getElementById("dashboard")
-            .style.display = "none";
-
-        document.getElementById("loginScreen")
-            .style.display = "flex";
-
-    }
-
-
-    function showLoginError(message) {
-
-        const error =
-            document.getElementById("loginError");
-
-        error.textContent =
-            message;
-
-        error.style.display =
-            "block";
-
-    }
-
-
-    document.getElementById("loginButton")
-        .addEventListener(
+        button.addEventListener(
             "click",
             () => {
 
-                window.location.href =
-                    "/api/auth/discord";
+                document
+                    .querySelectorAll(".server")
+                    .forEach(item => {
+                        item.classList.remove("active");
+                    });
+
+
+                button.classList.add("active");
+
+
+                selectGuild(guild);
 
             }
         );
 
 
-    document.getElementById("saveButton")
-        .addEventListener(
-            "click",
-            saveSettings
-        );
+        list.appendChild(button);
+
+    });
+
+
+    /*
+     * Automatically select first server.
+     */
+
+    const first =
+        list.querySelector(".server");
+
+    if (first) {
+        first.click();
+    }
+}
+
+
+/* ============================================================
+   SELECT SERVER
+============================================================ */
+
+async function selectGuild(guild) {
+
+    if (!guild || !guild.id) {
+        return;
+    }
+
+
+    if (loadingGuild) {
+        return;
+    }
+
+
+    loadingGuild = true;
+
+    selectedGuild = guild;
+
+
+    $("serverName").textContent =
+        guild.name ||
+        "Unknown Server";
+
+
+    $("serverDescription").textContent =
+        `Configure Oxelon for ${
+            guild.name || "this server"
+        }.`;
+
+    setConnection(
+        "Loading...",
+        false
+    );
+
+
+    $("saveButton").disabled = true;
+
+    $("saveInfo").textContent =
+        "Loading server settings...";
 
 
     resetForm();
 
 
-    loadGuilds();
+    /*
+     * IMPORTANT
+     *
+     * This is PER SERVER.
+     *
+     * GET:
+     * /api/auth/guilds/GUILD_ID/settings
+     *
+     * PUT:
+     * /api/auth/guilds/GUILD_ID/settings
+     */
+
+    const url =
+        `/api/auth/guilds/${
+            encodeURIComponent(guild.id)
+        }/settings`;
+
+
+    try {
+
+        const settings =
+            await apiRequest(
+                url,
+                {
+                    method: "GET"
+                }
+            );
+
+
+        applySettings(settings);
+
+
+        setConnection(
+            "Connected",
+            true
+        );
+
+
+        $("saveButton").disabled =
+            false;
+
+
+        $("saveInfo").textContent =
+            "Settings loaded successfully.";
+
+
+    } catch (error) {
+
+        console.error(
+            "Settings loading error:",
+            error
+        );
+
+
+        setConnection(
+            "Error",
+            false
+        );
+
+
+        $("saveInfo").textContent =
+            "Unable to load settings.";
+
+
+        toast(
+            "Settings Error",
+            error.message ||
+            "Unable to load settings."
+        );
+
+
+    } finally {
+
+        loadingGuild = false;
+
+    }
+}
+
+
+/* ============================================================
+   SAVE SETTINGS
+============================================================ */
+
+async function saveSettings() {
+
+    if (!selectedGuild) {
+
+        toast(
+            "No Server",
+            "Select a server first."
+        );
+
+        return;
+    }
+
+
+    const settings =
+        collectSettings();
+
+
+    /*
+     * Validate colour
+     */
+
+    if (
+        settings.embed_color &&
+        !/^#[0-9A-Fa-f]{6}$/.test(
+            settings.embed_color
+        )
+    ) {
+
+        toast(
+            "Invalid Colour",
+            "Use a value such as #5865F2."
+        );
+
+        return;
+    }
+
+
+    const button =
+        $("saveButton");
+
+
+    button.disabled = true;
+    button.textContent = "Saving...";
+
+
+    const url =
+        `/api/auth/guilds/${
+            encodeURIComponent(
+                selectedGuild.id
+            )
+        }/settings`;
+
+
+    try {
+
+        await apiRequest(
+            url,
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify(
+                        settings
+                    )
+            }
+        );
+
+
+        $("saveInfo").textContent =
+            "All changes saved.";
+
+
+        toast(
+            "Saved",
+            "Your Oxelon settings have been updated."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Save error:",
+            error
+        );
+
+
+        toast(
+            "Save Failed",
+            error.message ||
+            "Unable to save settings."
+        );
+
+
+    } finally {
+
+        button.disabled =
+            !selectedGuild;
+
+        button.textContent =
+            "Save Changes";
+    }
+}
+
+
+/* ============================================================
+   LOGIN
+============================================================ */
+
+$("loginButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            clearLoginError();
+
+            window.location.href =
+                "/api/auth/discord";
+
+        }
+    );
+
+
+/* ============================================================
+   SAVE
+============================================================ */
+
+$("saveButton")
+    .addEventListener(
+        "click",
+        saveSettings
+    );
+
+
+/* ============================================================
+   PREVENT ACCIDENTAL FORM LOSS
+============================================================ */
+
+document
+    .querySelectorAll(
+        "[data-key], input:not(#loginButton), select"
+    )
+    .forEach(element => {
+
+        element.addEventListener(
+            "change",
+            () => {
+
+                if (
+                    selectedGuild &&
+                    !$("saveButton").disabled
+                ) {
+
+                    $("saveInfo").textContent =
+                        "You have unsaved changes.";
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* ============================================================
+   START
+============================================================ */
+
+resetForm();
+
+loadGuilds();
 
 </script>
 
