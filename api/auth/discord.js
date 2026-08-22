@@ -1,16 +1,21 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
     try {
+        // ============================================================
+        // OXELON DISCORD LOGIN
+        // ============================================================
+
         if (req.method !== "GET") {
             return res.status(405).json({
                 error: "Method not allowed"
             });
         }
 
-        const clientId =
-            process.env.DISCORD_CLIENT_ID;
+        // ============================================================
+        // ENVIRONMENT
+        // ============================================================
 
-        const redirectUri =
-            process.env.DISCORD_REDIRECT_URI;
+        const clientId = process.env.DISCORD_CLIENT_ID;
+        const redirectUri = process.env.DISCORD_REDIRECT_URI;
 
         if (!clientId) {
             return res.status(500).json({
@@ -24,28 +29,35 @@ export default function handler(req, res) {
             });
         }
 
+        // ============================================================
+        // DISCORD OAUTH
+        //
+        // identify = Discord account
+        // guilds   = servers the user belongs to
+        // ============================================================
+
         const params = new URLSearchParams({
             client_id: clientId,
             redirect_uri: redirectUri,
             response_type: "code",
-
-            // identify = account information
-            // guilds = user's Discord servers
             scope: "identify guilds"
         });
 
-        const discordOAuthUrl =
+        const oauthUrl =
             `https://discord.com/oauth2/authorize?${params.toString()}`;
+
+        // ============================================================
+        // REDIRECT
+        // ============================================================
 
         return res.redirect(
             302,
-            discordOAuthUrl
+            oauthUrl
         );
 
     } catch (error) {
-
         console.error(
-            "Oxelon Discord OAuth error:",
+            "[Oxelon Discord] OAuth start error:",
             error
         );
 
