@@ -1,10 +1,4 @@
-import fs from "fs";
-import path from "path";
-
-const CONFIG_FILE = path.join(
-    process.cwd(),
-    "guild_configs.json"
-);
+import clientPromise from "../../../../../../lib/mongodb.js";
 
 /* ============================================================
    DEFAULT SETTINGS
@@ -46,71 +40,10 @@ const DEFAULT_SETTINGS = {
 
 
 /* ============================================================
-   JSON HELPERS
-============================================================ */
-
-function loadConfigs() {
-
-    try {
-
-        if (!fs.existsSync(CONFIG_FILE)) {
-            return {};
-        }
-
-        const data =
-            fs.readFileSync(
-                CONFIG_FILE,
-                "utf8"
-            );
-
-        return JSON.parse(data);
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load guild configs:",
-            error
-        );
-
-        return {};
-    }
-}
-
-
-function saveConfigs(configs) {
-
-    try {
-
-        fs.writeFileSync(
-            CONFIG_FILE,
-            JSON.stringify(
-                configs,
-                null,
-                4
-            )
-        );
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            "Failed to save guild configs:",
-            error
-        );
-
-        return false;
-    }
-}
-
-
-/* ============================================================
    COOKIES
 ============================================================ */
 
-function parseCookies(
-    cookieHeader = ""
-) {
+function parseCookies(cookieHeader = "") {
 
     const cookies = {};
 
@@ -126,26 +59,17 @@ function parseCookies(
             }
 
             const key =
-                part
-                    .slice(0, index)
-                    .trim();
+                part.slice(0, index).trim();
 
             const value =
-                part
-                    .slice(index + 1)
-                    .trim();
+                part.slice(index + 1).trim();
 
             try {
-
                 cookies[key] =
                     decodeURIComponent(value);
-
             } catch {
-
-                cookies[key] =
-                    value;
+                cookies[key] = value;
             }
-
         });
 
     return cookies;
@@ -153,7 +77,7 @@ function parseCookies(
 
 
 /* ============================================================
-   GET SESSION
+   SESSION
 ============================================================ */
 
 function getSession(req) {
@@ -197,19 +121,16 @@ function getSession(req) {
         return session;
 
     } catch {
-
         return null;
     }
 }
 
 
 /* ============================================================
-   GET DISCORD USER GUILDS
+   DISCORD GUILDS
 ============================================================ */
 
-async function getDiscordGuilds(
-    accessToken
-) {
+async function getDiscordGuilds(accessToken) {
 
     const response =
         await fetch(
@@ -226,7 +147,6 @@ async function getDiscordGuilds(
         await response.json();
 
     if (!response.ok) {
-
         console.error(
             "Discord guild request failed:",
             data
@@ -259,32 +179,22 @@ async function canManageGuild(
 
     const guild =
         guilds.find(
-            item =>
-                item.id === guildId
+            guild =>
+                guild.id === guildId
         );
 
     if (!guild) {
         return false;
     }
 
-    /*
-     * Discord permission bits:
-     *
-     * ADMINISTRATOR = 8
-     * MANAGE_GUILD  = 32
-     */
-
     let permissions = 0n;
 
     try {
-
         permissions =
             BigInt(
                 guild.permissions || "0"
             );
-
     } catch {
-
         permissions = 0n;
     }
 
@@ -299,7 +209,7 @@ async function canManageGuild(
 
 
 /* ============================================================
-   VALIDATE SETTINGS
+   CLEAN SETTINGS
 ============================================================ */
 
 function cleanSettings(input) {
@@ -307,9 +217,6 @@ function cleanSettings(input) {
     const settings = {
         ...DEFAULT_SETTINGS
     };
-
-
-    /* Boolean settings */
 
     const booleanKeys = [
         "warn",
@@ -338,39 +245,28 @@ function cleanSettings(input) {
         "erlc_moderation"
     ];
 
-
-    for (
-        const key of booleanKeys
-    ) {
+    for (const key of booleanKeys) {
 
         if (
             typeof input[key] ===
             "boolean"
         ) {
-
             settings[key] =
                 input[key];
-
         }
     }
 
-
-    /* Bot name */
 
     if (
         typeof input.bot_name ===
         "string"
     ) {
-
         settings.bot_name =
             input.bot_name
                 .trim()
                 .slice(0, 32);
-
     }
 
-
-    /* Embed colour */
 
     if (
         typeof input.embed_color ===
@@ -387,29 +283,22 @@ function cleanSettings(input) {
                 colour
             )
         ) {
-
             settings.embed_color =
                 colour;
         }
     }
 
 
-    /* Footer */
-
     if (
         typeof input.footer_text ===
         "string"
     ) {
-
         settings.footer_text =
             input.footer_text
                 .trim()
                 .slice(0, 100);
-
     }
 
-
-    /* Timezone */
 
     const allowedTimezones = [
         "UTC",
@@ -425,24 +314,19 @@ function cleanSettings(input) {
             input.timezone
         )
     ) {
-
         settings.timezone =
             input.timezone;
     }
 
 
-    /* Channel IDs */
-
     if (
         typeof input.log_channel ===
         "string"
     ) {
-
         settings.log_channel =
             input.log_channel
                 .trim()
                 .slice(0, 30);
-
     }
 
 
@@ -450,12 +334,10 @@ function cleanSettings(input) {
         typeof input.ticket_channel ===
         "string"
     ) {
-
         settings.ticket_channel =
             input.ticket_channel
                 .trim()
                 .slice(0, 30);
-
     }
 
 
@@ -464,7 +346,7 @@ function cleanSettings(input) {
 
 
 /* ============================================================
-   API HANDLER
+   API
 ============================================================ */
 
 export default async function handler(
@@ -474,38 +356,28 @@ export default async function handler(
 
     try {
 
-        /* ----------------------------------------------------
-           METHOD
-        ---------------------------------------------------- */
+        /* METHOD */
 
         if (
             req.method !== "GET" &&
             req.method !== "PUT"
         ) {
-
             return res.status(405).json({
-                error:
-                    "Method not allowed"
+                error: "Method not allowed"
             });
         }
 
 
-        /* ----------------------------------------------------
-           GUILD ID
-        ---------------------------------------------------- */
+        /* GUILD ID */
 
-        const {
-            guildId
-        } = req.query;
-
+        const guildId =
+            String(
+                req.query.guildId || ""
+            );
 
         if (
-            !guildId ||
-            !/^\d+$/.test(
-                String(guildId)
-            )
+            !/^\d+$/.test(guildId)
         ) {
-
             return res.status(400).json({
                 error:
                     "Invalid Discord server ID."
@@ -513,16 +385,12 @@ export default async function handler(
         }
 
 
-        /* ----------------------------------------------------
-           SESSION
-        ---------------------------------------------------- */
+        /* SESSION */
 
         const session =
             getSession(req);
 
-
         if (!session) {
-
             return res.status(401).json({
                 error:
                     "Not authenticated."
@@ -530,19 +398,15 @@ export default async function handler(
         }
 
 
-        /* ----------------------------------------------------
-           SERVER PERMISSION
-        ---------------------------------------------------- */
+        /* SERVER ACCESS */
 
         const allowed =
             await canManageGuild(
                 session,
-                String(guildId)
+                guildId
             );
 
-
         if (!allowed) {
-
             return res.status(403).json({
                 error:
                     "You do not have permission to manage this server."
@@ -550,41 +414,55 @@ export default async function handler(
         }
 
 
-        /* ----------------------------------------------------
-           LOAD CONFIG
-        ---------------------------------------------------- */
+        /* MONGODB */
 
-        const configs =
-            loadConfigs();
+        const client =
+            await clientPromise;
 
-        const existing =
-            configs[String(guildId)] || {};
+        const db =
+            client.db(
+                process.env.MONGODB_DB ||
+                "oxelon"
+            );
+
+        const collection =
+            db.collection(
+                "guild_settings"
+            );
 
 
-        /* ----------------------------------------------------
-           GET
-        ---------------------------------------------------- */
+        /* ====================================================
+           GET SETTINGS
+        ==================================================== */
 
         if (
             req.method === "GET"
         ) {
 
-            return res.status(200).json({
+            const document =
+                await collection.findOne({
+                    guild_id: guildId
+                });
 
+
+            const settings = {
                 ...DEFAULT_SETTINGS,
-                ...existing
+                ...(document?.settings || {})
+            };
 
-            });
+
+            return res.status(200).json(
+                settings
+            );
         }
 
 
-        /* ----------------------------------------------------
-           PUT
-        ---------------------------------------------------- */
+        /* ====================================================
+           PUT SETTINGS
+        ==================================================== */
 
         let body =
             req.body;
-
 
         if (
             typeof body ===
@@ -592,12 +470,9 @@ export default async function handler(
         ) {
 
             try {
-
                 body =
                     JSON.parse(body);
-
             } catch {
-
                 return res.status(400).json({
                     error:
                         "Invalid JSON."
@@ -611,7 +486,6 @@ export default async function handler(
             typeof body !==
             "object"
         ) {
-
             return res.status(400).json({
                 error:
                     "Invalid settings."
@@ -619,51 +493,36 @@ export default async function handler(
         }
 
 
-        const cleaned =
-            cleanSettings(
-                body
-            );
+        const settings =
+            cleanSettings(body);
 
 
-        /*
-         * Keep the server's configuration
-         * completely separate from every
-         * other Discord server.
-         */
+        await collection.updateOne(
+            {
+                guild_id: guildId
+            },
+            {
+                $set: {
+                    guild_id: guildId,
+                    settings: settings,
+                    updated_at: new Date()
+                }
+            },
+            {
+                upsert: true
+            }
+        );
 
-        configs[String(guildId)] = {
-            ...cleaned
-        };
-
-
-        const saved =
-            saveConfigs(
-                configs
-            );
-
-
-        if (!saved) {
-
-            return res.status(500).json({
-                error:
-                    "Failed to save server settings."
-            });
-        }
-
-
-        /* ----------------------------------------------------
-           RESPONSE
-        ---------------------------------------------------- */
 
         return res.status(200).json({
 
             success: true,
 
             guild_id:
-                String(guildId),
+                guildId,
 
             settings:
-                cleaned
+                settings
 
         });
 
