@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
     try {
-        // =========================================================
-        // 1. Get OAuth code
-        // =========================================================
+        // ============================================================
+        // OXELON DISCORD OAUTH CALLBACK
+        // ============================================================
 
         const { code, error } = req.query;
 
@@ -18,73 +18,65 @@ export default async function handler(req, res) {
             });
         }
 
-        // =========================================================
-        // 2. Environment variables
-        // =========================================================
+        // ============================================================
+        // ENVIRONMENT
+        // ============================================================
 
-        const clientId =
-            process.env.DISCORD_CLIENT_ID;
+        const clientId = process.env.DISCORD_CLIENT_ID;
+        const clientSecret = process.env.DISCORD_CLIENT_SECRET;
+        const redirectUri = process.env.DISCORD_REDIRECT_URI;
 
-        const clientSecret =
-            process.env.DISCORD_CLIENT_SECRET;
+        if (!clientId || !clientSecret || !redirectUri) {
+            console.error(
+                "[Oxelon OAuth] Missing Discord OAuth environment variables."
+            );
 
-        const redirectUri =
-            process.env.DISCORD_REDIRECT_URI;
-
-        if (
-            !clientId ||
-            !clientSecret ||
-            !redirectUri
-        ) {
             return res.status(500).json({
-                error: "Discord OAuth is not configured on the server."
+                error: "Discord OAuth is not configured."
             });
         }
 
-        // =========================================================
-        // 3. Exchange Discord OAuth code
-        // =========================================================
+        // ============================================================
+        // EXCHANGE CODE FOR TOKEN
+        // ============================================================
 
         const tokenResponse = await fetch(
-            "https://discord.com/api/oauth2/token",
+            "https://discord.com/api/v10/oauth2/token",
             {
                 method: "POST",
-
                 headers: {
                     "Content-Type":
                         "application/x-www-form-urlencoded"
                 },
-
                 body: new URLSearchParams({
                     client_id: clientId,
                     client_secret: clientSecret,
                     grant_type: "authorization_code",
-                    code: code,
+                    code,
                     redirect_uri: redirectUri
                 })
             }
         );
 
-        const tokenData =
-            await tokenResponse.json();
+        const tokenData = await tokenResponse.json();
 
-        if (!tokenResponse.ok) {
+        if (!tokenResponse.ok || !tokenData.access_token) {
             console.error(
-                "Discord OAuth token error:",
+                "[Oxelon OAuth] Token exchange failed:",
                 tokenData
             );
 
-            return res.status(500).json({
-                error: "Discord rejected the OAuth callback."
+            return res.status(401).json({
+                error: "Discord rejected the OAuth request."
             });
         }
 
-        // =========================================================
-        // 4. Get Discord user
-        // =========================================================
+        // ============================================================
+        // GET DISCORD USER
+        // ============================================================
 
         const userResponse = await fetch(
-            "https://discord.com/api/users/@me",
+            "https://discord.com/api/v10/users/@me",
             {
                 headers: {
                     Authorization:
@@ -93,44 +85,93 @@ export default async function handler(req, res) {
             }
         );
 
-        const user =
-            await userResponse.json();
+        const user = await userResponse.json();
 
-        if (!userResponse.ok) {
+        if (!userResponse.ok || !user.id) {
             console.error(
-                "Discord user error:",
+                "[Oxelon OAuth] User request failed:",
                 user
             );
 
-            return res.status(500).json({
+            return res.status(401).json({
                 error: "Unable to retrieve your Discord account."
             });
         }
 
-        // =========================================================
-        // 5. Create session
-        // =========================================================
+        // ============================================================
+        // GET USER'S GUILDS
+        //
+        // Requires the OAuth URL to include:
+        // identify + guilds
+        // ============================================================
+
+        const guildResponse = await fetch(
+            "https://discord.com/api/v10/users/@me/guilds",
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${tokenData.access_token}`
+                }
+            }
+        );
+
+        const guilds = await guildResponse.json();
+
+        if (!guildResponse.ok) {
+            console.error(
+                "[Oxelon OAuth] Guild request failed:",
+                guilds
+            );
+
+            return res.status(500).json({
+                error: "Unable to retrieve your Discord servers."
+            });
+        }
+
+        // ============================================================
+        // ONLY STORE NECESSARY SESSION DATA
+        // ============================================================
 
         const expiresIn =
-            tokenData.expires_in || 604800;
+            Number(tokenData.expires_in) || 604800;
 
         const session = {
-            user: user,
-            access_token:
-                tokenData.access_token,
+            user: {
+                id: user.id,
+                username: user.username,
+                global_name: user.global_name || null,
+                avatar: user.avatar || null,
+                discriminator: user.discriminator || "0"
+            },
+
+            guilds: Array.isArray(guilds)
+                ? guilds.map(guild => ({
+                    id: guild.id,
+                    name: guild.name,
+                    icon: guild.icon || null,
+                    owner: Boolean(guild.owner),
+                    permissions: guild.permissions || "0"
+                }))
+                : [],
+
+            access_token: tokenData.access_token,
+
             expires_at:
                 Date.now() +
                 expiresIn * 1000
         };
 
-        const sessionToken =
-            Buffer.from(
-                JSON.stringify(session)
-            ).toString("base64url");
+        // ============================================================
+        // CREATE SESSION TOKEN
+        // ============================================================
 
-        // =========================================================
-        // 6. Store session in secure cookie
-        // =========================================================
+        const sessionToken = Buffer
+            .from(JSON.stringify(session))
+            .toString("base64url");
+
+        // ============================================================
+        // SECURE COOKIE
+        // ============================================================
 
         res.setHeader(
             "Set-Cookie",
@@ -144,9 +185,9 @@ export default async function handler(req, res) {
             ].join("; ")
         );
 
-        // =========================================================
-        // 7. Send user to dashboard
-        // =========================================================
+        // ============================================================
+        // REDIRECT
+        // ============================================================
 
         return res.redirect(
             302,
@@ -154,9 +195,8 @@ export default async function handler(req, res) {
         );
 
     } catch (error) {
-
         console.error(
-            "Oxelon OAuth callback error:",
+            "[Oxelon OAuth] Callback error:",
             error
         );
 
