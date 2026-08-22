@@ -121,53 +121,195 @@
             object-fit: cover;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
 
-            gap: 7px;
+        /* =========================================================
+           THREE LINE MENU
+           ========================================================= */
+
+        .menu {
+            position: relative;
         }
 
-        .nav-links a {
-            color: #77777c;
+        .menu-button {
+            width: 42px;
+            height: 42px;
 
-            font-size: 12px;
-            font-weight: 600;
+            display: flex;
+            flex-direction: column;
 
-            padding: 9px 13px;
+            align-items: center;
+            justify-content: center;
 
-            border-radius: 8px;
+            gap: 5px;
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            cursor: pointer;
 
             transition: .2s ease;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .menu-button:hover {
+            background:
+                rgba(255,255,255,.08);
+
+            border-color:
+                rgba(255,255,255,.14);
+        }
+
+        .menu-button span {
+            width: 17px;
+            height: 2px;
+
+            border-radius: 10px;
+
+            background: #d8d8da;
+
+            transition: .25s ease;
+        }
+
+
+        /* =========================================================
+           MENU ANIMATION
+           ========================================================= */
+
+        .menu-button.active span:nth-child(1) {
+            transform:
+                translateY(7px)
+                rotate(45deg);
+        }
+
+        .menu-button.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-button.active span:nth-child(3) {
+            transform:
+                translateY(-7px)
+                rotate(-45deg);
+        }
+
+
+        /* =========================================================
+           DROPDOWN
+           ========================================================= */
+
+        .dropdown-menu {
+            position: absolute;
+
+            top: 52px;
+            right: 0;
+
+            width: 225px;
+
+            padding: 8px;
+
+            border:
+                1px solid rgba(255,255,255,.08);
+
+            border-radius: 12px;
+
+            background:
+                rgba(12,12,14,.97);
+
+            backdrop-filter: blur(18px);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,.55);
+
+            opacity: 0;
+            visibility: hidden;
+
+            transform:
+                translateY(-8px)
+                scale(.98);
+
+            transform-origin: top right;
+
+            transition:
+                opacity .2s ease,
+                transform .2s ease,
+                visibility .2s ease;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+
+            visibility: visible;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            width: 100%;
+
+            padding: 11px 12px;
+
+            border-radius: 8px;
+
+            color: #858589;
+
+            font-size: 11px;
+
+            font-weight: 650;
+
+            transition: .2s ease;
+        }
+
+        .dropdown-menu a:hover {
             color: white;
 
             background:
                 rgba(255,255,255,.07);
         }
 
-        .nav-button {
-            background: #f1f1f1;
-            color: #080808;
+        .dropdown-icon {
+            width: 20px;
 
-            font-size: 12px;
-            font-weight: 700;
+            color: #66666b;
 
-            padding: 9px 14px;
+            text-align: center;
 
-            border-radius: 8px;
-
-            transition: .2s ease;
+            font-size: 13px;
         }
 
-        .nav-button:hover {
-            background: white;
+        .dropdown-menu a:hover .dropdown-icon {
+            color: #d8d8da;
+        }
 
-            transform:
-                translateY(-1px);
+        .dropdown-divider {
+            height: 1px;
+
+            margin: 6px 4px;
+
+            background:
+                rgba(255,255,255,.06);
+        }
+
+        .dropdown-discord {
+            color: #f5f5f5 !important;
+
+            background:
+                rgba(255,255,255,.055);
+        }
+
+        .dropdown-discord:hover {
+            background:
+                rgba(255,255,255,.1) !important;
         }
 
 
@@ -954,8 +1096,8 @@
 
         @media (max-width: 800px) {
 
-            .nav-links {
-                display: none;
+            .nav-container {
+                padding: 0 18px;
             }
 
             .hero {
@@ -1019,6 +1161,10 @@
             .section-header h2 {
                 font-size: 27px;
             }
+
+            .dropdown-menu {
+                width: 210px;
+            }
         }
 
     </style>
@@ -1054,42 +1200,119 @@
         </a>
 
 
-        <nav class="nav-links">
+        <!-- THREE LINE MENU -->
 
-            <a
-                href="index.html"
-                class="active"
+        <div class="menu">
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                type="button"
             >
-                Home
-            </a>
 
-            <a href="features.html">
-                Features
-            </a>
+                <span></span>
+                <span></span>
+                <span></span>
 
-            <a href="docs.html">
-                Docs
-            </a>
-
-            <a href="meet-the-team.html">
-                Team
-            </a>
-
-            <a href="privacy.html">
-                Privacy
-            </a>
-
-        </nav>
+            </button>
 
 
-        <a
-            href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-            class="nav-button"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Add to Discord
-        </a>
+            <!-- ALL WEBSITE PAGES -->
+
+            <div
+                class="dropdown-menu"
+                id="dropdownMenu"
+            >
+
+                <a href="index.html">
+
+                    <span class="dropdown-icon">
+                        ⌂
+                    </span>
+
+                    Home
+
+                </a>
+
+
+                <a href="features.html">
+
+                    <span class="dropdown-icon">
+                        ✦
+                    </span>
+
+                    Features
+
+                </a>
+
+
+                <a href="docs.html">
+
+                    <span class="dropdown-icon">
+                        ▤
+                    </span>
+
+                    Documentation
+
+                </a>
+
+
+                <a href="meet-the-team.html">
+
+                    <span class="dropdown-icon">
+                        ♟
+                    </span>
+
+                    Meet the Team
+
+                </a>
+
+
+                <a href="privacy.html">
+
+                    <span class="dropdown-icon">
+                        ◈
+                    </span>
+
+                    Privacy
+
+                </a>
+
+
+                <a href="dashboard.html">
+
+                    <span class="dropdown-icon">
+                        ⚙
+                    </span>
+
+                    Dashboard
+
+                </a>
+
+
+                <div class="dropdown-divider"></div>
+
+
+                <a
+                    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="dropdown-discord"
+                >
+
+                    <span class="dropdown-icon">
+                        +
+                    </span>
+
+                    Add to Discord
+
+                </a>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -1726,6 +1949,81 @@
     © 2026 Oxelon. All rights reserved.
 
 </footer>
+
+
+
+<!-- =========================================================
+     MENU JAVASCRIPT
+     ========================================================= -->
+
+<script>
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const dropdownMenu =
+        document.getElementById("dropdownMenu");
+
+
+    menuButton.addEventListener("click", function(event) {
+
+        event.stopPropagation();
+
+        const isOpen =
+            dropdownMenu.classList.toggle("show");
+
+        menuButton.classList.toggle(
+            "active",
+            isOpen
+        );
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+    });
+
+
+    document.addEventListener("click", function(event) {
+
+        if (
+            !dropdownMenu.contains(event.target) &&
+            !menuButton.contains(event.target)
+        ) {
+
+            dropdownMenu.classList.remove("show");
+
+            menuButton.classList.remove("active");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+    });
+
+
+    dropdownMenu.querySelectorAll("a").forEach(link => {
+
+        link.addEventListener("click", function() {
+
+            dropdownMenu.classList.remove("show");
+
+            menuButton.classList.remove("active");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        });
+
+    });
+
+</script>
 
 
 </body>
