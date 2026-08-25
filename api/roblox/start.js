@@ -1,4 +1,3 @@
-```javascript
 import crypto from "crypto";
 import clientPromise from "../../lib/mongodb.js";
 
@@ -112,4 +111,4 @@ export default async function handler(req, res) {
         });
     }
 }
-```
+
