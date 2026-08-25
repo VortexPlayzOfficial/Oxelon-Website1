@@ -1,114 +1,177 @@
-import crypto from "crypto";
-import clientPromise from "../../lib/mongodb.js";
+const crypto = require("crypto");
 
 function getSession(req) {
-    const cookieHeader = req.headers.cookie || "";
-    const cookies = {};
+const cookieHeader = req.headers.cookie || "";
+const cookies = {};
 
-    for (const part of cookieHeader.split(";")) {
-        const [key, ...value] = part.trim().split("=");
+```
+for (const part of cookieHeader.split(";")) {
+    const trimmed = part.trim();
+    if (!trimmed) continue;
 
-        if (key && value.length) {
-            cookies[key] = decodeURIComponent(value.join("="));
-        }
-    }
+    const separator = trimmed.indexOf("=");
 
-    if (!cookies.oxelon_session) {
-        return null;
-    }
+    if (separator === -1) continue;
 
-    try {
-        return JSON.parse(
-            Buffer.from(
-                cookies.oxelon_session,
-                "base64url"
-            ).toString("utf8")
-        );
-    } catch {
-        return null;
-    }
+    const key = trimmed.substring(0, separator);
+    const value = trimmed.substring(separator + 1);
+
+    cookies[key] = decodeURIComponent(value);
+}
+
+if (!cookies.oxelon_session) {
+    return null;
+}
+
+try {
+    return JSON.parse(
+        Buffer.from(
+            cookies.oxelon_session,
+            "base64url"
+        ).toString("utf8")
+    );
+} catch {
+    return null;
+}
+```
+
+}
+
+function base64Url(buffer) {
+return buffer
+.toString("base64")
+.replace(/+/g, "-")
+.replace(///g, "_")
+.replace(/=/g, "");
+}
+
+function createCodeVerifier() {
+return base64Url(
+crypto.randomBytes(48)
+);
+}
+
+function createCodeChallenge(verifier) {
+return base64Url(
+crypto
+.createHash("sha256")
+.update(verifier)
+.digest()
+);
 }
 
 export default async function handler(req, res) {
-    try {
-        if (req.method !== "GET" && req.method !== "POST") {
-            return res.status(405).json({
-                error: "Method not allowed"
-            });
-        }
-
-        const session = getSession(req);
-
-        if (!session?.user?.id) {
-            return res.status(401).json({
-                error: "You must be logged into Discord first."
-            });
-        }
-
-        const discordId = String(session.user.id);
-
-        const client = await clientPromise;
-
-        const db = client.db(
-            process.env.MONGODB_DB || "oxelon"
-        );
-
-        const links = db.collection("roblox_links");
-
-        const existing = await links.findOne({
-            discordId
-        });
-
-        if (existing?.robloxId) {
-            return res.status(200).json({
-                success: true,
-                alreadyLinked: true,
-                robloxId: existing.robloxId,
-                robloxUsername:
-                    existing.robloxUsername || null
-            });
-        }
-
-        const code =
-            "OX-" +
-            crypto
-                .randomBytes(5)
-                .toString("hex")
-                .toUpperCase();
-
-        const expiresAt =
-            new Date(Date.now() + 10 * 60 * 1000);
-
-        await links.updateOne(
-            { discordId },
-            {
-                $set: {
-                    discordId,
-                    verificationCode: code,
-                    verificationExpiresAt: expiresAt,
-                    verified: false,
-                    createdAt: new Date()
-                }
-            },
-            { upsert: true }
-        );
-
-        return res.status(200).json({
-            success: true,
-            alreadyLinked: false,
-            code,
-            expiresAt
-        });
-
-    } catch (error) {
-        console.error(
-            "[Oxelon Roblox] Start error:",
-            error
-        );
-
-        return res.status(500).json({
-            error: "Unable to create a Roblox verification code."
-        });
-    }
+try {
+if (req.method !== "GET") {
+return res.status(405).json({
+success: false,
+error: "Method not allowed."
+});
 }
 
+```
+    const session = getSession(req);
+
+    if (!session?.user?.id) {
+        return res.status(401).json({
+            success: false,
+            error: "You must be logged into Discord first."
+        });
+    }
+
+    const clientId =
+        process.env.ROBLOX_CLIENT_ID;
+
+    const redirectUri =
+        process.env.ROBLOX_REDIRECT_URI;
+
+    if (!clientId || !redirectUri) {
+        return res.status(500).json({
+            success: false,
+            error:
+                "Roblox OAuth is not configured."
+        });
+    }
+
+    const state = base64Url(
+        crypto.randomBytes(32)
+    );
+
+    const codeVerifier =
+        createCodeVerifier();
+
+    const codeChallenge =
+        createCodeChallenge(
+            codeVerifier
+        );
+
+    const stateData = {
+        state,
+        discordId: String(session.user.id),
+        expiresAt:
+            Date.now() + 10 * 60 * 1000
+    };
+
+    const encodedState = base64Url(
+        Buffer.from(
+            JSON.stringify(stateData)
+        )
+    );
+
+    const cookieParts = [
+        `oxelon_roblox_state=${encodedState}`,
+        "Path=/",
+        "HttpOnly",
+        "Secure",
+        "SameSite=Lax",
+        "Max-Age=600"
+    ];
+
+    const verifierCookie = [
+        `oxelon_roblox_verifier=${codeVerifier}`,
+        "Path=/",
+        "HttpOnly",
+        "Secure",
+        "SameSite=Lax",
+        "Max-Age=600"
+    ];
+
+    res.setHeader("Set-Cookie", [
+        cookieParts.join("; "),
+        verifierCookie.join("; ")
+    ]);
+
+    const params =
+        new URLSearchParams({
+            client_id: clientId,
+            redirect_uri: redirectUri,
+            scope: "openid profile",
+            response_type: "code",
+            state,
+            code_challenge: codeChallenge,
+            code_challenge_method: "S256"
+        });
+
+    const authorizationUrl =
+        `https://apis.roblox.com/oauth/v1/authorize?${params.toString()}`;
+
+    return res.redirect(
+        302,
+        authorizationUrl
+    );
+
+} catch (error) {
+    console.error(
+        "[Oxelon Roblox] Start error:",
+        error
+    );
+
+    return res.status(500).json({
+        success: false,
+        error:
+            "Unable to start Roblox linking."
+    });
+}
+```
+
+}
