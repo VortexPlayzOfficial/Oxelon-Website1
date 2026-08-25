@@ -1,0 +1,715 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Link Roblox | Oxelon</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family:
+                Inter,
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    #172554 0%,
+                    #0b1120 45%,
+                    #020617 100%
+                );
+
+            color: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.92);
+
+            border: 1px solid
+                rgba(59, 130, 246, 0.25);
+
+            border-radius: 20px;
+
+            padding: 36px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0, 0, 0, 0.45);
+
+            backdrop-filter: blur(14px);
+
+            text-align: center;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            font-size: 28px;
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 30px
+                rgba(37, 99, 235, 0.35);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .status {
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            background: rgba(
+                30,
+                41,
+                59,
+                0.7
+            );
+
+            color: #cbd5e1;
+
+            margin-bottom: 22px;
+
+            line-height: 1.5;
+        }
+
+        .code-box {
+            display: none;
+
+            margin: 20px 0;
+
+            padding: 24px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(30, 64, 175, 0.18);
+
+            border:
+                1px solid
+                rgba(59, 130, 246, 0.35);
+        }
+
+        .code-label {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .code {
+            font-size: 32px;
+
+            font-weight: 800;
+
+            letter-spacing: 4px;
+
+            color: #60a5fa;
+
+            word-break: break-word;
+        }
+
+        .instructions {
+            display: none;
+
+            text-align: left;
+
+            margin-top: 20px;
+
+            color: #cbd5e1;
+
+            line-height: 1.7;
+        }
+
+        .instructions strong {
+            color: #ffffff;
+        }
+
+        .button {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 12px;
+
+            padding: 14px 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.15s,
+                opacity 0.15s;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            opacity: 0.92;
+        }
+
+        .button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            transform: none;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        .error {
+            color: #f87171;
+        }
+
+        .small {
+            margin-top: 22px;
+
+            color: #64748b;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        .roblox-link {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        .roblox-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 28px 22px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .code {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <div class="logo">
+            O
+        </div>
+
+        <h1>
+            Link Roblox Account
+        </h1>
+
+        <p class="subtitle">
+            Connect your Roblox account to
+            your Oxelon account.
+        </p>
+
+        <div
+            id="status"
+            class="status"
+        >
+            Checking your account...
+        </div>
+
+        <div
+            id="codeBox"
+            class="code-box"
+        >
+
+            <div class="code-label">
+                Your verification code
+            </div>
+
+            <div
+                id="verificationCode"
+                class="code"
+            >
+                ------
+            </div>
+
+        </div>
+
+        <div
+            id="instructions"
+            class="instructions"
+        >
+
+            <strong>
+                What to do next
+            </strong>
+
+            <br><br>
+
+            1. Copy the verification code above.
+
+            <br>
+
+            2. Open your Roblox profile.
+
+            <br>
+
+            3. Add the code to the location
+            specified by the Oxelon verification
+            instructions.
+
+            <br>
+
+            4. Return here and verify your account.
+
+            <br><br>
+
+            <button
+                id="verifyButton"
+                class="button"
+                onclick="verifyAccount()"
+            >
+                Verify Roblox Account
+            </button>
+
+        </div>
+
+        <button
+            id="startButton"
+            class="button"
+            onclick="startLinking()"
+            style="display: none;"
+        >
+            Generate Verification Code
+        </button>
+
+        <div
+            id="successMessage"
+            class="success"
+            style="display: none;"
+        >
+            Roblox account linked successfully.
+        </div>
+
+        <p class="small">
+            Oxelon will never ask for your Roblox
+            password or security credentials.
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const statusElement =
+        document.getElementById("status");
+
+    const startButton =
+        document.getElementById("startButton");
+
+    const codeBox =
+        document.getElementById("codeBox");
+
+    const verificationCode =
+        document.getElementById(
+            "verificationCode"
+        );
+
+    const instructions =
+        document.getElementById(
+            "instructions"
+        );
+
+    const verifyButton =
+        document.getElementById(
+            "verifyButton"
+        );
+
+    const successMessage =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    async function checkStatus() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/roblox/status",
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+            const data =
+                await response.json();
+
+            if (!response.ok) {
+
+                statusElement.textContent =
+                    data.error ||
+                    "Please log into Oxelon first.";
+
+                startButton.style.display =
+                    "none";
+
+                return;
+            }
+
+
+            if (data.linked) {
+
+                statusElement.innerHTML =
+                    `<span class="success">
+                        ✓ Roblox account already linked
+                    </span>`;
+
+                if (data.robloxUsername) {
+
+                    statusElement.innerHTML +=
+                        `<br><br>
+                        Roblox:
+                        <strong>
+                            ${escapeHtml(
+                                data.robloxUsername
+                            )}
+                        </strong>`;
+                }
+
+                startButton.style.display =
+                    "none";
+
+                return;
+            }
+
+
+            statusElement.textContent =
+                "Your Discord account is ready to be linked.";
+
+            startButton.style.display =
+                "block";
+
+        } catch (error) {
+
+            console.error(error);
+
+            statusElement.innerHTML =
+                `<span class="error">
+                    Unable to contact Oxelon.
+                </span>`;
+        }
+    }
+
+
+    async function startLinking() {
+
+        startButton.disabled = true;
+
+        startButton.textContent =
+            "Generating...";
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/roblox/start",
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Unable to start linking."
+                );
+            }
+
+
+            if (data.alreadyLinked) {
+
+                statusElement.innerHTML =
+                    `<span class="success">
+                        ✓ Your Roblox account is already linked.
+                    </span>`;
+
+                startButton.style.display =
+                    "none";
+
+                return;
+            }
+
+
+            verificationCode.textContent =
+                data.code;
+
+            codeBox.style.display =
+                "block";
+
+            instructions.style.display =
+                "block";
+
+            statusElement.innerHTML =
+                `<strong>
+                    Verification code created.
+                </strong>
+                <br>
+                Follow the instructions below.`;
+
+            startButton.style.display =
+                "none";
+
+        } catch (error) {
+
+            console.error(error);
+
+            statusElement.innerHTML =
+                `<span class="error">
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </span>`;
+
+            startButton.disabled = false;
+
+            startButton.textContent =
+                "Generate Verification Code";
+        }
+    }
+
+
+    async function verifyAccount() {
+
+        verifyButton.disabled = true;
+
+        verifyButton.textContent =
+            "Checking...";
+
+
+        const username =
+            prompt(
+                "Enter your Roblox username:"
+            );
+
+        if (!username) {
+
+            verifyButton.disabled = false;
+
+            verifyButton.textContent =
+                "Verify Roblox Account";
+
+            return;
+        }
+
+
+        const robloxId =
+            prompt(
+                "Enter your Roblox User ID:"
+            );
+
+        if (!robloxId) {
+
+            verifyButton.disabled = false;
+
+            verifyButton.textContent =
+                "Verify Roblox Account";
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/roblox/verify",
+                    {
+                        method: "POST",
+
+                        credentials: "include",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            robloxId:
+                                robloxId,
+
+                            robloxUsername:
+                                username,
+
+                            verificationCode:
+                                verificationCode
+                                    .textContent
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Verification failed."
+                );
+            }
+
+
+            statusElement.innerHTML =
+                `<span class="success">
+                    ✓ Roblox account linked!
+                </span>`;
+
+            instructions.style.display =
+                "none";
+
+            codeBox.style.display =
+                "none";
+
+            verifyButton.style.display =
+                "none";
+
+            successMessage.style.display =
+                "block";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            statusElement.innerHTML =
+                `<span class="error">
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </span>`;
+
+            verifyButton.disabled = false;
+
+            verifyButton.textContent =
+                "Verify Roblox Account";
+        }
+    }
+
+
+    function escapeHtml(value) {
+
+        return String(value)
+
+            .replaceAll(
+                "&",
+                "&amp;"
+            )
+
+            .replaceAll(
+                "<",
+                "&lt;"
+            )
+
+            .replaceAll(
+                ">",
+                "&gt;"
+            )
+
+            .replaceAll(
+                '"',
+                "&quot;"
+            )
+
+            .replaceAll(
+                "'",
+                "&#039;"
+            );
+    }
+
+
+    checkStatus();
+
+</script>
+
+</body>
+</html>
+```
