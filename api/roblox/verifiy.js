@@ -1,4 +1,3 @@
-```javascript
 import clientPromise from "../../lib/mongodb.js";
 
 export default async function handler(req, res) {
@@ -93,4 +92,4 @@ export default async function handler(req, res) {
         });
     }
 }
-```
+
