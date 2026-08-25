@@ -1,847 +1,322 @@
 <!DOCTYPE html>
-
-<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta
-    name="description"
-    content="Link your Roblox account to Oxelon securely."
->
-
-<meta name="theme-color" content="#050506">
-
-<title>Link Roblox | Oxelon</title>
-
-<style>
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background: #050506;
-        color: #f5f5f5;
-
-        font-family:
-            Inter,
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            Helvetica,
-            Arial,
-            sans-serif;
-
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    button,
-    input {
-        font: inherit;
-    }
-
-
-    /* =========================================================
-       NAVBAR
-       ========================================================= */
-
-    .navbar {
-        width: 100%;
-        height: 64px;
-
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-
-        border-bottom:
-            1px solid rgba(255,255,255,.055);
-
-        background:
-            rgba(5,5,6,.92);
-
-        backdrop-filter: blur(14px);
-    }
-
-    .nav-container {
-        max-width: 1100px;
-        height: 100%;
-
-        margin: auto;
-        padding: 0 25px;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .brand {
-        display: flex;
-        align-items: center;
-
-        gap: 10px;
-
-        font-size: 16px;
-        font-weight: 700;
-
-        letter-spacing: .5px;
-    }
-
-    .brand-icon {
-        width: 27px;
-        height: 27px;
-
-        border-radius: 7px;
-
-        overflow: hidden;
-
-        background: #171719;
-    }
-
-    .brand-icon img {
-        width: 100%;
-        height: 100%;
-
-        object-fit: cover;
-    }
-
-
-    /* =========================================================
-       MENU
-       ========================================================= */
-
-    .menu {
-        position: relative;
-    }
-
-    .menu-button {
-        width: 42px;
-        height: 42px;
-
-        display: flex;
-        flex-direction: column;
-
-        align-items: center;
-        justify-content: center;
-
-        gap: 5px;
-
-        border:
-            1px solid rgba(255,255,255,.08);
-
-        border-radius: 9px;
-
-        background:
-            rgba(255,255,255,.035);
-
-        cursor: pointer;
-
-        transition: .2s ease;
-    }
-
-    .menu-button:hover {
-        background:
-            rgba(255,255,255,.08);
-
-        border-color:
-            rgba(255,255,255,.14);
-    }
-
-    .menu-button span {
-        width: 17px;
-        height: 2px;
-
-        border-radius: 10px;
-
-        background: #d8d8da;
-
-        transition: .25s ease;
-    }
-
-    .menu-button.active span:nth-child(1) {
-        transform:
-            translateY(7px)
-            rotate(45deg);
-    }
-
-    .menu-button.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-button.active span:nth-child(3) {
-        transform:
-            translateY(-7px)
-            rotate(-45deg);
-    }
-
-
-    /* =========================================================
-       DROPDOWN
-       ========================================================= */
-
-    .dropdown-menu {
-        position: absolute;
-
-        top: 52px;
-        right: 0;
-
-        width: 225px;
-
-        padding: 8px;
-
-        border:
-            1px solid rgba(255,255,255,.08);
-
-        border-radius: 12px;
-
-        background:
-            rgba(12,12,14,.97);
-
-        backdrop-filter: blur(18px);
-
-        box-shadow:
-            0 20px 60px rgba(0,0,0,.55);
-
-        opacity: 0;
-        visibility: hidden;
-
-        transform:
-            translateY(-8px)
-            scale(.98);
-
-        transform-origin: top right;
-
-        transition:
-            opacity .2s ease,
-            transform .2s ease,
-            visibility .2s ease;
-    }
-
-    .dropdown-menu.show {
-        opacity: 1;
-
-        visibility: visible;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-
-    .dropdown-menu a {
-        display: flex;
-
-        align-items: center;
-
-        gap: 12px;
-
-        width: 100%;
-
-        padding: 11px 12px;
-
-        border-radius: 8px;
-
-        color: #858589;
-
-        font-size: 11px;
-
-        font-weight: 650;
-
-        transition: .2s ease;
-    }
-
-    .dropdown-menu a:hover {
-        color: white;
-
-        background:
-            rgba(255,255,255,.07);
-    }
-
-    .dropdown-icon {
-        width: 20px;
-
-        color: #66666b;
-
-        text-align: center;
-
-        font-size: 13px;
-    }
-
-    .dropdown-divider {
-        height: 1px;
-
-        margin: 6px 4px;
-
-        background:
-            rgba(255,255,255,.06);
-    }
-
-    .dropdown-discord {
-        color: #f5f5f5 !important;
-
-        background:
-            rgba(255,255,255,.055);
-    }
-
-
-    /* =========================================================
-       LINK PAGE
-       ========================================================= */
-
-    .page {
-        position: relative;
-
-        max-width: 1000px;
-
-        min-height: calc(100vh - 64px);
-
-        margin: auto;
-
-        padding:
-            100px 25px 90px;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-    }
-
-    .page::before {
-        content: "";
-
-        position: absolute;
-
-        width: 700px;
-        height: 400px;
-
-        top: 30px;
-        left: 50%;
-
-        transform:
-            translateX(-50%);
-
-        background:
-            radial-gradient(
-                circle,
-                rgba(255,255,255,.075),
-                transparent 68%
-            );
-
-        pointer-events: none;
-    }
-
-    .link-wrapper {
-        position: relative;
-
-        z-index: 1;
-
-        width: 100%;
-        max-width: 560px;
-    }
-
-    .link-card {
-        padding: 40px;
-
-        text-align: center;
-
-        border:
-            1px solid rgba(255,255,255,.075);
-
-        border-radius: 12px;
-
-        background:
-            radial-gradient(
-                circle at 50% 0%,
-                rgba(255,255,255,.055),
-                transparent 55%
-            ),
-            rgba(255,255,255,.018);
-
-        box-shadow:
-            0 25px 80px rgba(0,0,0,.35);
-    }
-
-    .link-logo {
-        width: 70px;
-        height: 70px;
-
-        margin: 0 auto 22px;
-
-        border-radius: 18px;
-
-        overflow: hidden;
-
-        border:
-            1px solid rgba(255,255,255,.09);
-
-        background: #101012;
-
-        box-shadow:
-            0 20px 60px rgba(0,0,0,.45);
-    }
-
-    .link-logo img {
-        width: 100%;
-        height: 100%;
-
-        object-fit: cover;
-    }
-
-    .eyebrow {
-        display: block;
-
-        color: #55555a;
-
-        font-size: 7px;
-
-        font-weight: 800;
-
-        letter-spacing: 2px;
-
-        margin-bottom: 12px;
-    }
-
-    .link-card h1 {
-        font-size: 34px;
-
-        letter-spacing: -1.5px;
-
-        margin-bottom: 10px;
-    }
-
-    .link-card h1 span {
-        color: #77777c;
-    }
-
-    .subtitle {
-        max-width: 430px;
-
-        margin: auto;
-
-        color: #66666b;
-
-        font-size: 10px;
-
-        line-height: 1.8;
-    }
-
-
-    /* =========================================================
-       STATUS
-       ========================================================= */
-
-    .status {
-        margin-top: 25px;
-
-        padding: 14px 16px;
-
-        border:
-            1px solid rgba(255,255,255,.055);
-
-        border-radius: 9px;
-
-        background:
-            rgba(0,0,0,.18);
-
-        color: #77777c;
-
-        font-size: 9px;
-
-        line-height: 1.7;
-    }
-
-    .success {
-        color: #8fd19e;
-    }
-
-    .error {
-        color: #e88989;
-    }
-
-
-    /* =========================================================
-       VERIFICATION CODE
-       ========================================================= */
-
-    .code-box {
-        display: none;
-
-        margin-top: 14px;
-
-        padding: 25px;
-
-        border:
-            1px solid rgba(255,255,255,.07);
-
-        border-radius: 10px;
-
-        background:
-            rgba(255,255,255,.018);
-    }
-
-    .code-label {
-        color: #55555a;
-
-        font-size: 7px;
-
-        font-weight: 800;
-
-        letter-spacing: 2px;
-
-        text-transform: uppercase;
-
-        margin-bottom: 12px;
-    }
-
-    .code {
-        font-size: 30px;
-
-        font-weight: 800;
-
-        letter-spacing: 5px;
-
-        color: #f1f1f1;
-
-        word-break: break-word;
-    }
-
-
-    /* =========================================================
-       INSTRUCTIONS
-       ========================================================= */
-
-    .instructions {
-        display: none;
-
-        margin-top: 14px;
-
-        padding: 20px;
-
-        text-align: left;
-
-        border:
-            1px solid rgba(255,255,255,.055);
-
-        border-radius: 9px;
-
-        background:
-            rgba(255,255,255,.018);
-
-        color: #66666b;
-
-        font-size: 9px;
-
-        line-height: 1.8;
-    }
-
-    .instructions strong {
-        color: #d8d8da;
-
-        font-size: 10px;
-    }
-
-
-    /* =========================================================
-       BUTTONS
-       ========================================================= */
-
-    .button {
-        width: 100%;
-
-        margin-top: 18px;
-
-        border: none;
-
-        border-radius: 8px;
-
-        padding: 12px 18px;
-
-        background: #f1f1f1;
-
-        color: #080808;
-
-        font-size: 10px;
-
-        font-weight: 750;
-
-        cursor: pointer;
-
-        transition: .2s ease;
-    }
-
-    .button:hover {
-        background: white;
-
-        transform:
-            translateY(-2px);
-    }
-
-    .button:disabled {
-        cursor: not-allowed;
-
-        opacity: .5;
-
-        transform: none;
-    }
-
-    .secondary-action {
-        display: inline-flex;
-
-        align-items: center;
-        justify-content: center;
-
-        width: 100%;
-
-        margin-top: 9px;
-
-        padding: 11px 17px;
-
-        border:
-            1px solid rgba(255,255,255,.09);
-
-        border-radius: 8px;
-
-        color: #c8c8ca;
-
-        background:
-            rgba(255,255,255,.025);
-
-        font-size: 10px;
-
-        font-weight: 700;
-
-        transition: .2s ease;
-    }
-
-    .secondary-action:hover {
-        color: white;
-
-        background:
-            rgba(255,255,255,.06);
-    }
-
-
-    /* =========================================================
-       FOOTNOTE
-       ========================================================= */
-
-    .security-note {
-        margin-top: 22px;
-
-        color: #454549;
-
-        font-size: 8px;
-
-        line-height: 1.6;
-    }
-
-
-    /* =========================================================
-       FOOTER
-       ========================================================= */
-
-    footer {
-        border-top:
-            1px solid rgba(255,255,255,.055);
-
-        padding: 30px 20px;
-
-        text-align: center;
-
-        color: #454549;
-
-        font-size: 8px;
-    }
-
-
-    /* =========================================================
-       MOBILE
-       ========================================================= */
-
-    @media (max-width: 800px) {
-
-        .nav-container {
-            padding: 0 18px;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Link your Roblox account to Oxelon securely."
+    >
+
+    <meta name="theme-color" content="#050506">
+
+    <title>Link Roblox | Oxelon</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .page {
-            min-height: auto;
-
-            padding:
-                75px 18px 70px;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .link-card {
-            padding: 30px 22px;
+        body {
+            min-height: 100vh;
+
+            background: #050506;
+
+            color: #f5f5f5;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px;
         }
 
-        .link-card h1 {
-            font-size: 28px;
+        .container {
+            width: 100%;
+            max-width: 520px;
         }
 
-        .code {
-            font-size: 25px;
+        .card {
+            position: relative;
 
-            letter-spacing: 4px;
+            padding: 42px 35px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.075);
+
+            border-radius: 14px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(255,255,255,.06),
+                    transparent 55%
+                ),
+                rgba(255,255,255,.018);
+
+            box-shadow:
+                0 25px 80px
+                rgba(0,0,0,.5);
+
+            text-align: center;
         }
 
-        .dropdown-menu {
-            width: 210px;
+        .logo {
+            width: 70px;
+            height: 70px;
+
+            margin: 0 auto 24px;
+
+            border-radius: 17px;
+
+            overflow: hidden;
+
+            border:
+                1px solid
+                rgba(255,255,255,.09);
+
+            background: #101012;
+
+            box-shadow:
+                0 20px 70px
+                rgba(0,0,0,.5);
         }
-    }
 
-</style>
+        .logo img {
+            width: 100%;
+            height: 100%;
 
+            object-fit: cover;
+        }
+
+        .eyebrow {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color: #55555a;
+
+            font-size: 7px;
+            font-weight: 800;
+
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 34px;
+
+            line-height: 1;
+
+            letter-spacing: -1.7px;
+
+            margin-bottom: 14px;
+        }
+
+        h1 span {
+            color: #77777c;
+        }
+
+        .subtitle {
+            max-width: 420px;
+
+            margin: auto;
+
+            color: #66666b;
+
+            font-size: 10px;
+
+            line-height: 1.8;
+        }
+
+        .status {
+            margin-top: 28px;
+
+            padding: 16px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.06);
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,.018);
+
+            color: #858589;
+
+            font-size: 10px;
+
+            line-height: 1.7;
+        }
+
+        .button {
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 13px 18px;
+
+            border: 0;
+
+            border-radius: 8px;
+
+            background: #f1f1f1;
+
+            color: #080808;
+
+            font-size: 10px;
+
+            font-weight: 750;
+
+            cursor: pointer;
+
+            transition:
+                .2s ease;
+        }
+
+        .button:hover {
+            background: #ffffff;
+
+            transform:
+                translateY(-2px);
+        }
+
+        .button:disabled {
+            opacity: .45;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        .success {
+            color: #62d98b;
+        }
+
+        .error {
+            color: #ff7474;
+        }
+
+        .roblox-card {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 20px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.06);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,.018);
+        }
+
+        .roblox-avatar {
+            width: 55px;
+            height: 55px;
+
+            margin: 0 auto 12px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            background: #171719;
+        }
+
+        .roblox-name {
+            font-size: 14px;
+
+            font-weight: 750;
+        }
+
+        .roblox-id {
+            margin-top: 5px;
+
+            color: #55555a;
+
+            font-size: 8px;
+        }
+
+        .small {
+            margin-top: 24px;
+
+            color: #454549;
+
+            font-size: 8px;
+
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 18px;
+            }
+
+            .card {
+                padding: 35px 23px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-<!-- ========================================================= NAVIGATION ========================================================= -->
+<div class="container">
 
-<header class="navbar">
-
-<div class="nav-container">
-
-    <a href="index.html" class="brand">
-
-        <div class="brand-icon">
-
-            <img
-                src="images/oxelon.png"
-                alt="Oxelon"
-            >
-
-        </div>
-
-        <span>
-            Oxelon
-        </span>
-
-    </a>
-
-
-    <div class="menu">
-
-        <button
-            class="menu-button"
-            id="menuButton"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-            type="button"
-        >
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-
-        <div
-            class="dropdown-menu"
-            id="dropdownMenu"
-        >
-
-            <a href="index.html">
-                <span class="dropdown-icon"></span>
-                Home
-            </a>
-
-            <a href="features.html">
-                <span class="dropdown-icon"></span>
-                Features
-            </a>
-
-            <a href="docs.html">
-                <span class="dropdown-icon"></span>
-                Documentation
-            </a>
-
-            <a href="meet-the-team.html">
-                <span class="dropdown-icon"></span>
-                Meet the Team
-            </a>
-
-            <a href="privacy.html">
-                <span class="dropdown-icon"></span>
-                Privacy
-            </a>
-
-            <a href="dashboard.html">
-                <span class="dropdown-icon"></span>
-                Dashboard
-            </a>
-
-            <div class="dropdown-divider"></div>
-
-            <a href="status.html">
-                <span class="dropdown-icon"></span>
-                Status Page
-            </a>
-
-            <div class="dropdown-divider"></div>
-
-            <a
-                href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="dropdown-discord"
-            >
-                <span class="dropdown-icon"></span>
-                Add to Discord
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
-
-</header>
-
-<!-- ========================================================= LINK ROBLOX ========================================================= -->
-
-<main class="page">
-
-<div class="link-wrapper">
-
-    <div class="link-card">
+    <div class="card">
 
         <span class="eyebrow">
             OXELON ACCOUNT LINKING
         </span>
 
-
-        <div class="link-logo">
-
+        <div class="logo">
             <img
                 src="images/oxelon.png"
                 alt="Oxelon Logo"
             >
-
         </div>
-
 
         <h1>
             Link your
             <span>Roblox account.</span>
         </h1>
 
-
         <p class="subtitle">
             Connect your Roblox account to Oxelon
-            using a secure verification process.
+            using Roblox's secure authorization system.
         </p>
-
 
         <div
             id="status"
@@ -850,84 +325,42 @@
             Checking your Oxelon account...
         </div>
 
-
         <div
-            id="codeBox"
-            class="code-box"
+            id="robloxCard"
+            class="roblox-card"
         >
 
-            <div class="code-label">
-                Verification Code
+            <img
+                id="robloxAvatar"
+                class="roblox-avatar"
+                alt="Roblox avatar"
+            >
+
+            <div
+                id="robloxName"
+                class="roblox-name"
+            >
+                Roblox Account
             </div>
 
             <div
-                id="verificationCode"
-                class="code"
+                id="robloxId"
+                class="roblox-id"
             >
-                ------
             </div>
 
         </div>
 
-
-        <div
-            id="instructions"
-            class="instructions"
-        >
-
-            <strong>
-                What to do next
-            </strong>
-
-            <br><br>
-
-            1. Copy the verification code above.
-
-            <br>
-
-            2. Open your Roblox profile.
-
-            <br>
-
-            3. Add the verification code to
-            the location specified by Oxelon's
-            verification system.
-
-            <br>
-
-            4. Return here and verify your account.
-
-            <button
-                id="verifyButton"
-                class="button"
-                onclick="verifyAccount()"
-            >
-                Verify Roblox Account
-            </button>
-
-        </div>
-
-
         <button
-            id="startButton"
+            id="linkButton"
             class="button"
-            onclick="startLinking()"
-            style="display: none;"
+            onclick="linkRoblox()"
+            style="display:none;"
         >
-            Generate Verification Code
+            Connect Roblox Account
         </button>
 
-
-        <div
-            id="successMessage"
-            class="success"
-            style="display: none; margin-top: 18px;"
-        >
-            Roblox account linked successfully.
-        </div>
-
-
-        <p class="security-note">
+        <p class="small">
             Oxelon will never ask for your Roblox
             password or security credentials.
         </p>
@@ -936,14 +369,190 @@
 
 </div>
 
-</main>
+<script>
 
-<footer>
+const statusElement =
+    document.getElementById("status");
 
-© 2026 Oxelon. All rights reserved.
+const linkButton =
+    document.getElementById("linkButton");
 
-</footer>
+const robloxCard =
+    document.getElementById("robloxCard");
 
-<script> const statusElement = document.getElementById("status"); const startButton = document.getElementById("startButton"); const codeBox = document.getElementById("codeBox"); const verificationCode = document.getElementById("verificationCode"); const instructions = document.getElementById("instructions"); const verifyButton = document.getElementById("verifyButton"); const successMessage = document.getElementById("successMessage"); async function checkStatus() { try { const response = await fetch( "/api/roblox/status", { method: "GET", credentials: "include" } ); const data = await response.json(); if (!response.ok) { statusElement.innerHTML = `<span class="error"> ${escapeHtml( data.error || "Please log into Oxelon first." )} </span>`; startButton.style.display = "none"; return; } if (data.linked) { statusElement.innerHTML = `<span class="success"> ✓ Roblox account already linked </span>`; if (data.robloxUsername) { statusElement.innerHTML += `<br><br> Roblox: <strong> ${escapeHtml( data.robloxUsername )} </strong>`; } startButton.style.display = "none"; return; } statusElement.textContent = "Your Oxelon account is ready to be linked."; startButton.style.display = "block"; } catch (error) { console.error( "[Oxelon Roblox]", error ); statusElement.innerHTML = `<span class="error"> Unable to contact Oxelon. </span>`; } } async function startLinking() { startButton.disabled = true; startButton.textContent = "Generating..."; try { const response = await fetch( "/api/roblox/start", { method: "GET", credentials: "include" } ); const data = await response.json(); if (!response.ok) { throw new Error( data.error || "Unable to start linking." ); } if (data.alreadyLinked) { statusElement.innerHTML = `<span class="success"> ✓ Your Roblox account is already linked. </span>`; startButton.style.display = "none"; return; } verificationCode.textContent = data.code; codeBox.style.display = "block"; instructions.style.display = "block"; statusElement.innerHTML = `<span class="success"> Verification code created. </span> <br> Follow the instructions below.`; startButton.style.display = "none"; } catch (error) { console.error( "[Oxelon Roblox]", error ); statusElement.innerHTML = `<span class="error"> ${escapeHtml( error.message )} </span>`; startButton.disabled = false; startButton.textContent = "Generate Verification Code"; } } async function verifyAccount() { verifyButton.disabled = true; verifyButton.textContent = "Checking..."; const username = prompt( "Enter your Roblox username:" ); if (!username) { resetVerifyButton(); return; } const robloxId = prompt( "Enter your Roblox User ID:" ); if (!robloxId) { resetVerifyButton(); return; } try { const response = await fetch( "/api/roblox/verify", { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ robloxId: robloxId, robloxUsername: username, verificationCode: verificationCode .textContent }) } ); const data = await response.json(); if (!response.ok) { throw new Error( data.error || "Verification failed." ); } statusElement.innerHTML = `<span class="success"> ✓ Roblox account linked successfully. </span>`; instructions.style.display = "none"; codeBox.style.display = "none"; successMessage.style.display = "block"; } catch (error) { console.error( "[Oxelon Roblox]", error ); statusElement.innerHTML = `<span class="error"> ${escapeHtml( error.message )} </span>`; resetVerifyButton(); } } function resetVerifyButton() { verifyButton.disabled = false; verifyButton.textContent = "Verify Roblox Account"; } function escapeHtml(value) { return String(value) .replaceAll( "&", "&amp;" ) .replaceAll( "<", "&lt;" ) .replaceAll( ">", "&gt;" ) .replaceAll( '"', "&quot;" ) .replaceAll( "'", "&#039;" ); } /* ========================================================= MENU ========================================================= */ const menuButton = document.getElementById("menuButton"); const dropdownMenu = document.getElementById("dropdownMenu"); menuButton.addEventListener( "click", function(event) { event.stopPropagation(); const isOpen = dropdownMenu.classList.toggle( "show" ); menuButton.classList.toggle( "active", isOpen ); menuButton.setAttribute( "aria-expanded", isOpen ); } ); document.addEventListener( "click", function(event) { if ( !dropdownMenu.contains( event.target ) && !menuButton.contains( event.target ) ) { dropdownMenu.classList.remove( "show" ); menuButton.classList.remove( "active" ); menuButton.setAttribute( "aria-expanded", "false" ); } } ); dropdownMenu .querySelectorAll("a") .forEach(link => { link.addEventListener( "click", function() { dropdownMenu.classList.remove( "show" ); menuButton.classList.remove( "active" ); menuButton.setAttribute( "aria-expanded", "false" ); } ); }); checkStatus(); </script>
+const robloxAvatar =
+    document.getElementById("robloxAvatar");
 
-</body> </html>
+const robloxName =
+    document.getElementById("robloxName");
+
+const robloxId =
+    document.getElementById("robloxId");
+
+async function checkStatus() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/roblox/status",
+                {
+                    method: "GET",
+                    credentials: "include",
+                    cache: "no-store"
+                }
+            );
+
+        const text =
+            await response.text();
+
+        let data;
+
+        try {
+            data = JSON.parse(text);
+        } catch {
+            throw new Error(
+                "Oxelon returned an invalid response."
+            );
+        }
+
+        if (!response.ok) {
+
+            statusElement.innerHTML =
+                `<span class="error">
+                    ${escapeHtml(
+                        data.error ||
+                        "Please log into Oxelon first."
+                    )}
+                </span>`;
+
+            return;
+        }
+
+        if (data.linked) {
+
+            statusElement.innerHTML =
+                `<span class="success">
+                    ✓ Roblox account linked successfully.
+                </span>`;
+
+            robloxName.textContent =
+                data.robloxUsername ||
+                data.robloxDisplayName ||
+                "Roblox Account";
+
+            robloxId.textContent =
+                `User ID: ${data.robloxId}`;
+
+            if (data.robloxAvatar) {
+
+                robloxAvatar.src =
+                    data.robloxAvatar;
+
+                robloxAvatar.style.display =
+                    "block";
+
+            } else {
+
+                robloxAvatar.style.display =
+                    "none";
+            }
+
+            robloxCard.style.display =
+                "block";
+
+            linkButton.style.display =
+                "none";
+
+            return;
+        }
+
+        statusElement.textContent =
+            "Your Oxelon account is ready to be linked.";
+
+        linkButton.style.display =
+            "block";
+
+    } catch (error) {
+
+        console.error(error);
+
+        statusElement.innerHTML =
+            `<span class="error">
+                ${escapeHtml(
+                    error.message ||
+                    "Unable to contact Oxelon."
+                )}
+            </span>`;
+
+    }
+}
+
+function linkRoblox() {
+
+    linkButton.disabled = true;
+
+    linkButton.textContent =
+        "Connecting...";
+
+    window.location.href =
+        "/api/roblox/start";
+}
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+}
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+if (
+    params.get("linked") === "true"
+) {
+
+    statusElement.innerHTML =
+        `<span class="success">
+            ✓ Roblox account linked successfully.
+        </span>`;
+
+    window.history.replaceState(
+        {},
+        document.title,
+        "/linkroblox.html"
+    );
+}
+
+checkStatus();
+
+</script>
+
+</body>
+</html>
