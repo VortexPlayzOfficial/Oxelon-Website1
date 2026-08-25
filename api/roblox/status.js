@@ -1,8 +1,8 @@
 import clientPromise from "../../lib/mongodb.js";
 
 function getSession(req) {
-const cookieHeader = req.headers.cookie || "";
-
+const cookieHeader =
+req.headers.cookie || "";
 
 const cookies = {};
 
@@ -11,17 +11,28 @@ for (const part of cookieHeader.split(";")) {
 
     if (!trimmed) continue;
 
-    const separator = trimmed.indexOf("=");
+    const separator =
+        trimmed.indexOf("=");
 
     if (separator === -1) continue;
 
-    const key = trimmed.substring(0, separator);
-    const value = trimmed.substring(separator + 1);
+    const key =
+        trimmed.substring(
+            0,
+            separator
+        );
 
-    cookies[key] = decodeURIComponent(value);
+    const value =
+        trimmed.substring(
+            separator + 1
+        );
+
+    cookies[key] =
+        decodeURIComponent(value);
 }
 
-const sessionCookie = cookies.oxelon_session;
+const sessionCookie =
+    cookies.oxelon_session;
 
 if (!sessionCookie) {
     return null;
@@ -34,12 +45,7 @@ try {
             "base64url"
         ).toString("utf8")
     );
-} catch (error) {
-    console.error(
-        "[Oxelon Roblox] Invalid session cookie:",
-        error
-    );
-
+} catch {
     return null;
 }
 
@@ -56,83 +62,74 @@ error: "Method not allowed."
 }
 
 
-    const session = getSession(req);
+    const session =
+        getSession(req);
 
-    if (!session || !session.user || !session.user.id) {
+    if (!session?.user?.id) {
         return res.status(401).json({
             success: false,
-            error: "You must be logged into Discord first."
+            error:
+                "You must be logged into Discord first."
         });
     }
 
-    const discordId = String(session.user.id);
+    const discordId =
+        String(session.user.id);
 
-    console.log(
-        "[Oxelon Roblox] Checking status for Discord:",
-        discordId
-    );
+    const client =
+        await clientPromise;
 
-    if (!process.env.MONGODB_URI) {
-        console.error(
-            "[Oxelon Roblox] MONGODB_URI is missing."
+    const db =
+        client.db(
+            process.env.MONGODB_DB ||
+            "oxelon"
         );
 
-        return res.status(500).json({
-            success: false,
-            error: "MongoDB is not configured on the server."
-        });
-    }
-
-    const client = await clientPromise;
-
-    const db = client.db(
-        process.env.MONGODB_DB || "oxelon"
-    );
-
-    const collection =
-        db.collection("roblox_links");
+    const links =
+        db.collection(
+            "roblox_links"
+        );
 
     const existing =
-        await collection.findOne({
-            discordId
+        await links.findOne({
+            discordId,
+            verified: true
         });
 
-    if (!existing) {
+    if (!existing?.robloxId) {
         return res.status(200).json({
             success: true,
             linked: false,
             robloxId: null,
-            robloxUsername: null
-        });
-    }
-
-    if (
-        existing.verified === true &&
-        existing.robloxId
-    ) {
-        return res.status(200).json({
-            success: true,
-            linked: true,
-            robloxId:
-                String(existing.robloxId),
-            robloxUsername:
-                existing.robloxUsername || null
+            robloxUsername: null,
+            robloxDisplayName: null
         });
     }
 
     return res.status(200).json({
         success: true,
-        linked: false,
-        robloxId: null,
-        robloxUsername: null
+        linked: true,
+        robloxId:
+            String(existing.robloxId),
+        robloxUsername:
+            existing.robloxUsername ||
+            null,
+        robloxDisplayName:
+            existing.robloxDisplayName ||
+            null,
+        robloxProfile:
+            existing.robloxProfile ||
+            null,
+        robloxAvatar:
+            existing.robloxAvatar ||
+            null
     });
 
 } catch (error) {
     console.error(
-        "[Oxelon Roblox] STATUS FUNCTION ERROR"
+        "[Oxelon Roblox] Status error:",
+        error
     );
-
-    console.error(error);
 
     return res.status(500).json({
         success: false,
