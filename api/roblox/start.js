@@ -4,7 +4,7 @@ function getSession(req) {
 const cookieHeader = req.headers.cookie || "";
 const cookies = {};
 
-```
+
 for (const part of cookieHeader.split(";")) {
     const trimmed = part.trim();
     if (!trimmed) continue;
@@ -33,7 +33,7 @@ try {
 } catch {
     return null;
 }
-```
+
 
 }
 
@@ -69,7 +69,7 @@ error: "Method not allowed."
 });
 }
 
-```
+
     const session = getSession(req);
 
     if (!session?.user?.id) {
@@ -172,6 +172,6 @@ error: "Method not allowed."
             "Unable to start Roblox linking."
     });
 }
-```
+
 
 }
