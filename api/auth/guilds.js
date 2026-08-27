@@ -1,164 +1,77 @@
-function parseCookies(cookieHeader = "") {
-    const cookies = {};
+import crypto from "crypto";
 
-    cookieHeader.split(";").forEach(part => {
-        const index = part.indexOf("=");
+function decrypt(value, secret) {
 
-        if (index === -1) return;
+    const key = crypto
+        .createHash("sha256")
+        .update(secret)
+        .digest();
 
-        const key = part
-            .slice(0, index)
-            .trim();
+    const data =
+        Buffer.from(
+            value,
+            "base64url"
+        );
 
-        const value = part
-            .slice(index + 1)
-            .trim();
+    const iv =
+        data.subarray(0, 12);
 
-        try {
-            cookies[key] =
-                decodeURIComponent(value);
-        } catch {
-            cookies[key] = value;
-        }
-    });
+    const tag =
+        data.subarray(12, 28);
 
-    return cookies;
-}
+    const encrypted =
+        data.subarray(28);
 
+    const decipher =
+        crypto.createDecipheriv(
+            "aes-256-gcm",
+            key,
+            iv
+        );
 
-function getDiscordAvatar(user) {
-    if (!user) {
-        return null;
-    }
+    decipher.setAuthTag(tag);
 
-    if (!user.avatar) {
-        return null;
-    }
-
-    const extension =
-        user.avatar.startsWith("a_")
-            ? "gif"
-            : "png";
-
-    return `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${extension}?size=128`;
-}
-
-
-function getGuildIcon(guild) {
-    if (!guild.icon) {
-        return null;
-    }
-
-    const extension =
-        guild.icon.startsWith("a_")
-            ? "gif"
-            : "png";
-
-    return `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${extension}?size=128`;
+    return Buffer.concat([
+        decipher.update(encrypted),
+        decipher.final()
+    ]).toString("utf8");
 }
 
 
 export default async function handler(req, res) {
 
+    const cookie =
+        req.headers.cookie || "";
+
+    const match =
+        cookie.match(
+            /oxelon_session=([^;]+)/
+        );
+
+
+    if (!match) {
+
+        return res.status(401).json({
+            error: "Not authenticated."
+        });
+
+    }
+
+
     try {
 
-        // =====================================================
-        // METHOD
-        // =====================================================
-
-        if (req.method !== "GET") {
-            return res.status(405).json({
-                error: "Method not allowed"
-            });
-        }
-
-
-        // =====================================================
-        // READ SESSION COOKIE
-        // =====================================================
-
-        const cookies =
-            parseCookies(
-                req.headers.cookie || ""
+        const session =
+            JSON.parse(
+                decrypt(
+                    match[1],
+                    process.env.SESSION_SECRET
+                )
             );
 
-        const sessionCookie =
-            cookies.oxelon_session;
 
-
-        if (!sessionCookie) {
-
-            return res.status(401).json({
-                error: "Not authenticated"
-            });
-
-        }
-
-
-        // =====================================================
-        // DECODE SESSION
-        // =====================================================
-
-        let session;
-
-        try {
-
-            session = JSON.parse(
-                Buffer.from(
-                    sessionCookie,
-                    "base64url"
-                ).toString("utf8")
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Invalid Oxelon session:",
-                error
-            );
-
-            return res.status(401).json({
-                error: "Invalid session"
-            });
-
-        }
-
-
-        // =====================================================
-        // CHECK SESSION
-        // =====================================================
-
-        if (
-            !session.access_token ||
-            !session.expires_at
-        ) {
-
-            return res.status(401).json({
-                error: "Invalid Discord session"
-            });
-
-        }
-
-
-        if (
-            Date.now() >=
-            Number(session.expires_at)
-        ) {
-
-            return res.status(401).json({
-                error: "Discord session expired"
-            });
-
-        }
-
-
-        // =====================================================
-        // GET DISCORD USER
-        // =====================================================
-
-        const userResponse =
+        const response =
             await fetch(
-                "https://discord.com/api/users/@me",
+                "https://discord.com/api/v10/users/@me/guilds",
                 {
                     headers: {
                         Authorization:
@@ -168,158 +81,75 @@ export default async function handler(req, res) {
             );
 
 
-        const user =
-            await userResponse.json();
-
-
-        if (!userResponse.ok) {
-
-            console.error(
-                "Discord user request failed:",
-                user
-            );
+        if (!response.ok) {
 
             return res.status(401).json({
-                error: "Discord session is no longer valid"
+                error:
+                    "Discord session expired."
             });
 
         }
-
-
-        // =====================================================
-        // GET DISCORD GUILDS
-        // =====================================================
-
-        const guildResponse =
-            await fetch(
-                "https://discord.com/api/users/@me/guilds",
-                {
-                    headers: {
-                        Authorization:
-                            `Bearer ${session.access_token}`
-                    }
-                }
-            );
 
 
         const guilds =
-            await guildResponse.json();
+            await response.json();
 
 
-        if (!guildResponse.ok) {
+        /*
+         * Discord permission:
+         *
+         * 0x20 = MANAGE_GUILD
+         * 0x8  = ADMINISTRATOR
+         */
 
-            console.error(
-                "Discord guild request failed:",
-                guilds
-            );
-
-            return res.status(
-                guildResponse.status
-            ).json({
-                error:
-                    guilds.message ||
-                    "Unable to retrieve Discord servers."
-            });
-
-        }
-
-
-        // =====================================================
-        // FILTER MANAGEABLE SERVERS
-        // =====================================================
-
-        const manageableGuilds =
+        const manageable =
             guilds
                 .filter(guild => {
 
-                    let permissions;
+                    const permissions =
+                        BigInt(
+                            guild.permissions || "0"
+                        );
 
-                    try {
+                    const manageGuild =
+                        (permissions & 0x20n) !== 0n;
 
-                        permissions =
-                            BigInt(
-                                guild.permissions || "0"
-                            );
-
-                    } catch {
-
-                        permissions = 0n;
-
-                    }
-
-
-                    const ADMINISTRATOR =
-                        8n;
-
-                    const MANAGE_GUILD =
-                        32n;
-
+                    const administrator =
+                        (permissions & 0x8n) !== 0n;
 
                     return (
-                        (permissions &
-                            ADMINISTRATOR) !== 0n ||
-                        (permissions &
-                            MANAGE_GUILD) !== 0n
+                        manageGuild ||
+                        administrator
                     );
 
                 })
-                .map(guild => ({
+                .map(guild => {
 
-                    id: guild.id,
+                    return {
+                        id:
+                            guild.id,
 
-                    name:
-                        guild.name,
+                        name:
+                            guild.name,
 
-                    icon:
-                        getGuildIcon(guild),
+                        icon:
+                            guild.icon
+                                ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128`
+                                : null
+                    };
 
-                    owner:
-                        Boolean(guild.owner),
+                });
 
-                    permissions:
-                        guild.permissions,
-
-                    features:
-                        Array.isArray(guild.features)
-                            ? guild.features
-                            : []
-
-                }));
-
-
-        // =====================================================
-        // RESPONSE
-        // =====================================================
 
         return res.status(200).json({
-
-            user: {
-
-                id:
-                    user.id,
-
-                username:
-                    user.username,
-
-                global_name:
-                    user.global_name ||
-                    null,
-
-                avatar:
-                    getDiscordAvatar(user)
-
-            },
-
-            guilds:
-                manageableGuilds
-
+            guilds: manageable
         });
 
 
     } catch (error) {
 
         console.error(
-            "Oxelon guild endpoint crashed:",
+            "Guild API error:",
             error
         );
 
@@ -329,5 +159,4 @@ export default async function handler(req, res) {
         });
 
     }
-
 }
