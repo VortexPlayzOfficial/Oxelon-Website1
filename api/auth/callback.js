@@ -1,207 +1,174 @@
+import crypto from "crypto";
+
+function encrypt(text, secret) {
+    const key = crypto
+        .createHash("sha256")
+        .update(secret)
+        .digest();
+
+    const iv = crypto.randomBytes(12);
+
+    const cipher = crypto.createCipheriv(
+        "aes-256-gcm",
+        key,
+        iv
+    );
+
+    const encrypted = Buffer.concat([
+        cipher.update(text, "utf8"),
+        cipher.final()
+    ]);
+
+    const tag = cipher.getAuthTag();
+
+    return Buffer.concat([
+        iv,
+        tag,
+        encrypted
+    ]).toString("base64url");
+}
+
 export default async function handler(req, res) {
+
+    const {
+        DISCORD_CLIENT_ID,
+        DISCORD_CLIENT_SECRET,
+        DISCORD_REDIRECT_URI,
+        SESSION_SECRET
+    } = process.env;
+
+
+    if (
+        !DISCORD_CLIENT_ID ||
+        !DISCORD_CLIENT_SECRET ||
+        !DISCORD_REDIRECT_URI ||
+        !SESSION_SECRET
+    ) {
+        return res.status(500).json({
+            error: "OAuth environment variables are missing."
+        });
+    }
+
+
+    const code = req.query.code;
+
+
+    if (!code) {
+
+        return res.status(400).json({
+            error: "Missing Discord OAuth code."
+        });
+
+    }
+
+
     try {
-        // ============================================================
-        // OXELON DISCORD OAUTH CALLBACK
-        // ============================================================
 
-        const { code, error } = req.query;
-
-        if (error) {
-            return res.status(400).json({
-                error: `Discord OAuth error: ${error}`
-            });
-        }
-
-        if (!code) {
-            return res.status(400).json({
-                error: "Missing Discord OAuth code."
-            });
-        }
-
-        // ============================================================
-        // ENVIRONMENT
-        // ============================================================
-
-        const clientId = process.env.DISCORD_CLIENT_ID;
-        const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-        const redirectUri = process.env.DISCORD_REDIRECT_URI;
-
-        if (!clientId || !clientSecret || !redirectUri) {
-            console.error(
-                "[Oxelon OAuth] Missing Discord OAuth environment variables."
-            );
-
-            return res.status(500).json({
-                error: "Discord OAuth is not configured."
-            });
-        }
-
-        // ============================================================
-        // EXCHANGE CODE FOR TOKEN
-        // ============================================================
+        /*
+         * Exchange the OAuth code for an
+         * access token.
+         */
 
         const tokenResponse = await fetch(
-            "https://discord.com/api/v10/oauth2/token",
+            "https://discord.com/api/oauth2/token",
             {
                 method: "POST",
+
                 headers: {
                     "Content-Type":
                         "application/x-www-form-urlencoded"
                 },
+
                 body: new URLSearchParams({
-                    client_id: clientId,
-                    client_secret: clientSecret,
-                    grant_type: "authorization_code",
+                    client_id:
+                        DISCORD_CLIENT_ID,
+
+                    client_secret:
+                        DISCORD_CLIENT_SECRET,
+
+                    grant_type:
+                        "authorization_code",
+
                     code,
-                    redirect_uri: redirectUri
+
+                    redirect_uri:
+                        DISCORD_REDIRECT_URI
                 })
             }
         );
 
-        const tokenData = await tokenResponse.json();
 
-        if (!tokenResponse.ok || !tokenData.access_token) {
+        if (!tokenResponse.ok) {
+
+            const error =
+                await tokenResponse.text();
+
             console.error(
-                "[Oxelon OAuth] Token exchange failed:",
-                tokenData
-            );
-
-            return res.status(401).json({
-                error: "Discord rejected the OAuth request."
-            });
-        }
-
-        // ============================================================
-        // GET DISCORD USER
-        // ============================================================
-
-        const userResponse = await fetch(
-            "https://discord.com/api/v10/users/@me",
-            {
-                headers: {
-                    Authorization:
-                        `Bearer ${tokenData.access_token}`
-                }
-            }
-        );
-
-        const user = await userResponse.json();
-
-        if (!userResponse.ok || !user.id) {
-            console.error(
-                "[Oxelon OAuth] User request failed:",
-                user
-            );
-
-            return res.status(401).json({
-                error: "Unable to retrieve your Discord account."
-            });
-        }
-
-        // ============================================================
-        // GET USER'S GUILDS
-        //
-        // Requires the OAuth URL to include:
-        // identify + guilds
-        // ============================================================
-
-        const guildResponse = await fetch(
-            "https://discord.com/api/v10/users/@me/guilds",
-            {
-                headers: {
-                    Authorization:
-                        `Bearer ${tokenData.access_token}`
-                }
-            }
-        );
-
-        const guilds = await guildResponse.json();
-
-        if (!guildResponse.ok) {
-            console.error(
-                "[Oxelon OAuth] Guild request failed:",
-                guilds
+                "Discord token error:",
+                error
             );
 
             return res.status(500).json({
-                error: "Unable to retrieve your Discord servers."
+                error:
+                    "Failed to authenticate with Discord."
             });
+
         }
 
-        // ============================================================
-        // ONLY STORE NECESSARY SESSION DATA
-        // ============================================================
 
-        const expiresIn =
-            Number(tokenData.expires_in) || 604800;
+        const token =
+            await tokenResponse.json();
 
-        const session = {
-            user: {
-                id: user.id,
-                username: user.username,
-                global_name: user.global_name || null,
-                avatar: user.avatar || null,
-                discriminator: user.discriminator || "0"
-            },
 
-            guilds: Array.isArray(guilds)
-                ? guilds.map(guild => ({
-                    id: guild.id,
-                    name: guild.name,
-                    icon: guild.icon || null,
-                    owner: Boolean(guild.owner),
-                    permissions: guild.permissions || "0"
-                }))
-                : [],
+        /*
+         * Store the access token inside an
+         * encrypted HttpOnly cookie.
+         */
 
-            access_token: tokenData.access_token,
+        const session = encrypt(
+            JSON.stringify({
+                access_token:
+                    token.access_token
+            }),
+            SESSION_SECRET
+        );
 
-            expires_at:
-                Date.now() +
-                expiresIn * 1000
-        };
-
-        // ============================================================
-        // CREATE SESSION TOKEN
-        // ============================================================
-
-        const sessionToken = Buffer
-            .from(JSON.stringify(session))
-            .toString("base64url");
-
-        // ============================================================
-        // SECURE COOKIE
-        // ============================================================
 
         res.setHeader(
             "Set-Cookie",
             [
-                `oxelon_session=${sessionToken}`,
+                `oxelon_session=${session}`,
                 "Path=/",
                 "HttpOnly",
                 "Secure",
                 "SameSite=Lax",
-                `Max-Age=${expiresIn}`
+                "Max-Age=604800"
             ].join("; ")
         );
 
-        // ============================================================
-        // REDIRECT
-        // ============================================================
 
-        return res.redirect(
-            302,
-            "/dashboard.html"
-        );
+        /*
+         * Send the user back to the dashboard.
+         */
+
+        res.writeHead(302, {
+            Location:
+                "/dashboard.html"
+        });
+
+        res.end();
 
     } catch (error) {
+
         console.error(
-            "[Oxelon OAuth] Callback error:",
+            "OAuth callback error:",
             error
         );
 
         return res.status(500).json({
-            error: "Discord login failed."
+            error:
+                "Discord authentication failed."
         });
+
     }
 }
