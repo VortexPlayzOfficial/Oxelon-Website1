@@ -4,22 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Oxelon is an advanced Discord management, moderation and security bot built to help communities stay organised and protected."
-    >
-
-    <meta name="theme-color" content="#050506">
-    <link rel="stylesheet" href="style.css">
-
-    <title>Oxelon — Discord Management & Security</title>
+    <title>Lime Dashboard</title>
 
     <style>
-
-        /* =========================================================
-           RESET
-           ========================================================= */
-
         * {
             margin: 0;
             padding: 0;
@@ -31,21 +18,11 @@
         }
 
         body {
-            background: #050506;
+            background: #000000;
             color: #f5f5f5;
-
-            font-family:
-                Inter,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
-
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
         a {
@@ -53,39 +30,29 @@
             text-decoration: none;
         }
 
-        button,
-        input {
-            font: inherit;
-        }
-
-
-        /* =========================================================
+        /* =========================
            NAVBAR
-           ========================================================= */
+           ========================= */
 
         .navbar {
             width: 100%;
             height: 64px;
 
+            border-bottom: 1px solid rgba(255,255,255,.055);
+
+            background: rgba(5,5,6,.92);
+            backdrop-filter: blur(14px);
+
             position: sticky;
             top: 0;
-            z-index: 1000;
-
-            border-bottom:
-                1px solid rgba(255,255,255,.055);
-
-            background:
-                rgba(5,5,6,.92);
-
-            backdrop-filter: blur(14px);
+            z-index: 100;
         }
 
         .nav-container {
-            max-width: 1100px;
+            max-width: 1300px;
             height: 100%;
-
             margin: auto;
-            padding: 0 25px;
+            padding: 0 28px;
 
             display: flex;
             align-items: center;
@@ -95,12 +62,10 @@
         .brand {
             display: flex;
             align-items: center;
-
             gap: 10px;
 
             font-size: 16px;
             font-weight: 700;
-
             letter-spacing: .5px;
         }
 
@@ -109,7 +74,6 @@
             height: 27px;
 
             border-radius: 7px;
-
             overflow: hidden;
 
             background: #171719;
@@ -118,304 +82,97 @@
         .brand-icon img {
             width: 100%;
             height: 100%;
-
             object-fit: cover;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
 
-        /* =========================================================
-           THREE LINE MENU
-           ========================================================= */
-
-        .menu {
-            position: relative;
+            margin-left: auto;
+            margin-right: 25px;
         }
 
-        .menu-button {
-            width: 42px;
-            height: 42px;
+        .nav-links a {
+            color: #77777c;
 
-            display: flex;
-            flex-direction: column;
+            font-size: 12px;
+            font-weight: 600;
 
-            align-items: center;
-            justify-content: center;
+            padding: 9px 13px;
+            border-radius: 8px;
 
-            gap: 5px;
+            transition: .2s ease;
+        }
 
-            border:
-                1px solid rgba(255,255,255,.08);
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255,255,255,.055);
+        }
 
-            border-radius: 9px;
+        .nav-button {
+            border: 0;
 
-            background:
-                rgba(255,255,255,.035);
+            background: #f1f1f1;
+            color: #080808;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            padding: 9px 14px;
+            border-radius: 8px;
 
             cursor: pointer;
 
             transition: .2s ease;
         }
 
-        .menu-button:hover {
-            background:
-                rgba(255,255,255,.08);
-
-            border-color:
-                rgba(255,255,255,.14);
+        .nav-button:hover {
+            background: #fff;
+            transform: translateY(-1px);
         }
 
-        .menu-button span {
-            width: 17px;
-            height: 2px;
+        /* =========================
+           MAIN
+           ========================= */
 
-            border-radius: 10px;
-
-            background: #d8d8da;
-
-            transition: .25s ease;
-        }
-
-
-        /* =========================================================
-           MENU ANIMATION
-           ========================================================= */
-
-        .menu-button.active span:nth-child(1) {
-            transform:
-                translateY(7px)
-                rotate(45deg);
-        }
-
-        .menu-button.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-button.active span:nth-child(3) {
-            transform:
-                translateY(-7px)
-                rotate(-45deg);
-        }
-
-
-        /* =========================================================
-           DROPDOWN
-           ========================================================= */
-
-        .dropdown-menu {
-            position: absolute;
-
-            top: 52px;
-            right: 0;
-
-            width: 225px;
-
-            padding: 8px;
-
-            border:
-                1px solid rgba(255,255,255,.08);
-
-            border-radius: 12px;
-
-            background:
-                rgba(12,12,14,.97);
-
-            backdrop-filter: blur(18px);
-
-            box-shadow:
-                0 20px 60px rgba(0,0,0,.55);
-
-            opacity: 0;
-            visibility: hidden;
-
-            transform:
-                translateY(-8px)
-                scale(.98);
-
-            transform-origin: top right;
-
-            transition:
-                opacity .2s ease,
-                transform .2s ease,
-                visibility .2s ease;
-        }
-
-        .dropdown-menu.show {
-            opacity: 1;
-
-            visibility: visible;
-
-            transform:
-                translateY(0)
-                scale(1);
-        }
-
-        .dropdown-menu a {
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
+        .home-page {
             width: 100%;
-
-            padding: 11px 12px;
-
-            border-radius: 8px;
-
-            color: #858589;
-
-            font-size: 11px;
-
-            font-weight: 650;
-
-            transition: .2s ease;
-        }
-
-        .dropdown-menu a:hover {
-            color: white;
-
-            background:
-                rgba(255,255,255,.07);
-        }
-
-        .dropdown-icon {
-            width: 20px;
-
-            color: #66666b;
-
-            text-align: center;
-
-            font-size: 13px;
-        }
-
-        .dropdown-menu a:hover .dropdown-icon {
-            color: #d8d8da;
-        }
-
-        .dropdown-divider {
-            height: 1px;
-
-            margin: 6px 4px;
-
-            background:
-                rgba(255,255,255,.06);
-        }
-
-        .dropdown-discord {
-            color: #f5f5f5 !important;
-
-            background:
-                rgba(255,255,255,.055);
-        }
-
-        .dropdown-discord:hover {
-            background:
-                rgba(255,255,255,.1) !important;
-        }
-
-
-        /* =========================================================
-           HERO
-           ========================================================= */
-
-        .hero {
-            position: relative;
-
-            max-width: 1100px;
-
-            min-height: 640px;
+            max-width: 720px;
 
             margin: auto;
-            padding: 120px 25px 100px;
-
-            display: flex;
-            align-items: center;
-
-            text-align: center;
+            padding: 65px 0 100px;
         }
 
-        .hero::before {
-            content: "";
+        /* =========================
+           HERO
+           ========================= */
 
-            position: absolute;
-
-            width: 700px;
-            height: 400px;
-
-            top: 20px;
-            left: 50%;
-
-            transform:
-                translateX(-50%);
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,.075),
-                    transparent 68%
-                );
-
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-
-            width: 100%;
+        .hero {
+            padding-bottom: 50px;
         }
 
         .eyebrow {
-            display: inline-block;
+            display: block;
 
             color: #66666b;
 
             font-size: 8px;
             font-weight: 800;
-
             letter-spacing: 2px;
 
-            margin-bottom: 18px;
-        }
-
-        .hero-logo {
-            width: 76px;
-            height: 76px;
-
-            margin: 0 auto 22px;
-
-            border-radius: 20px;
-
-            overflow: hidden;
-
-            border:
-                1px solid rgba(255,255,255,.09);
-
-            background: #101012;
-
-            box-shadow:
-                0 20px 70px
-                rgba(0,0,0,.5);
-        }
-
-        .hero-logo img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
+            margin-bottom: 11px;
         }
 
         .hero h1 {
-            max-width: 850px;
+            font-size: 51px;
+            line-height: 1;
 
-            margin: auto;
+            letter-spacing: -2.8px;
+            font-weight: 750;
 
-            font-size: 66px;
-            line-height: .98;
-
-            letter-spacing: -3.5px;
-
-            font-weight: 800;
+            margin-bottom: 17px;
         }
 
         .hero h1 span {
@@ -423,130 +180,241 @@
         }
 
         .hero-description {
-            max-width: 650px;
-
-            margin: 22px auto 0;
+            max-width: 570px;
 
             color: #77777c;
 
             font-size: 12px;
+            line-height: 1.65;
 
-            line-height: 1.8;
+            margin-bottom: 25px;
         }
 
         .hero-actions {
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 8px;
 
-            gap: 10px;
-
-            margin-top: 30px;
+            margin-bottom: 16px;
         }
 
-        .primary-button {
+        .button {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+            gap: 8px;
 
-            background: #f1f1f1;
-            color: #080808;
+            border: 0;
 
-            padding: 12px 18px;
-
-            border-radius: 8px;
-
-            font-size: 10px;
-            font-weight: 750;
-
-            transition: .2s ease;
-        }
-
-        .primary-button:hover {
-            background: white;
-
-            transform:
-                translateY(-2px);
-        }
-
-        .secondary-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 11px 17px;
-
-            border:
-                1px solid rgba(255,255,255,.09);
-
-            border-radius: 8px;
-
-            color: #c8c8ca;
-
-            background:
-                rgba(255,255,255,.025);
-
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
 
+            padding: 10px 14px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
             transition: .2s ease;
         }
 
-        .secondary-button:hover {
-            color: white;
+        .button-primary {
+            background: #f1f1f1;
+            color: #080808;
+        }
+
+        .button-primary:hover {
+            background: #fff;
+            transform: translateY(-1px);
+        }
+
+        .button-secondary {
+            color: #77777c;
+
+            border: 1px solid rgba(255,255,255,.075);
+            background: rgba(255,255,255,.025);
+        }
+
+        .button-secondary:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,.14);
+            background: rgba(255,255,255,.055);
+        }
+
+        .hero-note {
+            color: #4f4f54;
+
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .6px;
+        }
+
+        .hero-note span {
+            color: #77777c;
+            margin-right: 5px;
+        }
+
+        /* =========================
+           STATUS CARD
+           ========================= */
+
+        .dashboard {
+            margin-top: 35px;
+        }
+
+        .dashboard-card {
+            border: 1px solid rgba(255,255,255,.075);
+            border-radius: 10px;
 
             background:
-                rgba(255,255,255,.06);
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255,255,255,.065),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.035),
+                    rgba(255,255,255,.012)
+                );
+
+            padding: 18px;
+
+            overflow: hidden;
+
+            box-shadow: 0 20px 50px rgba(0,0,0,.3);
         }
 
-
-        /* =========================================================
-           TRUST BAR
-           ========================================================= */
-
-        .trust {
-            max-width: 900px;
-
-            margin: -20px auto 0;
-
-            padding: 0 25px 80px;
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .trust-inner {
+        .server-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .server-icon {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 9px;
+
+            background: #121214;
+            border: 1px solid rgba(255,255,255,.07);
+
+            overflow: hidden;
+        }
+
+        .server-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .server-info strong {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 3px;
+        }
+
+        .server-info span {
+            display: block;
+
+            color: #5f5f64;
+            font-size: 8px;
+        }
+
+        .online {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .online-dot {
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+            background: #77777c;
+        }
+
+        .online-dot.offline {
+            background: #444449;
+        }
+
+        .dashboard-divider {
+            height: 1px;
+            background: rgba(255,255,255,.06);
+
+            margin: 17px 0;
+        }
+
+        .dashboard-stats {
             display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 8px;
 
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            border-top:
-                1px solid rgba(255,255,255,.06);
-
-            border-bottom:
-                1px solid rgba(255,255,255,.06);
+            margin-bottom: 12px;
         }
 
         .stat {
-            padding: 22px 15px;
+            padding: 12px;
 
-            text-align: center;
+            border: 1px solid rgba(255,255,255,.055);
+            border-radius: 8px;
 
-            border-right:
-                1px solid rgba(255,255,255,.05);
-        }
-
-        .stat:last-child {
-            border-right: 0;
-        }
-
-        .stat strong {
-            display: block;
-
-            font-size: 20px;
-
-            margin-bottom: 5px;
+            background: rgba(255,255,255,.018);
         }
 
         .stat span {
+            display: block;
+
+            color: #55555a;
+
+            font-size: 7px;
+            font-weight: 700;
+
+            letter-spacing: .7px;
+            text-transform: uppercase;
+
+            margin-bottom: 6px;
+        }
+
+        .stat strong {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .stat strong.active {
+            color: #858589;
+            font-size: 11px;
+        }
+
+        /* =========================
+           ACTIVITY
+           ========================= */
+
+        .activity-box {
+            padding: 13px;
+
+            border: 1px solid rgba(255,255,255,.055);
+            border-radius: 8px;
+
+            background: rgba(255,255,255,.018);
+        }
+
+        .activity-title {
             color: #55555a;
 
             font-size: 7px;
@@ -554,490 +422,331 @@
 
             letter-spacing: 1px;
             text-transform: uppercase;
+
+            margin-bottom: 12px;
         }
 
+        .activity {
+            display: flex;
+            align-items: center;
+            gap: 9px;
 
-        /* =========================================================
-           GENERAL SECTION
-           ========================================================= */
+            padding: 8px 0;
 
-        .section {
-            max-width: 1000px;
-
-            margin: auto;
-
-            padding:
-                80px 25px;
+            border-top: 1px solid rgba(255,255,255,.04);
         }
 
-        .section-header {
-            margin-bottom: 35px;
+        .activity:first-of-type {
+            border-top: none;
         }
 
-        .section-eyebrow {
+        .activity-icon {
+            width: 25px;
+            height: 25px;
+
+            border-radius: 6px;
+
+            background: #121214;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #77777c;
+
+            font-size: 9px;
+            font-weight: 800;
+        }
+
+        .activity strong {
+            display: block;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            margin-bottom: 2px;
+        }
+
+        .activity span {
             display: block;
 
             color: #55555a;
-
             font-size: 7px;
-            font-weight: 800;
-
-            letter-spacing: 2px;
-
-            margin-bottom: 10px;
         }
 
-        .section-header h2 {
-            font-size: 32px;
+        /* =========================
+           SECTIONS
+           ========================= */
 
-            letter-spacing: -1.5px;
+        .section {
+            border-top: 1px solid rgba(255,255,255,.07);
 
-            margin-bottom: 10px;
+            margin-top: 52px;
+            padding-top: 52px;
         }
 
-        .section-header h2 span {
+        .section-heading {
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2,
+        .security-content h2,
+        .cta-box h2 {
+            font-size: 28px;
+            line-height: 1.05;
+
+            letter-spacing: -1.2px;
+            font-weight: 750;
+
+            margin-bottom: 13px;
+        }
+
+        .section-heading h2 span,
+        .security-content h2 span,
+        .cta-box h2 span {
             color: #77777c;
         }
 
-        .section-header p {
-            max-width: 600px;
+        .section-heading p,
+        .security-content p,
+        .cta-box p {
+            color: #77777c;
 
-            color: #66666b;
-
-            font-size: 10px;
-
+            font-size: 11px;
             line-height: 1.7;
+
+            max-width: 500px;
         }
 
-
-        /* =========================================================
-           FEATURE GRID
-           ========================================================= */
+        /* =========================
+           FEATURES
+           ========================= */
 
         .feature-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 10px;
+            grid-template-columns: repeat(2,1fr);
+            gap: 12px;
         }
 
         .feature-card {
-            padding: 20px;
+            min-height: 175px;
 
-            min-height: 165px;
+            padding: 17px;
 
-            border:
-                1px solid rgba(255,255,255,.065);
-
+            border: 1px solid rgba(255,255,255,.075);
             border-radius: 10px;
 
             background:
-                rgba(255,255,255,.018);
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(255,255,255,.065),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.035),
+                    rgba(255,255,255,.012)
+                );
 
             transition: .2s ease;
         }
 
         .feature-card:hover {
-            border-color:
-                rgba(255,255,255,.12);
-
-            background:
-                rgba(255,255,255,.03);
-
-            transform:
-                translateY(-2px);
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,.14);
         }
 
-        .feature-number {
-            color: #454549;
-
-            font-size: 8px;
-            font-weight: 800;
-
-            margin-bottom: 20px;
+        .feature-card.large {
+            grid-column: span 2;
         }
 
-        .feature-card h3 {
-            font-size: 14px;
-
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            color: #66666b;
-
-            font-size: 9px;
-
-            line-height: 1.7;
-        }
-
-
-        /* =========================================================
-           SECURITY
-           ========================================================= */
-
-        .security-section {
-            max-width: 1000px;
-
-            margin: auto;
-
-            padding:
-                80px 25px;
-        }
-
-        .security-box {
-            position: relative;
-
-            overflow: hidden;
-
-            padding: 40px;
-
-            border:
-                1px solid rgba(255,255,255,.07);
-
-            border-radius: 12px;
-
-            background:
-                radial-gradient(
-                    circle at 80% 0%,
-                    rgba(255,255,255,.065),
-                    transparent 45%
-                ),
-                rgba(255,255,255,.018);
-        }
-
-        .security-box::after {
-            content: "";
-
-            position: absolute;
-
-            width: 250px;
-            height: 250px;
-
-            right: -100px;
-            bottom: -120px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255,255,255,.025);
-        }
-
-        .security-box h2 {
-            position: relative;
-            z-index: 1;
-
-            font-size: 27px;
-
-            letter-spacing: -1px;
-
-            margin-bottom: 10px;
-        }
-
-        .security-box h2 span {
-            color: #77777c;
-        }
-
-        .security-box > p {
-            position: relative;
-            z-index: 1;
-
-            max-width: 600px;
-
-            color: #66666b;
-
-            font-size: 10px;
-
-            line-height: 1.7;
-
-            margin-bottom: 25px;
-        }
-
-        .security-grid {
-            position: relative;
-            z-index: 1;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 8px;
-        }
-
-        .security-card {
-            padding: 16px;
-
-            border:
-                1px solid rgba(255,255,255,.055);
-
-            border-radius: 8px;
-
-            background:
-                rgba(0,0,0,.16);
-        }
-
-        .security-card strong {
-            display: block;
-
-            font-size: 10px;
-
-            margin-bottom: 6px;
-        }
-
-        .security-card p {
-            color: #5f5f64;
-
-            font-size: 8px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =========================================================
-           MANAGEMENT
-           ========================================================= */
-
-        .management-list {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 8px;
-        }
-
-        .management-item {
-            display: flex;
-
-            align-items: center;
-
-            gap: 14px;
-
-            padding: 16px;
-
-            border:
-                1px solid rgba(255,255,255,.06);
-
-            border-radius: 9px;
-
-            background:
-                rgba(255,255,255,.018);
-
-            transition: .2s ease;
-        }
-
-        .management-item:hover {
-            background:
-                rgba(255,255,255,.035);
-        }
-
-        .management-icon {
-            width: 35px;
-            height: 35px;
-
-            flex-shrink: 0;
+        .feature-icon {
+            width: 32px;
+            height: 32px;
 
             display: flex;
-
             align-items: center;
             justify-content: center;
 
-            border-radius: 9px;
+            border-radius: 8px;
 
-            background:
-                rgba(255,255,255,.06);
+            background: #121214;
+            border: 1px solid rgba(255,255,255,.055);
 
-            color: #d7d7d9;
+            color: #77777c;
 
             font-size: 12px;
 
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        .feature-card p {
+            color: #77777c;
+
+            font-size: 9px;
+            line-height: 1.65;
+
+            max-width: 300px;
+        }
+
+        .feature-link {
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 700;
+
+            margin-top: 15px;
+        }
+
+        /* =========================
+           SECURITY
+           ========================= */
+
+        .security-container {
+            display: grid;
+            grid-template-columns: 1fr .9fr;
+            gap: 18px;
+
+            align-items: center;
+        }
+
+        .check-list {
+            margin-top: 20px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .check-list div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            color: #77777c;
+            font-size: 9px;
+        }
+
+        .check-list span {
+            width: 18px;
+            height: 18px;
+
+            border-radius: 5px;
+
+            background: #121214;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #77777c;
+
+            font-size: 8px;
             font-weight: 800;
         }
 
-        .management-item strong {
-            display: block;
+        .security-panel {
+            padding: 16px;
 
-            font-size: 10px;
-
-            margin-bottom: 4px;
-        }
-
-        .management-item p {
-            color: #5f5f64;
-
-            font-size: 8px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =========================================================
-           ERLC
-           ========================================================= */
-
-        .erlc-box {
-            display: grid;
-
-            grid-template-columns:
-                1.2fr .8fr;
-
-            gap: 30px;
-
-            align-items: center;
-
-            padding: 35px;
-
-            border:
-                1px solid rgba(255,255,255,.065);
-
-            border-radius: 11px;
-
-            background:
-                rgba(255,255,255,.018);
-        }
-
-        .erlc-box h2 {
-            font-size: 25px;
-
-            letter-spacing: -1px;
-
-            margin-bottom: 9px;
-        }
-
-        .erlc-box h2 span {
-            color: #77777c;
-        }
-
-        .erlc-box p {
-            color: #66666b;
-
-            font-size: 9px;
-
-            line-height: 1.7;
-        }
-
-        .erlc-features {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 7px;
-        }
-
-        .erlc-feature {
-            padding: 10px 12px;
-
-            border:
-                1px solid rgba(255,255,255,.05);
-
-            border-radius: 7px;
-
-            color: #a7a7aa;
-
-            background:
-                rgba(0,0,0,.15);
-
-            font-size: 8px;
-
-            font-weight: 650;
-        }
-
-
-        /* =========================================================
-           PREMIUM
-           ========================================================= */
-
-        .premium {
-            max-width: 1000px;
-
-            margin: auto;
-
-            padding:
-                80px 25px;
-        }
-
-        .premium-box {
-            text-align: center;
-
-            padding: 45px 30px;
-
-            border:
-                1px solid rgba(255,255,255,.075);
-
-            border-radius: 11px;
+            border: 1px solid rgba(255,255,255,.075);
+            border-radius: 10px;
 
             background:
                 radial-gradient(
-                    circle at 50% 0%,
-                    rgba(255,255,255,.06),
-                    transparent 55%
+                    circle at 100% 0%,
+                    rgba(255,255,255,.065),
+                    transparent 42%
                 ),
-                rgba(255,255,255,.018);
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.035),
+                    rgba(255,255,255,.012)
+                );
         }
 
-        .premium-label {
-            display: inline-block;
+        .panel-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
             color: #55555a;
 
             font-size: 7px;
             font-weight: 800;
-
-            letter-spacing: 2px;
-
-            margin-bottom: 12px;
+            letter-spacing: 1px;
         }
 
-        .premium-box h2 {
-            font-size: 28px;
+        .secure {
+            display: flex;
+            align-items: center;
+            gap: 5px;
 
-            letter-spacing: -1px;
-
-            margin-bottom: 10px;
-        }
-
-        .premium-box h2 span {
             color: #77777c;
+
+            font-size: 7px;
         }
 
-        .premium-box p {
-            max-width: 550px;
+        .secure-dot {
+            width: 4px;
+            height: 4px;
 
-            margin: auto;
+            border-radius: 50%;
+            background: #77777c;
+        }
 
+        .security-line {
+            height: 1px;
+
+            background: rgba(255,255,255,.06);
+
+            margin: 14px 0;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 9px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,.04);
+        }
+
+        .security-item:last-child {
+            border-bottom: none;
+        }
+
+        .security-item span {
             color: #66666b;
-
-            font-size: 9px;
-
-            line-height: 1.7;
+            font-size: 8px;
         }
 
+        .security-item strong {
+            color: #858589;
+            font-size: 8px;
+            font-weight: 700;
+        }
 
-        /* =========================================================
+        /* =========================
            CTA
-           ========================================================= */
+           ========================= */
 
         .cta {
-            max-width: 1000px;
-
-            margin: auto;
-
-            padding:
-                30px 25px 100px;
+            text-align: center;
         }
 
         .cta-box {
-            padding: 45px 30px;
+            padding: 35px 25px;
 
-            text-align: center;
-
-            border:
-                1px solid rgba(255,255,255,.075);
-
-            border-radius: 11px;
+            border: 1px solid rgba(255,255,255,.075);
+            border-radius: 10px;
 
             background:
                 radial-gradient(
@@ -1045,139 +754,163 @@
                     rgba(255,255,255,.065),
                     transparent 55%
                 ),
-                rgba(255,255,255,.018);
-        }
-
-        .cta-box h2 {
-            font-size: 28px;
-
-            letter-spacing: -1px;
-
-            margin-bottom: 10px;
-        }
-
-        .cta-box h2 span {
-            color: #77777c;
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.035),
+                    rgba(255,255,255,.012)
+                );
         }
 
         .cta-box p {
-            max-width: 560px;
-
-            margin: auto auto 20px;
-
-            color: #66666b;
-
-            font-size: 9px;
-
-            line-height: 1.7;
+            margin: 0 auto 20px;
         }
 
-
-        /* =========================================================
+        /* =========================
            FOOTER
-           ========================================================= */
+           ========================= */
 
         footer {
-            border-top:
-                1px solid rgba(255,255,255,.055);
+            border-top: 1px solid rgba(255,255,255,.055);
 
             padding: 30px 20px;
 
-            text-align: center;
-
             color: #454549;
-
-            font-size: 8px;
         }
 
+        .footer-container {
+            max-width: 720px;
+            margin: auto;
 
-        /* =========================================================
+            display: flex;
+            justify-content: space-between;
+
+            gap: 40px;
+        }
+
+        .footer-brand .brand {
+            margin-bottom: 10px;
+        }
+
+        .footer-brand p {
+            max-width: 220px;
+
+            font-size: 8px;
+            line-height: 1.6;
+
+            color: #454549;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 55px;
+        }
+
+        .footer-links div {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .footer-links strong {
+            color: #66666b;
+
+            font-size: 8px;
+            font-weight: 800;
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            margin-bottom: 3px;
+        }
+
+        .footer-links a {
+            color: #454549;
+            font-size: 8px;
+
+            transition: .2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #77777c;
+        }
+
+        .footer-bottom {
+            max-width: 720px;
+
+            margin: 25px auto 0;
+            padding-top: 17px;
+
+            border-top: 1px solid rgba(255,255,255,.04);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            font-size: 7px;
+            letter-spacing: .4px;
+        }
+
+        /* =========================
            MOBILE
-           ========================================================= */
+           ========================= */
 
         @media (max-width: 800px) {
+
+            .home-page {
+                max-width: 100%;
+                padding: 45px 22px 80px;
+            }
 
             .nav-container {
                 padding: 0 18px;
             }
 
-            .hero {
-                min-height: auto;
-
-                padding:
-                    90px 25px 80px;
+            .nav-links {
+                display: none;
             }
 
             .hero h1 {
-                font-size: 45px;
-
-                letter-spacing: -2.5px;
-            }
-
-            .hero-description {
-                font-size: 11px;
+                font-size: 43px;
             }
 
             .hero-actions {
+                flex-wrap: wrap;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card.large {
+                grid-column: span 1;
+            }
+
+            .security-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
                 flex-direction: column;
             }
 
-            .primary-button,
-            .secondary-button {
-                width: 100%;
-
-                max-width: 240px;
+            .footer-links {
+                gap: 45px;
             }
 
-            .feature-grid,
-            .security-grid,
-            .management-list {
-                grid-template-columns: 1fr;
-            }
-
-            .erlc-box {
-                grid-template-columns: 1fr;
-            }
-
-            .trust-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .stat {
-                border-right: 0;
-
-                border-bottom:
-                    1px solid rgba(255,255,255,.05);
-            }
-
-            .stat:last-child {
-                border-bottom: 0;
-            }
-
-            .security-box,
-            .erlc-box {
-                padding: 25px;
-            }
-
-            .section-header h2 {
-                font-size: 27px;
-            }
-
-            .dropdown-menu {
-                width: 210px;
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 7px;
             }
         }
-
     </style>
 </head>
 
-
 <body>
-
-
-<!-- =========================================================
-     NAVIGATION
-     ========================================================= -->
 
 <header class="navbar">
 
@@ -1186,867 +919,844 @@
         <a href="index.html" class="brand">
 
             <div class="brand-icon">
-
                 <img
                     src="images/oxelon.png"
-                    alt="Oxelon"
+                    alt="Lime"
                 >
-
             </div>
 
-            <span>
-                Oxelon
-            </span>
+            <span>Lime Systems</span>
 
         </a>
 
+        <nav class="nav-links">
 
-        <!-- THREE LINE MENU -->
+            <a href="features.html">
+                Features
+            </a>
 
-        <div class="menu">
+            <a href="security.html">
+                Security
+            </a>
 
-            <button
-                class="menu-button"
-                id="menuButton"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                type="button"
-            >
+            <a href="meet-the-team.html">
+                Team
+            </a>
 
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="docs.html">
+                Docs
+            </a>
 
-            </button>
+        </nav>
 
+        <!-- THIS IS NOW LOGIN -->
 
-            <!-- ALL WEBSITE PAGES -->
-
-            <div
-                class="dropdown-menu"
-                id="dropdownMenu"
-            >
-
-                <a href="index.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Home
-
-                </a>
-
-
-                <a href="features.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Features
-
-                </a>
-
-                
-              <a href="linkroblox.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Link to Roblox
-
-                </a>
-                <a href="docs.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Documentation
-
-                </a>
-
-
-                <a href="meet-the-team.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Meet the Team
-
-                </a>
-
-
-                <a href="privacy.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Privacy
-
-                </a>
-
-
-                <a href="dashboard.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Dashboard
-
-                </a>
-
-                <div class="dropdown-divider"></div>
-
-                  <a href="status.html">
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Status Page
-
-                </a>
-
-
-                <div class="dropdown-divider"></div>
-
-
-                <a
-                    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="dropdown-discord"
-                >
-
-                    <span class="dropdown-icon">
-                        
-                    </span>
-
-                    Add to Discord
-
-                </a>
-
-            </div>
-
-        </div>
+        <a
+    href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&response_type=code&redirect_uri=https%3A%2F%2Foxelon-website1.vercel.app%2Fapi%2Fauth%2Fcallback&scope=identify%20guilds"
+    class="nav-button"
+>
+    Login
+</a>
 
     </div>
 
 </header>
 
 
+<main class="home-page">
 
-<!-- =========================================================
-     HERO
-     ========================================================= -->
-
-<section class="hero">
-
-    <div class="hero-content">
+    <section class="hero">
 
         <span class="eyebrow">
-            OXELON DISCORD BOT
+            LIME SYSTEMS
         </span>
 
-
-        <div class="hero-logo">
-
-            <img
-                src="images/oxelon.png"
-                alt="Oxelon Logo"
-            >
-
-        </div>
-
-
         <h1>
-
             Your server.
             <br>
-
-            <span>
-                Protected by Oxelon.
-            </span>
-
+            <span>Under control.</span>
         </h1>
 
-
         <p class="hero-description">
-
-            Oxelon is an advanced Discord management,
-            moderation and security bot built to help
-            communities stay organised, protected and
-            easy to manage.
-
+            Lime Systems is a powerful Discord bot designed to help
+            you manage, protect, and grow your community with
+            reliable moderation, security, logging, and
+            management tools.
         </p>
-
 
         <div class="hero-actions">
 
-            <a
-                href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-                class="primary-button"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Add Oxelon to Discord
-            </a>
-
+            <!-- ADD TO DISCORD = LOGIN -->
 
             <a
-                href="dashboard.html"
-                class="secondary-button"
+                href="https://discord.com/oauth2/authorize?client_id=1495544450842366083&permissions=8&integration_type=0&scope=bot+applications.commands"
+                class="button button-primary"
             >
-                Open Dashboard
+                Add to Discord
+                <span>→</span>
+            </a>
+
+            <a
+                href="features.html"
+                class="button button-secondary"
+            >
+                Explore features
             </a>
 
         </div>
 
-    </div>
+        <div class="hero-note">
+            <span>✓</span>
+            Free to use · Easy to configure · Built for communities
+        </div>
 
-</section>
+
+        <!-- BOT STATUS -->
+
+        <div class="dashboard">
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-header">
+
+                    <div class="server-info">
+
+                        <div class="server-icon">
+
+                            <img
+                                src="images/oxelon.png"
+                                alt="Lime"
+                            >
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Lime Systems
+                            </strong>
+
+                            <span>
+                                Server Management
+                            </span>
+
+                        </div>
+
+                    </div>
 
 
+                    <div class="online">
 
-<!-- =========================================================
-     STATS
-     ========================================================= -->
+                        <span
+                            id="status-dot"
+                            class="online-dot"
+                        ></span>
 
-<section class="trust">
+                        <span id="status-text">
+                            Connecting
+                        </span>
 
-    <div class="trust-inner">
+                    </div>
 
-        <div class="stat">
+                </div>
 
-            <strong>
-                24/7
-            </strong>
 
-            <span>
-                Protection
+                <div class="dashboard-divider"></div>
+
+
+                <div class="dashboard-stats">
+
+                    <div class="stat">
+
+                        <span>
+                            Members
+                        </span>
+
+                        <strong id="member-count">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span>
+                            Servers
+                        </span>
+
+                        <strong id="server-count">
+                            Loading...
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <span>
+                            Status
+                        </span>
+
+                        <strong
+                            id="bot-status"
+                            class="active"
+                        >
+                            Connecting
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="activity-box">
+
+                    <div class="activity-title">
+                        System status
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Moderation system
+                            </strong>
+
+                            <span id="moderation-status">
+                                Checking Limes status...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            +
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Security system
+                            </strong>
+
+                            <span>
+                                Protection systems operational
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            O
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Web API
+                            </strong>
+
+                            <span id="api-status">
+                                Connecting to Lime...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <span class="eyebrow">
+                FEATURES
             </span>
-
-        </div>
-
-
-        <div class="stat">
-
-            <strong>
-                Multi-System
-            </strong>
-
-            <span>
-                Server Management
-            </span>
-
-        </div>
-
-
-        <div class="stat">
-
-            <strong>
-                Discord
-            </strong>
-
-            <span>
-                Native Integration
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     FEATURES
-     ========================================================= -->
-
-<section class="section">
-
-    <div class="section-header">
-
-        <span class="section-eyebrow">
-            EVERYTHING IN ONE PLACE
-        </span>
-
-        <h2>
-            Built for <span>serious communities.</span>
-        </h2>
-
-        <p>
-            From moderation and server management to
-            advanced security systems, Oxelon brings the
-            tools your staff need into one Discord bot.
-        </p>
-
-    </div>
-
-
-    <div class="feature-grid">
-
-        <div class="feature-card">
-
-            <div class="feature-number">
-                01
-            </div>
-
-            <h3>
-                Moderation
-            </h3>
-
-            <p>
-                Warn, timeout, kick, ban and manage
-                members with powerful moderation tools.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-number">
-                02
-            </div>
-
-            <h3>
-                Server Management
-            </h3>
-
-            <p>
-                Manage channels, roles, nicknames,
-                slowmode and other server controls.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-number">
-                03
-            </div>
-
-            <h3>
-                Security
-            </h3>
-
-            <p>
-                Protect your community with raid,
-                spam and audit logging systems.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-number">
-                04
-            </div>
-
-            <h3>
-                Applications
-            </h3>
-
-            <p>
-                Create application systems for staff,
-                departments and community roles.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-number">
-                05
-            </div>
-
-            <h3>
-                Tickets
-            </h3>
-
-            <p>
-                Give your community a simple way to
-                contact staff and receive support.
-            </p>
-
-        </div>
-
-
-        <div class="feature-card">
-
-            <div class="feature-number">
-                06
-            </div>
-
-            <h3>
-                Customisation
-            </h3>
-
-            <p>
-                Configure Oxelon to fit the structure
-                and requirements of your community.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     SECURITY
-     ========================================================= -->
-
-<section class="security-section">
-
-    <div class="security-box">
-
-        <h2>
-            Protection that works
-            <span>behind the scenes.</span>
-        </h2>
-
-        <p>
-            Oxelon's security systems are designed to
-            help your staff detect suspicious activity
-            before it becomes a serious problem.
-        </p>
-
-
-        <div class="security-grid">
-
-            <div class="security-card">
-
-                <strong>
-                    Raid Protection
-                </strong>
-
-                <p>
-                    Detect suspicious activity and
-                    respond according to your server's
-                    security configuration.
-                </p>
-
-            </div>
-
-
-            <div class="security-card">
-
-                <strong>
-                    Anti-Spam
-                </strong>
-
-                <p>
-                    Detect repeated spam and escalate
-                    actions against repeat offenders.
-                </p>
-
-            </div>
-
-
-            <div class="security-card">
-
-                <strong>
-                    Audit Logs
-                </strong>
-
-                <p>
-                    Keep detailed records of moderation,
-                    security and server activity.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     MANAGEMENT
-     ========================================================= -->
-
-<section class="section">
-
-    <div class="section-header">
-
-        <span class="section-eyebrow">
-            MANAGEMENT
-        </span>
-
-        <h2>
-            More than just <span>moderation.</span>
-        </h2>
-
-        <p>
-            Oxelon gives your staff a complete collection
-            of tools for running a Discord community.
-        </p>
-
-    </div>
-
-
-    <div class="management-list">
-
-        <div class="management-item">
-
-            <div class="management-icon">
-                T
-            </div>
-
-            <div>
-
-                <strong>
-                    Tickets
-                </strong>
-
-                <p>
-                    Give members a direct way to contact staff.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="management-item">
-
-            <div class="management-icon">
-                V
-            </div>
-
-            <div>
-
-                <strong>
-                    Verification
-                </strong>
-
-                <p>
-                    Control access to your community with verification.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="management-item">
-
-            <div class="management-icon">
-                A
-            </div>
-
-            <div>
-
-                <strong>
-                    Applications
-                </strong>
-
-                <p>
-                    Build structured applications for your community.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="management-item">
-
-            <div class="management-icon">
-                G
-            </div>
-
-            <div>
-
-                <strong>
-                    Giveaways
-                </strong>
-
-                <p>
-                    Run community giveaways and increase engagement.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="management-item">
-
-            <div class="management-icon">
-                C
-            </div>
-
-            <div>
-
-                <strong>
-                    Customisation
-                </strong>
-
-                <p>
-                    Configure Oxelon around your server.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="management-item">
-
-            <div class="management-icon">
-                L
-            </div>
-
-            <div>
-
-                <strong>
-                    Logging
-                </strong>
-
-                <p>
-                    Keep your staff informed about important events.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     ERLC
-     ========================================================= -->
-
-<section class="section">
-
-    <div class="section-header">
-
-        <span class="section-eyebrow">
-            ERLC INTEGRATION
-        </span>
-
-        <h2>
-            Built for <span>roleplay communities.</span>
-        </h2>
-
-    </div>
-
-
-    <div class="erlc-box">
-
-        <div>
 
             <h2>
-                Emergency Response
-                <span>Liberty County.</span>
+                Powerful tools.
+                <br>
+                <span>Simple to use.</span>
             </h2>
 
             <p>
-                Connect Oxelon with your ERLC community and
-                bring server management, moderation and
-                roleplay administration closer together.
+                Lime Systems gives your staff the tools they need
+                to manage and protect their Discord server
+                without unnecessary complexity.
             </p>
 
         </div>
 
 
-        <div class="erlc-features">
+        <div class="feature-grid">
 
-            <div class="erlc-feature">
-                ERLC API Integration
+            <article class="feature-card large">
+
+                <div class="feature-icon">
+                    O
+                </div>
+
+                <h3>
+                    Server Protection
+                </h3>
+
+                <p>
+                    Protect your community with moderation,
+                    security, lockdown, and configurable
+                    protection tools.
+                </p>
+
+                <div class="feature-link">
+                    Protection system →
+                </div>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    +
+                </div>
+
+                <h3>
+                    Easy Management
+                </h3>
+
+                <p>
+                    Manage your server quickly with simple
+                    and reliable commands.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    L
+                </div>
+
+                <h3>
+                    Advanced Logging
+                </h3>
+
+                <p>
+                    Keep records of important server activity
+                    with detailed moderation logs.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    M
+                </div>
+
+                <h3>
+                    Moderation
+                </h3>
+
+                <p>
+                    Warn, mute, kick, ban, and manage members
+                    from one central system.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    S
+                </div>
+
+                <h3>
+                    Server Lockdown
+                </h3>
+
+                <p>
+                    Quickly secure your server when responding
+                    to an incident or security threat.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- SECURITY -->
+
+    <section class="section">
+
+        <div class="security-container">
+
+            <div class="security-content">
+
+                <span class="eyebrow">
+                    BUILT FOR SAFETY
+                </span>
+
+                <h2>
+                    Stay ahead of
+                    <span>server threats.</span>
+                </h2>
+
+                <p>
+                    Lime Systems gives your moderation team the tools
+                    required to respond quickly, protect members,
+                    and keep your community organised.
+                </p>
+
+
+                <div class="check-list">
+
+                    <div>
+                        <span>✓</span>
+                        Advanced moderation
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Server lockdown tools
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Detailed logging
+                    </div>
+
+                    <div>
+                        <span>✓</span>
+                        Configurable permissions
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="erlc-feature">
-                Server Configuration
+
+            <div class="security-panel">
+
+                <div class="panel-top">
+
+                    <span>
+                        LIME SECURITY
+                    </span>
+
+                    <div class="secure">
+
+                        <span
+                            id="security-dot"
+                            class="secure-dot"
+                        ></span>
+
+                        <span id="security-status">
+                            Checking
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="security-line"></div>
+
+
+                <div class="security-item">
+
+                    <span>
+                        Moderation
+                    </span>
+
+                    <strong>
+                        Operational
+                    </strong>
+
+                </div>
+
+
+                <div class="security-item">
+
+                    <span>
+                        Logging
+                    </span>
+
+                    <strong>
+                        Operational
+                    </strong>
+
+                </div>
+
+
+                <div class="security-item">
+
+                    <span>
+                        Protection
+                    </span>
+
+                    <strong>
+                        Operational
+                    </strong>
+
+                </div>
+
+
+                <div class="security-item">
+
+                    <span>
+                        Bot Status
+                    </span>
+
+                    <strong id="security-bot-status">
+                        Checking
+                    </strong>
+
+                </div>
+
             </div>
 
-            <div class="erlc-feature">
-                Staff Management
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="section cta">
+
+        <div class="cta-box">
+
+            <span class="eyebrow">
+                GET STARTED
+            </span>
+
+            <h2>
+                Ready to upgrade
+                <span>your server?</span>
+            </h2>
+
+            <p>
+                Add Lime today and take control of your
+                Discord community.
+            </p>
+
+            <a
+                href="/api/auth/login"
+                class="button button-primary"
+            >
+                Add Lime to Discord
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+
+            <a href="index.html" class="brand">
+
+                <div class="brand-icon">
+
+                    <img
+                        src="images/oxelon.png"
+                        alt="Lime"
+                    >
+
+                </div>
+
+                <span>
+                    Lime
+                </span>
+
+            </a>
+
+            <p>
+                Powerful Discord management,
+                protection, and moderation.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <div>
+
+                <strong>
+                    Product
+                </strong>
+
+                <a href="features.html">
+                    Features
+                </a>
+
+                <a href="security.html">
+                    Security
+                </a>
+
             </div>
 
-            <div class="erlc-feature">
-                Roleplay Administration
+
+            <div>
+
+                <strong>
+                    Links
+                </strong>
+
+                <a href="docs.html">
+                    Docs
+                </a>
+
+                <a href="meet-the-team.html">
+                    Team
+                </a>
+
             </div>
 
         </div>
 
     </div>
 
-</section>
 
+    <div class="footer-bottom">
 
-
-<!-- =========================================================
-     PREMIUM
-     ========================================================= -->
-
-<section class="premium">
-
-    <div class="premium-box">
-
-        <span class="premium-label">
-            OXELON PREMIUM
+        <span>
+            © 2026 Lime Systems. All rights reserved.
         </span>
 
-        <h2>
-            Take your server
-            <span>further.</span>
-        </h2>
-
-        <p>
-            Unlock additional features, advanced
-            configuration and enhanced server tools
-            with Oxelon Premium.
-        </p>
+        <span>
+            Built for Discord communities.
+        </span>
 
     </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     CTA
-     ========================================================= -->
-
-<section class="cta">
-
-    <div class="cta-box">
-
-        <h2>
-            Ready to protect
-            <span>your server?</span>
-        </h2>
-
-        <p>
-            Add Oxelon to your Discord server and give
-            your staff the tools they need to manage,
-            moderate and protect your community.
-        </p>
-
-
-        <a
-            href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-            class="primary-button"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Add Oxelon to Discord
-        </a>
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     FOOTER
-     ========================================================= -->
-
-<footer>
-
-    © 2026 Oxelon. All rights reserved.
 
 </footer>
 
 
-
-<!-- =========================================================
-     MENU JAVASCRIPT
-     ========================================================= -->
-
 <script>
 
-    const menuButton =
-        document.getElementById("menuButton");
+    /*
+     * =========================================================
+     * OXELON LIVE API
+     * =========================================================
+     */
 
-    const dropdownMenu =
-        document.getElementById("dropdownMenu");
-
-
-    menuButton.addEventListener("click", function(event) {
-
-        event.stopPropagation();
-
-        const isOpen =
-            dropdownMenu.classList.toggle("show");
-
-        menuButton.classList.toggle(
-            "active",
-            isOpen
-        );
-
-        menuButton.setAttribute(
-            "aria-expanded",
-            isOpen
-        );
-
-    });
+    const API_URL =
+        "http://144.217.85.53:2631/api/stats";
 
 
-    document.addEventListener("click", function(event) {
+    async function updateOxelonStats() {
 
-        if (
-            !dropdownMenu.contains(event.target) &&
-            !menuButton.contains(event.target)
-        ) {
+        const memberCount =
+            document.getElementById("member-count");
 
-            dropdownMenu.classList.remove("show");
+        const serverCount =
+            document.getElementById("server-count");
 
-            menuButton.classList.remove("active");
+        const statusText =
+            document.getElementById("status-text");
 
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
+        const botStatus =
+            document.getElementById("bot-status");
+
+        const apiStatus =
+            document.getElementById("api-status");
+
+        const moderationStatus =
+            document.getElementById("moderation-status");
+
+        const statusDot =
+            document.getElementById("status-dot");
+
+        const securityStatus =
+            document.getElementById("security-status");
+
+        const securityBotStatus =
+            document.getElementById(
+                "security-bot-status"
+            );
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "GET",
+                        cache: "no-store"
+                    }
+                );
+
+
+            if (!response.ok) {
+                throw new Error(
+                    "API returned HTTP " +
+                    response.status
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            const members =
+                Number(data.members || 0);
+
+            memberCount.textContent =
+                members.toLocaleString() + "+";
+
+
+            const servers =
+                Number(data.servers || 0);
+
+            serverCount.textContent =
+                servers.toLocaleString();
+
+
+            const online =
+                data.status === "online";
+
+
+            if (online) {
+
+                statusText.textContent =
+                    "Online";
+
+                botStatus.textContent =
+                    "Active";
+
+                securityBotStatus.textContent =
+                    "Online";
+
+                securityStatus.textContent =
+                    "Protected";
+
+                apiStatus.textContent =
+                    "Connected to Lime";
+
+                moderationStatus.textContent =
+                    "Lime is protecting your servers";
+
+                statusDot.classList.remove(
+                    "offline"
+                );
+
+            } else {
+
+                statusText.textContent =
+                    "Offline";
+
+                botStatus.textContent =
+                    "Offline";
+
+                securityBotStatus.textContent =
+                    "Offline";
+
+                securityStatus.textContent =
+                    "Offline";
+
+                apiStatus.textContent =
+                    "Lime API unavailable";
+
+                moderationStatus.textContent =
+                    "Lime is currently offline";
+
+                statusDot.classList.add(
+                    "offline"
+                );
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Lime API error:",
+                error
+            );
+
+
+            memberCount.textContent =
+                "Unavailable";
+
+            serverCount.textContent =
+                "Unavailable";
+
+            statusText.textContent =
+                "Offline";
+
+            botStatus.textContent =
+                "Offline";
+
+            securityBotStatus.textContent =
+                "Offline";
+
+            securityStatus.textContent =
+                "Unavailable";
+
+            apiStatus.textContent =
+                "Unable to connect to API";
+
+            moderationStatus.textContent =
+                "Live status unavailable";
+
+            statusDot.classList.add(
+                "offline"
             );
 
         }
 
-    });
+    }
 
 
-    dropdownMenu.querySelectorAll("a").forEach(link => {
+    updateLimeStats();
 
-        link.addEventListener("click", function() {
 
-            dropdownMenu.classList.remove("show");
-
-            menuButton.classList.remove("active");
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-        });
-
-    });
+    setInterval(
+        updateLimeStats,
+        30000
+    );
 
 </script>
-
 
 </body>
 </html>
