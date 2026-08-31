@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Our Team — Oxelon</title>
+    <title>Our Team</title>
 
     <style>
         * {
@@ -13,389 +13,276 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --bg: #050506;
+            --card: #0b0b0d;
+            --card-hover: #101012;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f5f5f5;
+            --muted: #88888f;
+            --accent: #ffffff;
         }
 
         body {
-            background: #050506;
-            color: #f5f5f5;
-            font-family: Inter, -apple-system, BlinkMacSystemFont,
-                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    rgba(255,255,255,0.08),
+                    transparent 45%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        .container {
+            width: min(1200px, calc(100% - 40px));
+            margin: 0 auto;
         }
 
-        .navbar {
-            width: 100%;
-            height: 64px;
-            border-bottom: 1px solid rgba(255,255,255,.055);
-            background: rgba(5,5,6,.92);
-            backdrop-filter: blur(14px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        /* NAVBAR */
 
-        .nav-container {
-            max-width: 1300px;
-            height: 100%;
-            margin: auto;
-            padding: 0 28px;
-
+        nav {
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
-
-            font-size: 16px;
+            gap: 11px;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
             font-weight: 700;
-            letter-spacing: .5px;
+            letter-spacing: -0.5px;
         }
 
-        .brand-icon {
-            width: 27px;
-            height: 27px;
-            border-radius: 7px;
-            overflow: hidden;
-            background: #171719;
-        }
-
-        .brand-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .nav-links {
+        .brand-logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #ffffff, #777777);
             display: flex;
             align-items: center;
-            gap: 7px;
-            margin-left: auto;
-            margin-right: 25px;
+            justify-content: center;
+            color: #050506;
+            font-weight: 900;
+            font-size: 15px;
         }
 
-        .nav-links a {
-            color: #77777c;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 9px 13px;
-            border-radius: 8px;
-            transition: .2s ease;
+        .nav-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s ease;
         }
 
-        .nav-links a:hover,
-        .nav-links .active {
+        .nav-link:hover {
             color: white;
-            background: rgba(255,255,255,.07);
         }
 
-        .nav-button {
-            background: #f1f1f1;
-            color: #080808;
+        /* HERO */
 
-            font-size: 12px;
-            font-weight: 700;
-
-            padding: 9px 14px;
-            border-radius: 8px;
-
-            transition: .2s ease;
-        }
-
-        .nav-button:hover {
-            background: white;
-            transform: translateY(-1px);
-        }
-
-        .team-page {
-            width: 100%;
-            max-width: 720px;
-
-            margin: auto;
-            padding: 65px 0 100px;
-        }
-
-        .page-header {
-            margin-bottom: 50px;
+        .hero {
+            text-align: center;
+            padding: 100px 20px 70px;
         }
 
         .eyebrow {
-            display: block;
-
-            color: #66666b;
-
-            font-size: 8px;
-            font-weight: 800;
-            letter-spacing: 2px;
-
-            margin-bottom: 11px;
-        }
-
-        .page-header h1 {
-            font-size: 51px;
-            line-height: 1;
-
-            letter-spacing: -2.8px;
-            font-weight: 750;
-
-            margin-bottom: 17px;
-        }
-
-        .page-header p {
-            max-width: 570px;
-
-            color: #77777c;
-
+            display: inline-flex;
+            padding: 7px 12px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: rgba(255,255,255,0.03);
+            color: #aaa;
             font-size: 12px;
-            line-height: 1.65;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 22px;
         }
 
-        .team-section {
-            margin-top: 48px;
+        h1 {
+            font-size: clamp(42px, 7vw, 72px);
+            line-height: 1;
+            letter-spacing: -4px;
+            margin-bottom: 22px;
         }
 
-        .section-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            margin-bottom: 17px;
+        .hero p {
+            max-width: 580px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.7;
         }
 
-        .section-title h2 {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -.5px;
-        }
-
-        .section-label {
-            color: #4f4f54;
-
-            font-size: 8px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        /* TEAM */
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding-bottom: 100px;
         }
 
-        .team-card {
+        .member {
             position: relative;
-
-            min-height: 275px;
-
-            padding: 17px;
-
-            border: 1px solid rgba(255,255,255,.075);
-            border-radius: 10px;
-
+            padding: 30px;
+            border: 1px solid var(--border);
+            border-radius: 22px;
             background:
-                radial-gradient(
-                    circle at 100% 0%,
-                    rgba(255,255,255,.065),
-                    transparent 42%
-                ),
                 linear-gradient(
                     145deg,
-                    rgba(255,255,255,.035),
-                    rgba(255,255,255,.012)
-                );
-
+                    rgba(255,255,255,0.045),
+                    rgba(255,255,255,0.012)
+                ),
+                var(--card);
             overflow: hidden;
-
             transition:
-                transform .2s ease,
-                border-color .2s ease,
-                background .2s ease;
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
         }
 
-        .team-card:hover {
-            transform: translateY(-3px);
-
-            border-color: rgba(255,255,255,.14);
-
-            background:
-                radial-gradient(
-                    circle at 100% 0%,
-                    rgba(255,255,255,.09),
-                    transparent 42%
-                ),
-                linear-gradient(
-                    145deg,
-                    rgba(255,255,255,.045),
-                    rgba(255,255,255,.018)
-                );
+        .member:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.16);
+            background: var(--card-hover);
         }
 
-        .team-avatar {
-            width: 64px;
-            height: 64px;
+        .founder-badge {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #ddd;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+        }
 
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar {
+            width: 82px;
+            height: 82px;
             border-radius: 50%;
-
-            border: 2px solid rgba(255,255,255,.055);
-
-            background: #080809;
-
-            padding: 4px;
-
-            margin-bottom: 13px;
-
-            box-shadow:
-                0 0 0 1px rgba(0,0,0,.8),
-                0 8px 25px rgba(0,0,0,.45);
-        }
-
-        .team-avatar img {
-            width: 100%;
-            height: 100%;
-
-            border-radius: 50%;
-
             object-fit: cover;
+            display: block;
+            border: 2px solid rgba(255,255,255,0.08);
+            background: #151517;
+        }
+
+        .status {
+            position: absolute;
+            right: 2px;
+            bottom: 3px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #555;
+            border: 4px solid #0b0b0d;
+        }
+
+        .status.online {
+            background: #43b581;
+        }
+
+        .status.offline {
+            background: #747f8d;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
         }
 
         .role {
-            display: inline-flex;
-            align-items: center;
-
-            padding: 4px 7px;
-
-            border-radius: 4px;
-
-            background: rgba(255,255,255,.075);
-
-            color: #858589;
-
-            font-size: 7px;
-            font-weight: 800;
-
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-
-            margin-bottom: 8px;
-        }
-
-        .team-card h3 {
+            color: #999;
             font-size: 14px;
-            font-weight: 700;
-
-            margin-bottom: 5px;
         }
 
-        .team-card .username {
-            display: block;
-
-            color: #66666b;
-
-            font-size: 9px;
-
-            margin-bottom: 14px;
+        .description {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #77777e;
+            font-size: 13px;
+            line-height: 1.7;
         }
 
-        .team-card p {
-            color: #77777c;
+        /* EMPTY TEAM PLACEHOLDER */
 
-            font-size: 10px;
-            line-height: 1.65;
-
-            max-width: 190px;
+        .placeholder {
+            opacity: 0.65;
         }
 
-        .card-footer {
-            position: absolute;
-
-            left: 17px;
-            right: 17px;
-            bottom: 15px;
-
-            color: #444449;
-
-            font-size: 7px;
-            font-weight: 700;
-
-            letter-spacing: 1px;
-            text-transform: uppercase;
-
+        .placeholder .avatar {
             display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            color: #666;
+            font-size: 25px;
+            font-weight: 700;
         }
 
-        .card-footer::before {
-            content: "";
-
-            width: 4px;
-            height: 4px;
-
-            border-radius: 50%;
-
-            background: #55555a;
-        }
-
-        .loading {
-            color: #55555a;
-            font-size: 10px;
-            padding: 20px 0;
-        }
-
-        .error {
-            color: #77777c;
-            font-size: 10px;
-            padding: 20px 0;
-        }
+        /* FOOTER */
 
         footer {
-            border-top: 1px solid rgba(255,255,255,.055);
-
-            padding: 25px 20px;
-
-            color: #454549;
-
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 35px 0;
+            color: #666;
+            font-size: 13px;
             text-align: center;
-
-            font-size: 9px;
         }
 
-        @media (max-width: 800px) {
+        /* MOBILE */
 
-            .team-page {
-                max-width: 100%;
-                padding: 45px 22px 80px;
+        @media (max-width: 700px) {
+            .container {
+                width: min(100% - 28px, 1200px);
             }
 
-            .nav-container {
-                padding: 0 18px;
+            nav {
+                height: 70px;
             }
 
-            .nav-links {
-                display: none;
+            .hero {
+                padding: 75px 10px 55px;
             }
 
-            .page-header h1 {
-                font-size: 43px;
+            h1 {
+                letter-spacing: -2.5px;
             }
 
             .team-grid {
                 grid-template-columns: 1fr;
+                padding-bottom: 70px;
             }
 
-            .team-card {
-                min-height: 250px;
+            .member {
+                padding: 24px;
             }
         }
     </style>
@@ -403,425 +290,190 @@
 
 <body>
 
-<header class="navbar">
+    <div class="container">
 
-    <div class="nav-container">
-
-        <a href="index.html" class="brand">
-
-            <div class="brand-icon">
-                <img
-                    src="images/IMG_5117.jpg"
-                    alt="Oxelon"
-                >
-            </div>
-
-            <span>Oxelon</span>
-
-        </a>
-
-        <nav class="nav-links">
-
-            <a href="index.html#features">
-                Features
+        <nav>
+            <a href="index.html" class="brand">
+                <div class="brand-logo">L</div>
+                Lime
             </a>
 
-            <a href="index.html#security">
-                Commands
+            <a href="index.html" class="nav-link">
+                Back to Home
             </a>
-
-            <a href="meet-the-team.html" class="active">
-                Team
-            </a>
-
-            <a href="index.html#about">
-                About
-            </a>
-
         </nav>
 
-        <a
-            href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-            class="nav-button"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Add to Discord
-        </a>
+        <section class="hero">
+
+            <div class="eyebrow">
+                THE PEOPLE BEHIND LIME
+            </div>
+
+            <h1>Meet the Team.</h1>
+
+            <p>
+                The people building Lime, developing its features,
+                and helping create a better experience for every server.
+            </p>
+
+        </section>
+
+        <section class="team-grid">
+
+            <!-- VORTEXPLAYZ -->
+
+            <article class="member">
+
+                <div class="founder-badge">
+                    Founder
+                </div>
+
+                <div class="profile">
+
+                    <div class="avatar-wrapper">
+
+                       <img src="/images/vortexplayz.png" alt="VortexPlayz" class="avatar">
+                        <span class="status online"></span>
+
+                    </div>
+
+                    <div>
+                        <div class="name">
+                            VortexPlayz
+                        </div>
+
+                        <div class="role">
+                            Founder · Developer
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="description">
+                    Founder and developer of Lime, responsible for
+                    development, features, infrastructure, and the
+                    overall direction of the project.
+                </div>
+
+            </article>
+
+
+            <!-- BRENTPLAYZ -->
+
+            <article class="member">
+
+                <div class="founder-badge">
+                    Founder
+                </div>
+
+                <div class="profile">
+
+                    <div class="avatar-wrapper">
+
+   <img src="/images/brentplayz.png" alt="BrentPlayz" class="avatar">
+
+                        <span class="status offline"></span>
+
+                    </div>
+
+                    <div>
+                        <div class="name">
+                            BrentPlayz
+                        </div>
+
+                        <div class="role">
+                            Founder
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="description">
+                    Founder of Lime, helping shape the project,
+                    its community, and its future.
+                </div>
+
+            </article>
+
+
+            <!-- ADDITIONAL TEAM MEMBER -->
+
+            <article class="member placeholder">
+
+                <div class="profile">
+
+                    <div class="avatar-wrapper">
+
+                        <div class="avatar">
+                            ?
+                        </div>
+
+                        <span class="status offline"></span>
+
+                    </div>
+
+                    <div>
+                        <div class="name">
+                            Team Member
+                        </div>
+
+                        <div class="role">
+                            Role
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="description">
+                    Add another Lime team member here by replacing
+                    this placeholder with their profile information.
+                </div>
+
+            </article>
+
+
+            <!-- ADDITIONAL TEAM MEMBER -->
+
+            <article class="member placeholder">
+
+                <div class="profile">
+
+                    <div class="avatar-wrapper">
+
+                        <div class="avatar">
+                            ?
+                        </div>
+
+                        <span class="status offline"></span>
+
+                    </div>
+
+                    <div>
+                        <div class="name">
+                            Team Member
+                        </div>
+
+                        <div class="role">
+                            Role
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="description">
+                    Add another Lime team member here by replacing
+                    this placeholder with their profile information.
+                </div>
+
+            </article>
+
+        </section>
 
     </div>
 
-</header>
-
-
-<main class="team-page">
-
-    <header class="page-header">
-
-        <span class="eyebrow">
-            OXELON
-        </span>
-
-        <h1>
-            Our Team
-        </h1>
-
-        <p>
-            Meet the people behind Oxelon. Our team works together
-            to build, maintain, and support reliable management and
-            security solutions for Discord communities.
-        </p>
-
-    </header>
-
-
-    <!-- FOUNDERS -->
-
-    <section class="team-section">
-
-        <div class="section-title">
-
-            <h2>
-                Founders
-            </h2>
-
-            <span class="section-label">
-                Leadership
-            </span>
-
-        </div>
-
-        <div
-            class="team-grid"
-            id="founders"
-        >
-
-            <div class="loading">
-                Loading team...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- DEVELOPERS -->
-
-    <section class="team-section">
-
-        <div class="section-title">
-
-            <h2>
-                Developers
-            </h2>
-
-            <span class="section-label">
-                Development Team
-            </span>
-
-        </div>
-
-        <div
-            class="team-grid"
-            id="developers"
-        ></div>
-
-    </section>
-
-
-    <!-- STAFF -->
-
-    <section class="team-section">
-
-        <div class="section-title">
-
-            <h2>
-                Staff Team
-            </h2>
-
-            <span class="section-label">
-                Staff Team
-            </span>
-
-        </div>
-
-        <div
-            class="team-grid"
-            id="staff"
-        ></div>
-
-    </section>
-
-</main>
-
-
-<footer>
-    © 2026 Oxelon. All rights reserved.
-</footer>
-
-
-<script>
-
-const TEAM_ENDPOINT = "/api/team";
-
-
-const roleSections = {
-    "1454712715414081566": {
-        container: "founders",
-        title: "Founder"
-    },
-
-    "1454713007840956446": {
-        container: "developers",
-        title: "Developer"
-    },
-
-    "1462218835464687617": {
-        container: "staff",
-        title: "Management"
-    }
-};
-
-
-function createMemberCard(member, role) {
-
-    const article =
-        document.createElement("article");
-
-    article.className = "team-card";
-
-
-    const avatar =
-        document.createElement("div");
-
-    avatar.className = "team-avatar";
-
-
-    const img =
-        document.createElement("img");
-
-    img.src =
-        member.avatar ||
-        "images/oxelon.png";
-
-    img.alt =
-        member.display_name || member.username;
-
-
-    img.onerror = () => {
-        img.src = "images/oxelon.png";
-    };
-
-
-    avatar.appendChild(img);
-
-
-    const roleBadge =
-        document.createElement("span");
-
-    roleBadge.className = "role";
-
-    roleBadge.textContent =
-        role.title;
-
-
-    const name =
-        document.createElement("h3");
-
-    name.textContent =
-        member.display_name ||
-        member.username;
-
-
-    const username =
-        document.createElement("span");
-
-    username.className =
-        "username";
-
-    username.textContent =
-        "@" + member.username;
-
-
-    const description =
-        document.createElement("p");
-
-    description.textContent =
-        member.description ||
-        `Part of the Oxelon ${role.title.toLowerCase()} team.`;
-
-
-    const footer =
-        document.createElement("div");
-
-    footer.className =
-        "card-footer";
-
-    footer.textContent =
-        `Oxelon ${role.title}`;
-
-
-    article.appendChild(avatar);
-    article.appendChild(roleBadge);
-    article.appendChild(name);
-    article.appendChild(username);
-    article.appendChild(description);
-    article.appendChild(footer);
-
-
-    return article;
-}
-
-
-async function loadTeam() {
-
-    try {
-
-        const response =
-            await fetch(
-                TEAM_ENDPOINT,
-                {
-                    method: "GET",
-                    headers: {
-                        "Accept": "application/json"
-                    },
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-            throw new Error(
-                `HTTP ${response.status}`
-            );
-        }
-
-
-        const data =
-            await response.json();
-
-
-        Object.values(roleSections)
-            .forEach(role => {
-
-                const container =
-                    document.getElementById(
-                        role.container
-                    );
-
-                if (container) {
-                    container.innerHTML = "";
-                }
-
-            });
-
-
-        if (
-            !data.members ||
-            !data.members.length
-        ) {
-
-            document.getElementById(
-                "founders"
-            ).innerHTML =
-                `<div class="error">
-                    No team members found.
-                </div>`;
-
-            return;
-        }
-
-
-        data.members.forEach(member => {
-
-            /*
-             * A member may have more than one
-             * Oxelon role. Use their highest
-             * matching role supplied by the API.
-             */
-
-            const matchingRole =
-                member.roles
-                    .map(String)
-                    .map(id => roleSections[id])
-                    .find(Boolean);
-
-
-            if (!matchingRole) {
-                return;
-            }
-
-
-            const container =
-                document.getElementById(
-                    matchingRole.container
-                );
-
-
-            if (!container) {
-                return;
-            }
-
-
-            container.appendChild(
-                createMemberCard(
-                    member,
-                    matchingRole
-                )
-            );
-
-        });
-
-
-        /*
-         * Hide empty sections.
-         */
-
-        Object.values(roleSections)
-            .forEach(role => {
-
-                const container =
-                    document.getElementById(
-                        role.container
-                    );
-
-                if (
-                    container &&
-                    container.children.length === 0
-                ) {
-
-                    container.closest(
-                        ".team-section"
-                    ).style.display = "none";
-
-                }
-
-            });
-
-
-    } catch (error) {
-
-        console.error(
-            "Failed to load Oxelon team:",
-            error
-        );
-
-
-        document.getElementById(
-            "founders"
-        ).innerHTML =
-            `<div class="error">
-                Unable to load the Oxelon team right now.
-            </div>`;
-
-    }
-
-}
-
-
-loadTeam();
-
-</script>
+    <footer>
+        © 2026 Lime. All rights reserved.
+    </footer>
 
 </body>
 </html>
