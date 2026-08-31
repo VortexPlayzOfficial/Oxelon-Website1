@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="description"
-        content="Explore Oxelon's moderation, security, management, ERLC, engagement, applications, tickets and premium features."
-    >
-
     <title>Features — Oxelon</title>
 
     <style>
@@ -25,29 +20,13 @@
         body {
             background: #050506;
             color: #f5f5f5;
-            font-family:
-                Inter,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
-        }
-
-        body::selection {
-            background: rgba(255,255,255,.18);
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         a {
             color: inherit;
             text-decoration: none;
-        }
-
-        button,
-        input {
-            font: inherit;
         }
 
         /* =========================================================
@@ -58,12 +37,10 @@
             width: 100%;
             height: 64px;
 
-            border-bottom: 1px solid rgba(255,255,255,.055);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.055);
 
-            background: rgba(5,5,6,.92);
-
+            background: rgba(5, 5, 6, 0.92);
             backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
 
             position: sticky;
             top: 0;
@@ -73,7 +50,6 @@
         .nav-container {
             max-width: 1100px;
             height: 100%;
-
             margin: auto;
             padding: 0 25px;
 
@@ -89,8 +65,7 @@
 
             font-size: 16px;
             font-weight: 700;
-
-            letter-spacing: .5px;
+            letter-spacing: 0.5px;
         }
 
         .brand-icon {
@@ -101,85 +76,68 @@
             overflow: hidden;
 
             background: #171719;
-
-            border: 1px solid rgba(255,255,255,.06);
         }
 
         .brand-icon img {
             width: 100%;
             height: 100%;
-
             object-fit: cover;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 7px;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 7px;
         }
 
         .nav-links a {
             color: #77777c;
 
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
 
-            padding: 9px 12px;
-
+            padding: 9px 13px;
             border-radius: 8px;
 
-            transition: .2s ease;
+            transition: 0.2s ease;
         }
 
         .nav-links a:hover,
         .nav-links a.active {
-            color: white;
-            background: rgba(255,255,255,.07);
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.07);
         }
 
         .nav-button {
-            border: 0;
-
             background: #f1f1f1;
             color: #080808;
 
-            font-size: 10px;
-            font-weight: 750;
+            font-size: 12px;
+            font-weight: 700;
 
             padding: 9px 14px;
-
             border-radius: 8px;
 
-            cursor: pointer;
-
-            transition: .2s ease;
+            transition: 0.2s ease;
         }
 
         .nav-button:hover {
-            background: white;
+            background: #ffffff;
             transform: translateY(-1px);
         }
 
         /* =========================================================
-           MAIN
+           PAGE
            ========================================================= */
 
         main {
             max-width: 1000px;
-
             margin: auto;
-
             padding: 70px 25px 100px;
         }
 
         .page-header {
-            margin-bottom: 55px;
+            margin-bottom: 50px;
         }
 
         .eyebrow {
@@ -189,7 +147,6 @@
 
             font-size: 8px;
             font-weight: 800;
-
             letter-spacing: 2px;
 
             margin-bottom: 12px;
@@ -200,10 +157,9 @@
             line-height: 1;
 
             letter-spacing: -2px;
-
             font-weight: 750;
 
-            margin-bottom: 16px;
+            margin-bottom: 15px;
         }
 
         .page-header h1 span {
@@ -211,58 +167,20 @@
         }
 
         .page-header p {
-            max-width: 650px;
+            max-width: 620px;
 
             color: #77777c;
 
             font-size: 12px;
-            line-height: 1.75;
+            line-height: 1.7;
         }
 
         /* =========================================================
-           FEATURE NAVIGATION
-           ========================================================= */
-
-        .feature-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-
-            padding: 10px;
-
-            margin-bottom: 45px;
-
-            border: 1px solid rgba(255,255,255,.06);
-            border-radius: 10px;
-
-            background: rgba(255,255,255,.018);
-        }
-
-        .feature-nav a {
-            color: #66666b;
-
-            font-size: 8px;
-            font-weight: 750;
-
-            padding: 8px 10px;
-
-            border-radius: 7px;
-
-            transition: .2s ease;
-        }
-
-        .feature-nav a:hover {
-            color: white;
-            background: rgba(255,255,255,.06);
-        }
-
-        /* =========================================================
-           CATEGORIES
+           CATEGORY
            ========================================================= */
 
         .category {
-            margin-top: 50px;
-            scroll-margin-top: 85px;
+            margin-top: 48px;
         }
 
         .category-header {
@@ -270,13 +188,10 @@
             align-items: center;
             justify-content: space-between;
 
-            gap: 15px;
-
-            padding-bottom: 12px;
-
             border-bottom: 1px solid rgba(255,255,255,.07);
 
-            margin-bottom: 3px;
+            padding-bottom: 12px;
+            margin-bottom: 12px;
         }
 
         .category-title {
@@ -286,17 +201,13 @@
 
         .category-description {
             color: #55555a;
-
-            font-size: 7px;
-            font-weight: 800;
-
-            letter-spacing: .7px;
-
-            text-transform: uppercase;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .5px;
         }
 
         /* =========================================================
-           COMMANDS
+           COMMAND CARDS
            ========================================================= */
 
         .command-list {
@@ -306,21 +217,15 @@
 
         .command {
             display: grid;
-
-            grid-template-columns:
-                minmax(150px, 190px)
-                minmax(0, 1fr)
-                auto;
-
+            grid-template-columns: 190px 1fr auto;
             align-items: center;
-
             gap: 20px;
 
             padding: 15px 16px;
 
             border-bottom: 1px solid rgba(255,255,255,.04);
 
-            transition: .2s ease;
+            transition: 0.2s ease;
         }
 
         .command:hover {
@@ -330,34 +235,27 @@
         .command-name {
             color: #d5d5d8;
 
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
         }
 
         .command-name code {
-            display: inline-block;
-
             color: #ffffff;
 
-            font-family:
-                Consolas,
-                Monaco,
-                monospace;
+            font-family: Consolas, Monaco, monospace;
 
             background: rgba(255,255,255,.055);
 
             padding: 5px 8px;
 
             border-radius: 6px;
-
-            white-space: nowrap;
         }
 
         .command-description {
             color: #6f6f75;
 
-            font-size: 9px;
-            line-height: 1.55;
+            font-size: 10px;
+            line-height: 1.5;
         }
 
         .command-permission {
@@ -367,99 +265,31 @@
             font-weight: 800;
 
             letter-spacing: .6px;
-
             text-transform: uppercase;
 
             white-space: nowrap;
         }
 
         /* =========================================================
-           BADGES
-           ========================================================= */
-
-        .badge {
-            display: inline-block;
-
-            margin-left: 5px;
-
-            padding: 3px 5px;
-
-            border-radius: 4px;
-
-            font-size: 6px;
-            font-weight: 800;
-
-            letter-spacing: .5px;
-
-            vertical-align: middle;
-        }
-
-        .badge-new {
-            background: rgba(255,255,255,.09);
-            color: #d8d8da;
-        }
-
-        .badge-premium {
-            background: rgba(145,120,255,.12);
-            color: #aaa0ff;
-        }
-
-        .badge-security {
-            background: rgba(255,255,255,.07);
-            color: #c5c5c8;
-        }
-
-        /* =========================================================
-           HIGHLIGHTS
+           FEATURE HIGHLIGHTS
            ========================================================= */
 
         .highlight-grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(3, minmax(0,1fr));
+            grid-template-columns: repeat(3, 1fr);
 
             gap: 10px;
 
-            margin-top: 18px;
+            margin-top: 20px;
         }
 
         .highlight {
-            padding: 16px;
+            padding: 15px;
 
             border: 1px solid rgba(255,255,255,.065);
             border-radius: 9px;
 
             background: rgba(255,255,255,.018);
-
-            transition: .2s ease;
-        }
-
-        .highlight:hover {
-            border-color: rgba(255,255,255,.11);
-            background: rgba(255,255,255,.025);
-
-            transform: translateY(-1px);
-        }
-
-        .highlight-icon {
-            width: 28px;
-            height: 28px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin-bottom: 11px;
-
-            border-radius: 7px;
-
-            background: rgba(255,255,255,.055);
-
-            color: #ddd;
-
-            font-size: 11px;
-            font-weight: 800;
         }
 
         .highlight strong {
@@ -474,8 +304,7 @@
             color: #66666b;
 
             font-size: 8px;
-
-            line-height: 1.65;
+            line-height: 1.6;
         }
 
         /* =========================================================
@@ -483,14 +312,13 @@
            ========================================================= */
 
         .cta {
-            margin-top: 70px;
+            margin-top: 65px;
 
-            padding: 32px 25px;
+            padding: 30px;
 
             text-align: center;
 
             border: 1px solid rgba(255,255,255,.075);
-
             border-radius: 10px;
 
             background:
@@ -504,7 +332,6 @@
 
         .cta h2 {
             font-size: 23px;
-
             margin-bottom: 10px;
         }
 
@@ -513,15 +340,12 @@
         }
 
         .cta p {
-            max-width: 520px;
-
-            margin: 0 auto 18px;
-
             color: #77777c;
 
             font-size: 10px;
-
             line-height: 1.7;
+
+            margin-bottom: 18px;
         }
 
         .button {
@@ -543,7 +367,7 @@
         }
 
         .button:hover {
-            background: white;
+            background: #ffffff;
             transform: translateY(-1px);
         }
 
@@ -573,33 +397,13 @@
                 display: none;
             }
 
-            .nav-container {
-                padding: 0 17px;
-            }
-
-            main {
-                padding: 50px 17px 80px;
-            }
-
             .page-header h1 {
                 font-size: 38px;
-            }
-
-            .feature-nav {
-                display: none;
-            }
-
-            .category-header {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 5px;
             }
 
             .command {
                 grid-template-columns: 1fr;
                 gap: 7px;
-
-                padding: 14px 10px;
             }
 
             .command-permission {
@@ -615,28 +419,23 @@
 
 <body>
 
-<!-- =============================================================
-     NAVIGATION
-     ============================================================= -->
+    <!-- =========================================================
+         NAVIGATION
+         ========================================================= -->
 
-<header class="navbar">
+    <header class="navbar">
 
-    <div class="nav-container">
+        <div class="nav-container">
 
-        <a href="index.html" class="brand">
+            <a href="index.html" class="brand">
 
-            <div class="brand-icon">
-                <img
-                    src="images/oxelon.png"
-                    alt="Oxelon"
-                >
-            </div>
+                <div class="brand-icon">
+                    <img src="images/oxelon.png" alt="Oxelon">
+                </div>
 
-            <span>Oxelon</span>
+                <span>Lime</span>
 
-        </a>
-
-        <div class="nav-right">
+            </a>
 
             <nav class="nav-links">
 
@@ -644,10 +443,7 @@
                     Home
                 </a>
 
-                <a
-                    href="features.html"
-                    class="active"
-                >
+                <a href="features.html" class="active">
                     Features
                 </a>
 
@@ -655,8 +451,8 @@
                     Docs
                 </a>
 
-                <a href="meet-the-team.html">
-                    Team
+                <a href="dashboard.html">
+                    Dashboard
                 </a>
 
                 <a href="privacy.html">
@@ -676,1653 +472,624 @@
 
         </div>
 
-    </div>
-
-</header>
-
-
-<!-- =============================================================
-     MAIN
-     ============================================================= -->
-
-<main>
-
-    <div class="page-header">
-
-        <span class="eyebrow">
-            OXELON FEATURES
-        </span>
-
-        <h1>
-            Everything your server
-            <br>
-            <span>needs to stay managed.</span>
-        </h1>
-
-        <p>
-            Oxelon brings moderation, security, management,
-            community tools, applications, tickets, ERLC
-            integration and more into one powerful Discord bot.
-            Configure the systems your community actually needs.
-        </p>
-
-    </div>
+    </header>
 
 
     <!-- =========================================================
-         QUICK NAVIGATION
+         MAIN
          ========================================================= -->
 
-    <nav class="feature-nav">
+    <main>
 
-        <a href="#moderation">Moderation</a>
-        <a href="#security">Security</a>
-        <a href="#management">Management</a>
-        <a href="#owner">Server Owner</a>
-        <a href="#community">Community</a>
-        <a href="#tickets">Tickets</a>
-        <a href="#applications">Applications</a>
-        <a href="#verification">Verification</a>
-        <a href="#engagement">Engagement</a>
-        <a href="#erlc">ERLC</a>
-        <a href="#customisation">Customisation</a>
-        <a href="#premium">Premium</a>
+        <div class="page-header">
 
-    </nav>
+            <span class="eyebrow">
+                LIME FEATURES
+            </span>
 
+            <h1>
+                Everything your server
+                <br>
+                <span>needs to stay managed.</span>
+            </h1>
 
-    <!-- =========================================================
-         MODERATION
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="moderation"
-    >
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Moderation
-            </div>
-
-            <div class="category-description">
-                MEMBER MANAGEMENT
-            </div>
+            <p>
+                Explore the commands and systems available through
+                Lime. From everyday moderation to server protection,
+                Lime gives your staff the tools to keep your
+                community organised and secure.
+            </p>
 
         </div>
 
-        <div class="command-list">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/warn</code>
-                </div>
-                <div class="command-description">
-                    Warn a member and record the moderation action.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+        <!-- =====================================================
+             MODERATION
+             ===================================================== -->
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/mute</code>
-                </div>
-                <div class="command-description">
-                    Temporarily restrict a member using Discord's timeout system.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+        <section class="category">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/unmute</code>
-                </div>
-                <div class="command-description">
-                    Remove a member's active timeout.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+            <div class="category-header">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/kick</code>
-                </div>
-                <div class="command-description">
-                    Remove a member from the server.
+                <div class="category-title">
+                    Moderation
                 </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ban</code>
-                </div>
-                <div class="command-description">
-                    Permanently ban a member from the server.
+                <div class="category-description">
+                    MEMBER MANAGEMENT
                 </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/unban</code>
-                </div>
-                <div class="command-description">
-                    Remove a member from the server ban list.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
             </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/purge</code>
-                </div>
-                <div class="command-description">
-                    Delete multiple messages from a channel.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+            <div class="command-list">
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/warn</code>
+                    </div>
 
-    </section>
+                    <div class="command-description">
+                        Warn a member and record the moderation action.
+                    </div>
 
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
 
-    <!-- =========================================================
-         SECURITY
-         ========================================================= -->
 
-    <section
-        class="category"
-        id="security"
-    >
+                <div class="command">
+                    <div class="command-name">
+                        <code>/mute</code>
+                    </div>
 
-        <div class="category-header">
+                    <div class="command-description">
+                        Restrict a member from communicating in the server.
+                    </div>
 
-            <div class="category-title">
-                Security
-            </div>
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
 
-            <div class="category-description">
-                SERVER PROTECTION
-            </div>
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/kick</code>
+                    </div>
 
-        <div class="command-list">
+                    <div class="command-description">
+                        Remove a member from the server.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/raid setup</code>
-                    <span class="badge badge-security">SECURITY</span>
-                </div>
-                <div class="command-description">
-                    Configure Oxelon's raid protection system.
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Owner
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/raid enable</code>
-                </div>
-                <div class="command-description">
-                    Enable automatic raid protection.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/raid status</code>
-                </div>
-                <div class="command-description">
-                    View the current raid protection status.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/ban</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/raid lockdown</code>
-                </div>
-                <div class="command-description">
-                    Activate an emergency server lockdown.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+                    <div class="command-description">
+                        Permanently ban a member from the server.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/raid whitelist_add</code>
-                </div>
-                <div class="command-description">
-                    Add a trusted member to the raid protection whitelist.
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/spam setup</code>
-                </div>
-                <div class="command-description">
-                    Configure automatic spam detection.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/spam config</code>
-                </div>
-                <div class="command-description">
-                    Configure spam thresholds and responses.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/purge</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/spam whitelist_add</code>
-                </div>
-                <div class="command-description">
-                    Add trusted members to the spam whitelist.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+                    <div class="command-description">
+                        Remove multiple messages from a channel.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/automod setup</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Configure Oxelon's customizable automatic moderation system.
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/antinuke setup</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Protect the server from destructive administrative actions.
-                </div>
-                <div class="command-permission">
-                    Owner
-                </div>
             </div>
-
-        </div>
-
-    </section>
 
+        </section>
 
-    <!-- =========================================================
-         MANAGEMENT
-         ========================================================= -->
 
-    <section
-        class="category"
-        id="management"
-    >
+        <!-- =====================================================
+             SERVER MANAGEMENT
+             ===================================================== -->
 
-        <div class="category-header">
+        <section class="category">
 
-            <div class="category-title">
-                Management
-            </div>
-
-            <div class="category-description">
-                SERVER CONTROLS
-            </div>
+            <div class="category-header">
 
-        </div>
-
-        <div class="command-list">
-
-            <div class="command">
-                <div class="command-name">
-                    <code>/lock</code>
-                </div>
-                <div class="command-description">
-                    Lock a channel and restrict normal communication.
-                </div>
-                <div class="command-permission">
-                    Staff
+                <div class="category-title">
+                    Server Management
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/unlock</code>
-                </div>
-                <div class="command-description">
-                    Restore normal channel communication.
-                </div>
-                <div class="command-permission">
-                    Staff
+                <div class="category-description">
+                    SERVER CONTROLS
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/slowmode</code>
-                </div>
-                <div class="command-description">
-                    Configure the message slowmode for a channel.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
             </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/roleadd</code>
-                </div>
-                <div class="command-description">
-                    Add a role to a server member.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+            <div class="command-list">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/roleremove</code>
-                </div>
-                <div class="command-description">
-                    Remove a role from a server member.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/lock</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/nick</code>
-                </div>
-                <div class="command-description">
-                    Change a member's server nickname.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                    <div class="command-description">
+                        Lock a channel to prevent members from sending messages.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/giveaway</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Create and manage server giveaways.
-                </div>
-                <div class="command-permission">
-                    Staff
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         SERVER OWNER
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="owner"
-    >
-
-        <div class="category-header">
 
-            <div class="category-title">
-                Server Owner
-            </div>
-
-            <div class="category-description">
-                OWNER CONTROLS
-            </div>
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/unlock</code>
+                    </div>
 
-        <div class="command-list">
+                    <div class="command-description">
+                        Restore normal channel communication.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/serverowner</code>
-                    <span class="badge badge-new">NEW</span>
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-description">
-                    Access owner-only server management tools.
-                </div>
-                <div class="command-permission">
-                    Owner
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/config</code>
-                </div>
-                <div class="command-description">
-                    View and manage Oxelon's server configuration.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/config reset</code>
-                </div>
-                <div class="command-description">
-                    Reset Oxelon's server configuration.
-                </div>
-                <div class="command-permission">
-                    Owner
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/slowmode</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/template</code>
-                </div>
-                <div class="command-description">
-                    Configure approved server templates and setup options.
-                </div>
-                <div class="command-permission">
-                    Owner
-                </div>
-            </div>
+                    <div class="command-description">
+                        Configure the slowmode delay for a channel.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/serverinfo</code>
-                </div>
-                <div class="command-description">
-                    View detailed server information and statistics.
-                </div>
-                <div class="command-permission">
-                    Everyone
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         COMMUNITY
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="community"
-    >
-
-        <div class="category-header">
 
-            <div class="category-title">
-                Community
-            </div>
-
-            <div class="category-description">
-                COMMUNITY TOOLS
-            </div>
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/roleadd</code>
+                    </div>
 
-        <div class="command-list">
+                    <div class="command-description">
+                        Add a role to a server member.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/welcome</code>
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-description">
-                    Configure automated welcome messages for new members.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/promotion</code>
-                </div>
-                <div class="command-description">
-                    Create and manage server promotion content.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/review</code>
-                </div>
-                <div class="command-description">
-                    Collect and manage community feedback.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/nick</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/affiliate</code>
-                </div>
-                <div class="command-description">
-                    Display configured community affiliates.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                    <div class="command-description">
+                        Change a member's server nickname.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/hello</code>
-                </div>
-                <div class="command-description">
-                    A simple community interaction command.
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
 
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         TICKETS
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="tickets"
-    >
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Tickets
-            </div>
-
-            <div class="category-description">
-                SUPPORT SYSTEM
             </div>
 
-        </div>
+        </section>
 
-        <div class="command-list">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ticket setup</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Create a customizable ticket panel for your server.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+        <!-- =====================================================
+             SERVER INFORMATION
+             ===================================================== -->
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ticket create</code>
-                </div>
-                <div class="command-description">
-                    Open a private support ticket.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+        <section class="category">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ticket close</code>
-                </div>
-                <div class="command-description">
-                    Close the current support ticket.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+            <div class="category-header">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ticket add</code>
+                <div class="category-title">
+                    Server Information
                 </div>
-                <div class="command-description">
-                    Add a member to an existing ticket.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ticket remove</code>
+                <div class="category-description">
+                    INFORMATION
                 </div>
-                <div class="command-description">
-                    Remove a member from an existing ticket.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
-
-        </div>
 
-    </section>
-
-
-    <!-- =========================================================
-         APPLICATIONS
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="applications"
-    >
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Applications
             </div>
 
-            <div class="category-description">
-                APPLICATION SYSTEM
-            </div>
+            <div class="command-list">
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/serverinfo</code>
+                    </div>
 
-        <div class="command-list">
+                    <div class="command-description">
+                        View important information about the Discord server.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/application setup</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Create a customizable application panel using embeds.
+                    <div class="command-permission">
+                        Everyone
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/application create</code>
-                </div>
-                <div class="command-description">
-                    Create and publish an application form.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/application review</code>
-                </div>
-                <div class="command-description">
-                    Review submitted applications.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/userinfo</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/application accept</code>
-                </div>
-                <div class="command-description">
-                    Accept a submitted application.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                    <div class="command-description">
+                        View information about a server member.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/application deny</code>
+                    <div class="command-permission">
+                        Everyone
+                    </div>
                 </div>
-                <div class="command-description">
-                    Deny a submitted application with an optional reason.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         VERIFICATION
-         ========================================================= -->
 
-    <section
-        class="category"
-        id="verification"
-    >
 
-        <div class="category-header">
+                <div class="command">
+                    <div class="command-name">
+                        <code>/avatar</code>
+                    </div>
 
-            <div class="category-title">
-                Verification
-            </div>
-
-            <div class="category-description">
-                MEMBER VERIFICATION
-            </div>
-
-        </div>
-
-        <div class="command-list">
-
-            <div class="command">
-                <div class="command-name">
-                    <code>/verify setup</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Create a server verification panel.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
-
-            <div class="command">
-                <div class="command-name">
-                    <code>/verify role</code>
-                </div>
-                <div class="command-description">
-                    Configure the role granted after verification.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+                    <div class="command-description">
+                        Display a member's Discord avatar.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/verify status</code>
-                </div>
-                <div class="command-description">
-                    View the current verification configuration.
-                </div>
-                <div class="command-permission">
-                    Staff
+                    <div class="command-permission">
+                        Everyone
+                    </div>
                 </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         ENGAGEMENT
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="engagement"
-    >
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Engagement
-            </div>
-
-            <div class="category-description">
-                COMMUNITY ENGAGEMENT
-            </div>
 
-        </div>
 
-        <div class="command-list">
+                <div class="command">
+                    <div class="command-name">
+                        <code>/serverlogo</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/8ball</code>
-                </div>
-                <div class="command-description">
-                    Ask the classic magic 8-ball a question.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                    <div class="command-description">
+                        Display the server's current icon.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/coinflip</code>
-                </div>
-                <div class="command-description">
-                    Flip a virtual coin.
-                </div>
-                <div class="command-permission">
-                    Everyone
+                    <div class="command-permission">
+                        Everyone
+                    </div>
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/dice</code>
-                </div>
-                <div class="command-description">
-                    Roll a virtual dice.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/poll</code>
-                </div>
-                <div class="command-description">
-                    Create an interactive community poll.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/botinfo</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/giveaway</code>
-                </div>
-                <div class="command-description">
-                    Run community giveaways with automated winners.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+                    <div class="command-description">
+                        View information and statistics about Oxelon.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/leaderboard</code>
-                </div>
-                <div class="command-description">
-                    View community engagement rankings.
+                    <div class="command-permission">
+                        Everyone
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         ERLC
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="erlc"
-    >
 
-        <div class="category-header">
-
-            <div class="category-title">
-                ERLC
-            </div>
-
-            <div class="category-description">
-                EMERGENCY RESPONSE
             </div>
 
-        </div>
+        </section>
 
-        <div class="command-list">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/erlc setup</code>
-                </div>
-                <div class="command-description">
-                    Connect your server to an ERLC API configuration.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+        <!-- =====================================================
+             COMMUNITY
+             ===================================================== -->
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/erlc status</code>
-                </div>
-                <div class="command-description">
-                    View the current ERLC integration status.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+        <section class="category">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/erlc server</code>
-                </div>
-                <div class="command-description">
-                    View information about the connected ERLC server.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
+            <div class="category-header">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/erlc players</code>
-                </div>
-                <div class="command-description">
-                    View players currently connected to the ERLC server.
-                </div>
-                <div class="command-permission">
-                    Staff
+                <div class="category-title">
+                    Community
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/erlc command</code>
-                </div>
-                <div class="command-description">
-                    Send an authorized command to the connected ERLC server.
-                </div>
-                <div class="command-permission">
-                    Staff
+                <div class="category-description">
+                    COMMUNITY TOOLS
                 </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         CUSTOMISATION
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="customisation"
-    >
-
-        <div class="category-header">
 
-            <div class="category-title">
-                Customisation
             </div>
 
-            <div class="category-description">
-                SERVER PERSONALISATION
-            </div>
+            <div class="command-list">
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/welcome</code>
+                    </div>
 
-        <div class="command-list">
+                    <div class="command-description">
+                        Configure automated welcome messages for new members.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/customsettings</code>
-                    <span class="badge badge-new">NEW</span>
-                </div>
-                <div class="command-description">
-                    Configure Oxelon's behaviour for your individual server.
-                </div>
-                <div class="command-permission">
-                    Administrator
+                    <div class="command-permission">
+                        Administrator
+                    </div>
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/prefix</code>
-                </div>
-                <div class="command-description">
-                    View or configure the server prefix for supported commands.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/welcome</code>
-                </div>
-                <div class="command-description">
-                    Customize automated welcome messages.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/promotion</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/logs channel</code>
-                </div>
-                <div class="command-description">
-                    Choose where Oxelon sends server logs.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+                    <div class="command-description">
+                        Create and manage server promotion content.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/config</code>
-                </div>
-                <div class="command-description">
-                    Manage server-specific Oxelon settings.
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
-
-        </div>
-
-    </section>
 
 
-    <!-- =========================================================
-         AUDIT LOGGING
-         ========================================================= -->
+                <div class="command">
+                    <div class="command-name">
+                        <code>/review</code>
+                    </div>
 
-    <section
-        class="category"
-        id="logging"
-    >
+                    <div class="command-description">
+                        Manage community reviews and feedback.
+                    </div>
 
-        <div class="category-header">
+                    <div class="command-permission">
+                        Staff
+                    </div>
+                </div>
 
-            <div class="category-title">
-                Audit Logging
             </div>
 
-            <div class="category-description">
-                SECURITY LOGGING
-            </div>
+        </section>
 
-        </div>
 
-        <div class="command-list">
+        <!-- =====================================================
+             CONFIGURATION
+             ===================================================== -->
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/logs setup</code>
-                </div>
-                <div class="command-description">
-                    Set up Oxelon's audit logging system.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+        <section class="category">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/logs enable</code>
-                </div>
-                <div class="command-description">
-                    Enable server audit logging.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
+            <div class="category-header">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/logs events</code>
+                <div class="category-title">
+                    Configuration
                 </div>
-                <div class="command-description">
-                    Choose which server events Oxelon records.
-                </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/logs channel</code>
-                </div>
-                <div class="command-description">
-                    Configure the destination for audit logs.
+                <div class="category-description">
+                    SERVER SETTINGS
                 </div>
-                <div class="command-permission">
-                    Administrator
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/logs status</code>
-                </div>
-                <div class="command-description">
-                    View the current logging configuration.
-                </div>
-                <div class="command-permission">
-                    Staff
-                </div>
             </div>
-
-        </div>
-
-    </section>
 
+            <div class="command-list">
 
-    <!-- =========================================================
-         INFORMATION
-         ========================================================= -->
+                <div class="command">
+                    <div class="command-name">
+                        <code>/prefix</code>
+                    </div>
 
-    <section class="category">
+                    <div class="command-description">
+                        View or configure the server's bot prefix.
+                    </div>
 
-        <div class="category-header">
-
-            <div class="category-title">
-                Information
-            </div>
-
-            <div class="category-description">
-                SERVER INFORMATION
-            </div>
-
-        </div>
+                    <div class="command-permission">
+                        Administrator
+                    </div>
+                </div>
 
-        <div class="command-list">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/serverinfo</code>
-                </div>
-                <div class="command-description">
-                    View important information about the Discord server.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/template</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/userinfo</code>
-                </div>
-                <div class="command-description">
-                    View information about a server member.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                    <div class="command-description">
+                        Load an approved Discord server template.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/avatar</code>
-                </div>
-                <div class="command-description">
-                    Display a member's Discord avatar.
-                </div>
-                <div class="command-permission">
-                    Everyone
+                    <div class="command-permission">
+                        Owner
+                    </div>
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/serverlogo</code>
-                </div>
-                <div class="command-description">
-                    Display the server's current icon.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/botinfo</code>
-                </div>
-                <div class="command-description">
-                    View Oxelon's information and statistics.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>/technician</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/ping</code>
-                </div>
-                <div class="command-description">
-                    Check Oxelon's current response latency.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
+                    <div class="command-description">
+                        Access Lime's technician and server support tools.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/uptime</code>
-                </div>
-                <div class="command-description">
-                    View how long Oxelon has been online.
+                    <div class="command-permission">
+                        Technician
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/help</code>
-                </div>
-                <div class="command-description">
-                    Browse Oxelon's available commands and systems.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
             </div>
-
-        </div>
-
-    </section>
 
+        </section>
 
-    <!-- =========================================================
-         STAFF
-         ========================================================= -->
-
-    <section class="category">
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Staff & Support
-            </div>
 
-            <div class="category-description">
-                STAFF TOOLS
-            </div>
+        <!-- =====================================================
+             SECURITY
+             ===================================================== -->
 
-        </div>
+        <section class="category">
 
-        <div class="command-list">
+            <div class="category-header">
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/technician</code>
-                </div>
-                <div class="command-description">
-                    Request technical assistance.
-                </div>
-                <div class="command-permission">
-                    Staff
+                <div class="category-title">
+                    Security & Protection
                 </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/promotion</code>
-                </div>
-                <div class="command-description">
-                    Create a staff promotion announcement.
+                <div class="category-description">
+                    SERVER PROTECTION
                 </div>
-                <div class="command-permission">
-                    Staff
-                </div>
-            </div>
 
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         PREMIUM
-         ========================================================= -->
-
-    <section
-        class="category"
-        id="premium"
-    >
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Oxelon Premium
             </div>
 
-            <div class="category-description">
-                PREMIUM FEATURES
-            </div>
+            <div class="command-list">
 
-        </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>Raid Protection</code>
+                    </div>
 
-        <div class="command-list">
+                    <div class="command-description">
+                        Detect and respond to suspicious server activity.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/premiumstatus</code>
+                    <div class="command-permission">
+                        Automatic
+                    </div>
                 </div>
-                <div class="command-description">
-                    Check the current Oxelon Premium status.
-                </div>
-                <div class="command-permission">
-                    Everyone
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/autopurge</code>
-                    <span class="badge badge-premium">PREMIUM</span>
-                </div>
-                <div class="command-description">
-                    Configure automatic message cleanup.
-                </div>
-                <div class="command-permission">
-                    Premium
-                </div>
-            </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/customsettings</code>
-                    <span class="badge badge-premium">PREMIUM</span>
-                </div>
-                <div class="command-description">
-                    Unlock additional server customisation options.
-                </div>
-                <div class="command-permission">
-                    Premium
-                </div>
-            </div>
+                <div class="command">
+                    <div class="command-name">
+                        <code>Security Logs</code>
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/grantpremium</code>
-                </div>
-                <div class="command-description">
-                    Grant Premium to an eligible account.
-                </div>
-                <div class="command-permission">
-                    Bot Owner
-                </div>
-            </div>
+                    <div class="command-description">
+                        Record important security and moderation events.
+                    </div>
 
-            <div class="command">
-                <div class="command-name">
-                    <code>/revokepremium</code>
-                </div>
-                <div class="command-description">
-                    Revoke Premium from an account.
+                    <div class="command-permission">
+                        Automatic
+                    </div>
                 </div>
-                <div class="command-permission">
-                    Bot Owner
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================================================
-         SECURITY HIGHLIGHTS
-         ========================================================= -->
-
-    <section class="category">
-
-        <div class="category-header">
-
-            <div class="category-title">
-                Built for Protection
-            </div>
-
-            <div class="category-description">
-                OXELON SECURITY
-            </div>
 
-        </div>
 
-        <div class="highlight-grid">
+                <div class="command">
+                    <div class="command-name">
+                        <code>Server Lockdown</code>
+                    </div>
 
-            <div class="highlight">
+                    <div class="command-description">
+                        Quickly restrict server activity during an incident.
+                    </div>
 
-                <div class="highlight-icon">
-                    R
+                    <div class="command-permission">
+                        Staff
+                    </div>
                 </div>
-
-                <strong>
-                    Raid Protection
-                </strong>
-
-                <p>
-                    Detect suspicious activity and respond using
-                    configurable server protection rules.
-                </p>
 
             </div>
-
-
-            <div class="highlight">
-
-                <div class="highlight-icon">
-                    N
-                </div>
 
-                <strong>
-                    Anti-Nuke
-                </strong>
+        </section>
 
-                <p>
-                    Protect important server resources from
-                    unauthorized destructive actions.
-                </p>
 
-            </div>
+        <!-- =====================================================
+             HIGHLIGHTS
+             ===================================================== -->
 
+        <section class="category">
 
-            <div class="highlight">
+            <div class="category-header">
 
-                <div class="highlight-icon">
-                    A
+                <div class="category-title">
+                    Built Into Lime
                 </div>
-
-                <strong>
-                    AutoMod
-                </strong>
-
-                <p>
-                    Build customizable automatic moderation rules
-                    for your community.
-                </p>
-
-            </div>
-
-
-            <div class="highlight">
 
-                <div class="highlight-icon">
-                    S
+                <div class="category-description">
+                    CORE SYSTEMS
                 </div>
 
-                <strong>
-                    Spam Protection
-                </strong>
-
-                <p>
-                    Detect repeated spam activity and apply
-                    configurable responses.
-                </p>
-
             </div>
-
 
-            <div class="highlight">
+            <div class="highlight-grid">
 
-                <div class="highlight-icon">
-                    L
+                <div class="highlight">
+                    <strong>Centralised Logging</strong>
+                    <p>
+                        Keep important moderation and security
+                        activity recorded in one place.
+                    </p>
                 </div>
-
-                <strong>
-                    Audit Logs
-                </strong>
-
-                <p>
-                    Keep staff informed about moderation,
-                    security and server activity.
-                </p>
-
-            </div>
 
-
-            <div class="highlight">
-
-                <div class="highlight-icon">
-                    C
+                <div class="highlight">
+                    <strong>Permission Control</strong>
+                    <p>
+                        Restrict sensitive commands to the staff
+                        members who need access.
+                    </p>
                 </div>
-
-                <strong>
-                    Customisation
-                </strong>
 
-                <p>
-                    Configure Oxelon's behaviour specifically
-                    for each Discord server.
-                </p>
+                <div class="highlight">
+                    <strong>Server Protection</strong>
+                    <p>
+                        Give your team tools for responding quickly
+                        to suspicious activity.
+                    </p>
+                </div>
 
             </div>
-
-        </div>
-
-    </section>
-
 
-    <!-- =========================================================
-         CTA
-         ========================================================= -->
+        </section>
 
-    <section class="cta">
 
-        <h2>
-            Ready to use <span>Oxelon?</span>
-        </h2>
+        <!-- =====================================================
+             CTA
+             ===================================================== -->
 
-        <p>
-            Add Oxelon to your Discord server and give your
-            staff the tools they need to manage, protect and
-            grow their community.
-        </p>
+        <section class="cta">
 
-        <a
-            href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
-            class="button"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Add Oxelon to Discord
-            <span>→</span>
-        </a>
+            <h2>
+                Ready to use <span>Lime?</span>
+            </h2>
 
-    </section>
+            <p>
+                Add Lime to your Discord server and give your
+                staff the tools they need.
+            </p>
 
-</main>
+            <a
+                href="https://discord.com/oauth2/authorize?client_id=1539257371703124060&permissions=8&integration_type=0&scope=bot"
+                class="button"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Add Oxelon to Discord
+                <span>→</span>
+            </a>
 
+        </section>
 
-<!-- =============================================================
-     FOOTER
-     ============================================================= -->
+    </main>
 
-<footer>
-    © 2026 Oxelon. All rights reserved.
-</footer>
 
+    <footer>
+        © 2026 Lime. All rights reserved.
+    </footer>
 
 </body>
 </html>
+
